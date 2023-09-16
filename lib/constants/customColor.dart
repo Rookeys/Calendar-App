@@ -10,4 +10,5 @@ class CustomColor {
   static const Color red = Color(0xFFFF5942);
   static const Color green = Color(0xFF5BAD68);
   static const Color thickPink = Color(0xFFD8A6A6);
+  static const Color black = Color(0xFF000000);
 }
