@@ -1,7 +1,11 @@
 import 'package:calendar_app/config/routes.dart';
 import 'package:flutter/material.dart';
+// import 'package:intl/date_symbol_data_local.dart';
 
-void main() {
+void main() async {
+  // 달력 언어 한글로 지원할거면 필요
+  // await initializeDateFormatting();
+
   runApp(const MyApp());
 }
 

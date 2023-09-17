@@ -1,4 +1,5 @@
 import 'package:calendar_app/constants/customColor.dart';
+import 'package:calendar_app/widgets/calendarWidget.dart';
 import 'package:flutter/material.dart';
 
 class Calendar extends StatelessWidget {
@@ -6,14 +7,15 @@ class Calendar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
         body: SafeArea(
       child: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              color: CustomColor.skyBlue,
-              height: 500,
+            SizedBox(
+              // color: CustomColor.skyBlue,
+              height: 1000,
+              child: CalendarWidget(),
             )
           ],
         ),
