@@ -1,3 +1,4 @@
+import 'package:calendar_app/auth.dart';
 import 'package:calendar_app/calendar.dart';
 import 'package:calendar_app/home.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,16 @@ final GoRouter routes = GoRouter(routes: [
     pageBuilder: (context, state) => CustomTransitionPage<void>(
       key: state.pageKey,
       child: const Calendar(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+          FadeTransition(opacity: animation, child: child),
+    ),
+  ),
+  GoRoute(
+    path: '/auth',
+    // builder: (context, state) => const Calendar(),
+    pageBuilder: (context, state) => CustomTransitionPage<void>(
+      key: state.pageKey,
+      child: const AuthPage(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) =>
           FadeTransition(opacity: animation, child: child),
     ),
