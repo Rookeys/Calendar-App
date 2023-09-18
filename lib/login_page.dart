@@ -99,8 +99,7 @@ class _LoginPageState extends State<LoginPage> {
             // sign in button
             LoginButton(
               onTap: () {
-                // signUserIn();
-                print('login');
+                signUserIn();
               },
               text: const Text(
                 'Login',
@@ -145,7 +144,9 @@ class _LoginPageState extends State<LoginPage> {
     showDialog(
         context: context,
         builder: (context) => const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                color: CustomColor.white,
+              ),
             ));
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(

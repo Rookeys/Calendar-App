@@ -1,4 +1,5 @@
 import 'package:calendar_app/constants/customColor.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -44,6 +45,16 @@ class Home extends StatelessWidget {
                 foregroundColor: CustomColor.white,
               ),
               child: const Text('Go to Auth Page'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                FirebaseAuth.instance.signOut();
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: CustomColor.skyBlue,
+                foregroundColor: CustomColor.white,
+              ),
+              child: const Text('Sign Out'),
             ),
           ],
         ),

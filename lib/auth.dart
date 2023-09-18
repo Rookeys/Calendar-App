@@ -1,3 +1,4 @@
+import 'package:calendar_app/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -17,9 +18,7 @@ class AuthPage extends StatelessWidget {
         builder: ((context, snapshot) {
           // user is logged in
           if (snapshot.hasData) {
-            return Container(
-              child: const Text('User is logged in'),
-            );
+            return const Home();
           }
 
           // user not logged in
