@@ -19,9 +19,7 @@ class LoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        onTap!();
-      },
+      onTap: onTap,
       child: Container(
         padding: EdgeInsets.symmetric(
           vertical: image != null ? 15 : 8,

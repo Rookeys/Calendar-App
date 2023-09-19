@@ -1,4 +1,5 @@
-import 'package:calendar_app/constants/customColor.dart';
+import 'package:calendar_app/constants/custom_color.dart';
+import 'package:calendar_app/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -68,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
                           fontSize: 16),
                     ),
                     onTap: () {
-                      print('auto login');
+                      // print('auto login');
                     },
                   ),
                   const SizedBox(height: 20), // add a gap of 10 pixels
@@ -87,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                           decorationColor: CustomColor.white),
                     ),
                     onTap: () {
-                      print('forgot password');
+                      // print('forgot password');
                     },
                   ),
                 ],
@@ -116,8 +117,8 @@ class _LoginPageState extends State<LoginPage> {
 
             LoginButton(
               onTap: () {
-                // signUserIn();
-                print('Sign up with Google');
+                // print('google sign in');
+                AuthService().signInWithGoogle();
               },
               text: const Text(
                 'Sign up with Google',
