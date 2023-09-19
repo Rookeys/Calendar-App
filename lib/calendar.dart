@@ -7,15 +7,18 @@ class Calendar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
         body: SafeArea(
       child: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
+            Container(
               // color: CustomColor.skyBlue,
-              height: 1000,
-              child: CalendarWidget(),
+              padding: const EdgeInsets.all(8.0),
+              width: 500,
+              height: 500,
+              // color: CustomColor.skyBlue,
+              child: const CalendarWidget(),
             )
           ],
         ),

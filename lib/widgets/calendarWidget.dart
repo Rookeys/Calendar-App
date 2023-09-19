@@ -44,6 +44,19 @@ class _CalendarWidgetState extends State<CalendarWidget> {
             size: 40.0,
             color: CustomColor.black,
           ),
+          decoration: const BoxDecoration(
+            color: CustomColor.pastelBlue,
+            border: Border(
+              bottom: BorderSide(
+                color: CustomColor.black,
+              ),
+            ),
+          ),
+        ),
+        daysOfWeekStyle: const DaysOfWeekStyle(
+          decoration: BoxDecoration(
+            color: CustomColor.pastelBlue,
+          ),
         ),
         calendarStyle: const CalendarStyle(
           outsideDaysVisible: false,
@@ -55,6 +68,9 @@ class _CalendarWidgetState extends State<CalendarWidget> {
           todayDecoration: BoxDecoration(
             color: CustomColor.skyBlue,
             shape: BoxShape.circle,
+          ),
+          rowDecoration: BoxDecoration(
+            color: CustomColor.pastelBlue,
           ),
         ),
         selectedDayPredicate: (day) {
