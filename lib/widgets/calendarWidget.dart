@@ -3,8 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class CalendarWidget extends StatelessWidget {
+class CalendarWidget extends StatefulWidget {
   const CalendarWidget({super.key});
+
+  @override
+  State<CalendarWidget> createState() => _CalendarWidgetState();
+}
+
+class _CalendarWidgetState extends State<CalendarWidget> {
+  CalendarFormat _calendarFormat = CalendarFormat.month;
+  DateTime _focusedDay = DateTime.now();
+  DateTime? _selectedDay;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +23,7 @@ class CalendarWidget extends StatelessWidget {
         // daysOfWeekHeight: 30,
         firstDay: DateTime.utc(2021, 10, 16),
         lastDay: DateTime.utc(2030, 3, 14),
-        focusedDay: DateTime.now(),
+        focusedDay: _focusedDay,
         headerStyle: HeaderStyle(
           titleCentered: true,
           titleTextFormatter: (date, locale) =>
@@ -39,7 +48,6 @@ class CalendarWidget extends StatelessWidget {
         calendarStyle: const CalendarStyle(
           outsideDaysVisible: false,
           isTodayHighlighted: true,
-          // today 글자 조정
           todayTextStyle: TextStyle(
             color: CustomColor.white,
             fontSize: 16.0,
@@ -49,6 +57,27 @@ class CalendarWidget extends StatelessWidget {
             shape: BoxShape.circle,
           ),
         ),
+        selectedDayPredicate: (day) {
+          return isSameDay(_selectedDay, day);
+        },
+        onDaySelected: (selectedDay, focusedDay) {
+          if (!isSameDay(_selectedDay, selectedDay)) {
+            setState(() {
+              _selectedDay = selectedDay;
+              _focusedDay = focusedDay;
+            });
+          }
+        },
+        onFormatChanged: (format) {
+          if (_calendarFormat != format) {
+            setState(() {
+              _calendarFormat = format;
+            });
+          }
+        },
+        onPageChanged: (focusedDay) {
+          _focusedDay = focusedDay;
+        },
       ),
     );
   }
