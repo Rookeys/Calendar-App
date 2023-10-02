@@ -14,10 +14,9 @@ class Calendar extends StatelessWidget {
           children: [
             Container(
               // color: CustomColor.skyBlue,
-              padding: const EdgeInsets.all(8.0),
-              width: 500,
-              height: 500,
+              // padding: const EdgeInsets.all(8.0),
               // color: CustomColor.skyBlue,
+              padding: const EdgeInsets.all(8.0),
               child: const CalendarWidget(),
             )
           ],

@@ -17,8 +17,13 @@ class _CalendarWidgetState extends State<CalendarWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: TableCalendar(
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20.0),
+        color: CustomColor.pastelBlue,
+      ),
+      // margin: const EdgeInsets.all(8.0),
+      child: TableCalendar(
         // locale: 'ko_KR',
         // daysOfWeekHeight: 30,
         firstDay: DateTime.utc(2021, 10, 16),
@@ -45,7 +50,6 @@ class _CalendarWidgetState extends State<CalendarWidget> {
             color: CustomColor.black,
           ),
           decoration: const BoxDecoration(
-            color: CustomColor.pastelBlue,
             border: Border(
               bottom: BorderSide(
                 color: CustomColor.black,
@@ -53,11 +57,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
             ),
           ),
         ),
-        daysOfWeekStyle: const DaysOfWeekStyle(
-          decoration: BoxDecoration(
-            color: CustomColor.pastelBlue,
-          ),
-        ),
+        // daysOfWeekStyle: const DaysOfWeekStyle(),
         calendarStyle: const CalendarStyle(
           outsideDaysVisible: false,
           isTodayHighlighted: true,
@@ -68,9 +68,6 @@ class _CalendarWidgetState extends State<CalendarWidget> {
           todayDecoration: BoxDecoration(
             color: CustomColor.skyBlue,
             shape: BoxShape.circle,
-          ),
-          rowDecoration: BoxDecoration(
-            color: CustomColor.pastelBlue,
           ),
         ),
         selectedDayPredicate: (day) {
