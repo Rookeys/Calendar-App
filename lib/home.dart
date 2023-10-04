@@ -21,7 +21,7 @@ class Home extends StatelessWidget {
       body: SafeArea(
         child: ElevatedButton(
           onPressed: () {
-            context.go('/calendar');
+            context.go('/myPage');
             // context.push('/calendar');
           },
           //          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
@@ -31,7 +31,7 @@ class Home extends StatelessWidget {
             backgroundColor: CustomColor.skyBlue,
             foregroundColor: CustomColor.white,
           ),
-          child: const Text('Go to Calendar Page'),
+          child: const Text('Go to My Page'),
         ),
       ),
     );
