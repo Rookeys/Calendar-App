@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../constants/custom_color.dart';
+import '../constants/customColor.dart';
 
 class FormTextField extends StatefulWidget {
   final dynamic controller;
