@@ -4,9 +4,6 @@ import 'package:flutter/material.dart';
 
 import 'login_page.dart';
 
-// import 'home_page.dart';
-// import 'login_page.dart';
-
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});
 
