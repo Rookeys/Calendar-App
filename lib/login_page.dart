@@ -1,6 +1,6 @@
-import 'package:calendar_app/components/error_popup.dart';
-import 'package:calendar_app/constants/custom_color.dart';
+import 'package:calendar_app/constants/customColor.dart';
 import 'package:calendar_app/services/auth_service.dart';
+import 'package:calendar_app/utils/toastMessage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -179,11 +179,13 @@ class _LoginPageState extends State<LoginPage> {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
       Navigator.pop(context);
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException {
       Navigator.pop(context);
-      showErrorDialog(context, e.code);
+      showCustomMessage('Please check your email and password',
+          bgColor: CustomColor.red, delay: 3);
     } catch (e) {
-      showErrorDialog(context, 'please check your email and password');
+      showCustomMessage('please check your email and password',
+          bgColor: CustomColor.red, delay: 3);
     }
   }
 
@@ -200,9 +202,9 @@ class _LoginPageState extends State<LoginPage> {
       Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
-      showErrorDialog(context, e.message!);
+      showCustomMessage(e.message!, bgColor: CustomColor.red, delay: 3);
     } catch (e) {
-      showErrorDialog(context, 'please check your email and password');
+      showCustomMessage(e.toString(), bgColor: CustomColor.red, delay: 3);
     }
   }
 }
