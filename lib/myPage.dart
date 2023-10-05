@@ -13,18 +13,19 @@ class MyPage extends StatelessWidget {
             children: [
               Container(
                 decoration: BoxDecoration(
-                    color: CustomColor.skyBlue,
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(48),
-                      bottomRight: Radius.circular(48),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 4, // 그림자가 얼마나 드리울지 정함
-                        offset: const Offset(0, 4), // 그림자의 위치
-                        color: CustomColor.darkGray.withOpacity(0.5),
-                      )
-                    ]),
+                  color: CustomColor.skyBlue,
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(48),
+                    bottomRight: Radius.circular(48),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 4, // 그림자가 얼마나 드리울지 정함
+                      offset: const Offset(0, 4), // 그림자의 위치
+                      color: CustomColor.darkGray.withOpacity(0.5),
+                    )
+                  ],
+                ),
                 padding: const EdgeInsets.all(10),
                 height: 200,
                 child: Row(
@@ -74,13 +75,86 @@ class MyPage extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
+              const SizedBox(
                 // color: CustomColor.green,
                 height: 200,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        InfoBox(
+                          title: 'test1',
+                          value: '1',
+                        ),
+                        InfoBox(
+                          title: 'test2',
+                          value: '2',
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               )
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class InfoBox extends StatelessWidget {
+  const InfoBox({
+    super.key,
+    required this.title,
+    required this.value,
+  });
+
+  final String title;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 170,
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: CustomColor.pastelBlue,
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 4, // 그림자가 얼마나 드리울지 정함
+            offset: const Offset(0, 4), // 그림자의 위치
+            color: CustomColor.darkGray.withOpacity(0.5),
+          )
+        ],
+      ),
+      child: Column(
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: CustomColor.black,
+            ),
+          ),
+          const SizedBox(
+            height: 4,
+          ),
+          Text(
+            value,
+            style: const TextStyle(
+              fontSize: 30,
+              color: CustomColor.white,
+              fontWeight: FontWeight.bold,
+            ),
+          )
+        ],
       ),
     );
   }
