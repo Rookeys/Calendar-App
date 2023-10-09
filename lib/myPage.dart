@@ -9,97 +9,149 @@ class MyPage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: CustomColor.skyBlue,
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(48),
-                    bottomRight: Radius.circular(48),
+          child: Container(
+            color: CustomColor.green,
+            child: Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(
+                    bottom: 20,
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 4, // 그림자가 얼마나 드리울지 정함
-                      offset: const Offset(0, 4), // 그림자의 위치
-                      color: CustomColor.darkGray.withOpacity(0.5),
-                    )
-                  ],
-                ),
-                padding: const EdgeInsets.all(10),
-                height: 200,
-                child: Row(
-                  children: [
-                    ClipRRect(
-                      clipBehavior: Clip.hardEdge,
-                      borderRadius: BorderRadius.circular(100),
-                      child: const Image(
-                        image: AssetImage('assets/example_profile.jpg'),
-                        width: 130,
-                        height: 130,
-                        fit: BoxFit.cover,
+                  decoration: const BoxDecoration(
+                    color: CustomColor.white,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(48),
+                      bottomRight: Radius.circular(48),
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: CustomColor.skyBlue,
+                          borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(48),
+                            bottomRight: Radius.circular(48),
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 4, // 그림자가 얼마나 드리울지 정함
+                              offset: const Offset(0, 4), // 그림자의 위치
+                              color: CustomColor.darkGray.withOpacity(0.5),
+                            )
+                          ],
+                        ),
+                        padding: const EdgeInsets.all(10),
+                        height: 200,
+                        child: Row(
+                          children: [
+                            ClipRRect(
+                              clipBehavior: Clip.hardEdge,
+                              borderRadius: BorderRadius.circular(100),
+                              child: const Image(
+                                image: AssetImage('assets/example_profile.jpg'),
+                                width: 130,
+                                height: 130,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            const Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Name: KoJaem",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: CustomColor.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  'Position: Front-End',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: CustomColor.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  'Joined Team : 2023-03-13',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: CustomColor.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    const Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Name: KoJaem",
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: CustomColor.white,
-                            fontWeight: FontWeight.bold,
+                      const Column(
+                        children: [
+                          SizedBox(
+                            height: 30,
                           ),
-                        ),
-                        Text(
-                          'Position: Front-End',
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: CustomColor.white,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          'Joined Team : 2023-03-13',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: CustomColor.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              InfoBox(
+                                title: 'Spent DayOff',
+                                value: '1',
+                              ),
+                              InfoBox(
+                                title: 'Available DayOff',
+                                value: '2',
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(
-                // color: CustomColor.green,
-                height: 200,
-                child: Column(
+                Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        InfoBox(
-                          title: 'test1',
-                          value: '1',
+                        const Image(
+                          image: AssetImage('assets/example_profile.jpg'),
+                          width: 40,
+                          height: 40,
+                          fit: BoxFit.cover,
                         ),
-                        InfoBox(
-                          title: 'test2',
-                          value: '2',
+                        const SizedBox(
+                          width: 10,
                         ),
+                        const Text(
+                          'Text',
+                          style: TextStyle(
+                            color: CustomColor.skyBlue,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () => {},
+                          child: const Icon(
+                            Icons.keyboard_arrow_right_outlined,
+                            size: 48,
+                            color: CustomColor.skyBlue,
+                          ),
+                        )
                       ],
                     )
                   ],
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),
