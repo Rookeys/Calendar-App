@@ -1,8 +1,7 @@
 import 'package:calendar_app/home.dart';
+import 'package:calendar_app/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import 'login_page.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});
@@ -20,7 +19,7 @@ class AuthPage extends StatelessWidget {
 
           // user not logged in
           else {
-            return const LoginPage();
+            return const Login();
           }
         }),
       ),
