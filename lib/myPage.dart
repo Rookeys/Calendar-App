@@ -7,15 +7,15 @@ class MyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: CustomColor.whiteBlue,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            color: CustomColor.green,
             child: Column(
               children: [
                 Container(
                   padding: const EdgeInsets.only(
-                    bottom: 20,
+                    bottom: 40,
                   ),
                   decoration: const BoxDecoration(
                     color: CustomColor.white,
@@ -113,41 +113,33 @@ class MyPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                Column(
+                const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const SizedBox(
-                      height: 30,
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 15.0,
+                      ),
+                      child: MyPageMenu(
+                          url: 'assets/example_profile.jpg',
+                          text: 'Edit profile'),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Image(
-                          image: AssetImage('assets/example_profile.jpg'),
-                          width: 40,
-                          height: 40,
-                          fit: BoxFit.cover,
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        const Text(
-                          'Text',
-                          style: TextStyle(
-                            color: CustomColor.skyBlue,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () => {},
-                          child: const Icon(
-                            Icons.keyboard_arrow_right_outlined,
-                            size: 48,
-                            color: CustomColor.skyBlue,
-                          ),
-                        )
-                      ],
-                    )
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 15.0,
+                      ),
+                      child: MyPageMenu(
+                          url: 'assets/example_profile.jpg',
+                          text: 'Day-off History'),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 15.0,
+                      ),
+                      child: MyPageMenu(
+                          url: 'assets/example_profile.jpg', text: 'Members'),
+                    ),
                   ],
                 )
               ],
@@ -208,6 +200,67 @@ class InfoBox extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+}
+
+class MyPageMenu extends StatelessWidget {
+  const MyPageMenu({
+    super.key,
+    required this.url,
+    required this.text,
+  });
+
+  final String url;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Flexible(
+          flex: 1,
+          child: ClipRRect(
+            clipBehavior: Clip.hardEdge,
+            borderRadius: BorderRadius.circular(4),
+            child: Image(
+              image: AssetImage(url),
+              width: 40,
+              height: 40,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        const SizedBox(
+          width: 20,
+        ),
+        Expanded(
+          flex: 2,
+          child: GestureDetector(
+            onTap: () => {},
+            child: Text(
+              text,
+              style: const TextStyle(
+                color: CustomColor.skyBlue,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
+          ),
+        ),
+        Flexible(
+          flex: 1,
+          child: GestureDetector(
+            onTap: () => {},
+            child: const Icon(
+              Icons.keyboard_arrow_right,
+              size: 48,
+              color: CustomColor.skyBlue,
+            ),
+          ),
+        )
+      ],
     );
   }
 }
