@@ -179,7 +179,6 @@ class _SignIn_PageState extends State<SignIn_Page> {
                                           fontSize: 12,
                                           decoration: TextDecoration.underline,
                                           decorationColor: CustomColor.white,
-                                          
                                         ),
                                       ),
                                     ],
@@ -187,34 +186,6 @@ class _SignIn_PageState extends State<SignIn_Page> {
                                 ),
                               ]),
                         ),
-                        // Padding(
-                        //   padding: const EdgeInsets.symmetric(horizontal: 25),
-                        //   child: Row(
-                        //     mainAxisAlignment: MainAxisAlignment.end,
-                        //     children: [
-                        //       LinkText(
-                        //         icon: const Icon(
-                        //           Icons.settings,
-                        //           color: CustomColor.white,
-                        //           size: 12,
-                        //         ),
-                        //         text: const Text(
-                        //           'Forgot password?',
-                        //           style: TextStyle(
-                        //               color: CustomColor.white,
-                        //               fontWeight: FontWeight.bold,
-                        //               fontSize: 12,
-                        //               decoration: TextDecoration.underline,
-                        //               decorationColor: CustomColor.white),
-                        //         ),
-                        //         onTap: () {
-                        //           ForgotPassword.showForgotPasswordDialog(
-                        //               context);
-                        //         },
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
 
                         const SizedBox(height: 25),
 
