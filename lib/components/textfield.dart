@@ -6,12 +6,15 @@ class FormTextField extends StatefulWidget {
   final dynamic controller;
   final String hintText;
   final bool obscureText;
+  final Color themeColor;
 
+  // add theme color as parameter optionally
   const FormTextField({
     super.key,
     required this.controller,
     required this.hintText,
     required this.obscureText,
+    this.themeColor = CustomColor.white,
   });
 
   @override
@@ -28,36 +31,41 @@ class _FormTextFieldState extends State<FormTextField> {
         child: TextFormField(
           controller: widget.controller,
           obscureText: widget.obscureText ? _obscureText : false,
-          style: const TextStyle(
-            color: CustomColor.white,
+          style: TextStyle(
+            color: widget.themeColor,
             fontSize: 24,
             height: 1.5,
           ),
           cursorHeight: 24,
-          cursorColor: CustomColor.white,
+          cursorColor: widget.themeColor,
+          strutStyle: const StrutStyle(
+            forceStrutHeight: true,
+            fontSize: 14,
+            height: 1.8,
+          ),
           decoration: InputDecoration(
-            contentPadding: const EdgeInsets.fromLTRB(0, 30, 0, 10),
+            contentPadding: const EdgeInsets.fromLTRB(0, 20, 0, 4),
             isDense: true,
-            enabledBorder: const UnderlineInputBorder(
+            enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(
-              color: CustomColor.white,
+              color: widget.themeColor,
               width: 2,
             )),
             labelText: widget.hintText,
-            labelStyle: const TextStyle(
-              color: CustomColor.white,
-              fontSize: 16,
+            labelStyle: TextStyle(
+              color: widget.themeColor,
+              fontSize: 14,
               height: 1.5,
             ),
-            focusedBorder: const UnderlineInputBorder(
+            focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(
-                color: CustomColor.white,
+                color: widget.themeColor,
                 width: 2,
               ),
             ),
             suffixIcon: widget.obscureText
                 ? Transform.translate(
-                    offset: const Offset(0, 20),
+                    offset: const Offset(0, 10),
                     child: IconButton(
                       onPressed: () {
                         setState(() {
@@ -67,7 +75,7 @@ class _FormTextFieldState extends State<FormTextField> {
                       alignment: AlignmentDirectional.bottomCenter,
                       icon: Icon(
                         _obscureText ? Icons.visibility : Icons.visibility_off,
-                        color: CustomColor.white,
+                        color: widget.themeColor,
                         size: 24,
                       ),
                     ),
