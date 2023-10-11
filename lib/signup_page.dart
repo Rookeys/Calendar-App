@@ -73,7 +73,7 @@ class _Signup_PageState extends State<Signup_Page> {
                             style: TextStyle(
                               color: CustomColor.skyBlue,
                               fontWeight: FontWeight.bold,
-                              fontSize: 24,
+                              fontSize: 18,
                             ),
                           ),
                           backgroundColor: CustomColor.white,

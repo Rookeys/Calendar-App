@@ -6,7 +6,100 @@ import 'package:flutter/material.dart';
 
 import '../components/login_button.dart';
 import '../components/textfield.dart';
-import 'components/link_text.dart';
+
+class ForgotPassword {
+  static void showForgotPasswordDialog(BuildContext context) {
+    TextEditingController resetEmailController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: CustomColor.white,
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              FormTextField(
+                controller: resetEmailController,
+                hintText: 'E-mail',
+                obscureText: false,
+                themeColor: CustomColor.skyBlue,
+              ),
+              const SizedBox(height: 10),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25),
+                child: Text(
+                  'Please enter your email address',
+                  style: TextStyle(
+                    color: CustomColor.skyBlue,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              style: ButtonStyle(
+                // border color
+                side: MaterialStateProperty.all(
+                  const BorderSide(
+                    color: CustomColor.skyBlue,
+                  ),
+                ),
+              ),
+              onPressed: () => Navigator.pop(context),
+              child: const Text(
+                'Close',
+                style: TextStyle(
+                  color: CustomColor.skyBlue,
+                ),
+              ),
+            ),
+            TextButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(
+                  CustomColor.skyBlue,
+                ),
+                // border color
+                side: MaterialStateProperty.all(
+                  const BorderSide(
+                    color: CustomColor.skyBlue,
+                  ),
+                ),
+              ),
+              onPressed: () async {
+                try {
+                  await FirebaseAuth.instance.sendPasswordResetEmail(
+                    email: resetEmailController.text,
+                  );
+                  Navigator.pop(context);
+                  showCustomMessage(
+                    'Please check your email',
+                    bgColor: CustomColor.green,
+                    delay: 3,
+                  );
+                } catch (e) {
+                  Navigator.pop(context);
+                  showCustomMessage(
+                    e.toString(),
+                    bgColor: CustomColor.red,
+                    delay: 3,
+                  );
+                }
+              },
+              child: const Text(
+                'Send',
+                style: TextStyle(color: CustomColor.white),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
 
 class SignIn_Page extends StatefulWidget {
   final Function()? onTap;
@@ -18,6 +111,7 @@ class SignIn_Page extends StatefulWidget {
 
 class _SignIn_PageState extends State<SignIn_Page> {
   // text editing controllers
+  final resetEmailController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -36,7 +130,6 @@ class _SignIn_PageState extends State<SignIn_Page> {
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // logo
                         const Icon(Icons.verified_user_rounded, size: 100),
 
                         const SizedBox(height: 50),
@@ -55,34 +148,73 @@ class _SignIn_PageState extends State<SignIn_Page> {
                           obscureText: true,
                         ),
 
-                        const SizedBox(height: 50),
+                        const SizedBox(height: 20),
 
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 25),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              LinkText(
-                                icon: const Icon(
-                                  Icons.settings,
-                                  color: CustomColor.white,
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    ForgotPassword.showForgotPasswordDialog(
+                                        context);
+                                  },
+                                  child: const Row(
+                                    mainAxisSize:
+                                        MainAxisSize.min, // set to min
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Icon(
+                                        Icons.settings,
+                                        color: CustomColor.white,
+                                        size: 12,
+                                      ),
+                                      SizedBox(width: 4),
+                                      Text(
+                                        'Forgot password?',
+                                        style: TextStyle(
+                                          color: CustomColor.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12,
+                                          decoration: TextDecoration.underline,
+                                          decorationColor: CustomColor.white,
+                                          
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                text: const Text(
-                                  'Forgot password?',
-                                  style: TextStyle(
-                                      color: CustomColor.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                      decoration: TextDecoration.underline,
-                                      decorationColor: CustomColor.white),
-                                ),
-                                onTap: () {
-                                  // print('forgot password');
-                                },
-                              ),
-                            ],
-                          ),
+                              ]),
                         ),
+                        // Padding(
+                        //   padding: const EdgeInsets.symmetric(horizontal: 25),
+                        //   child: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.end,
+                        //     children: [
+                        //       LinkText(
+                        //         icon: const Icon(
+                        //           Icons.settings,
+                        //           color: CustomColor.white,
+                        //           size: 12,
+                        //         ),
+                        //         text: const Text(
+                        //           'Forgot password?',
+                        //           style: TextStyle(
+                        //               color: CustomColor.white,
+                        //               fontWeight: FontWeight.bold,
+                        //               fontSize: 12,
+                        //               decoration: TextDecoration.underline,
+                        //               decorationColor: CustomColor.white),
+                        //         ),
+                        //         onTap: () {
+                        //           ForgotPassword.showForgotPasswordDialog(
+                        //               context);
+                        //         },
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
 
                         const SizedBox(height: 25),
 
@@ -96,7 +228,7 @@ class _SignIn_PageState extends State<SignIn_Page> {
                             style: TextStyle(
                               color: CustomColor.skyBlue,
                               fontWeight: FontWeight.bold,
-                              fontSize: 24,
+                              fontSize: 18,
                             ),
                           ),
                           backgroundColor: CustomColor.white,
