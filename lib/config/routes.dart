@@ -1,6 +1,7 @@
 import 'package:calendar_app/calendar.dart';
 import 'package:calendar_app/home.dart';
 import 'package:calendar_app/myPage.dart';
+import 'package:calendar_app/myPageEdit.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -28,5 +29,9 @@ final GoRouter routes = GoRouter(routes: [
       transitionsBuilder: (context, animation, secondaryAnimation, child) =>
           FadeTransition(opacity: animation, child: child),
     ),
+  ),
+  GoRoute(
+    path: '/myPage/edit',
+    builder: (context, state) => const MyPageEdit(),
   )
 ]);

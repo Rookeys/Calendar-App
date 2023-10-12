@@ -1,5 +1,6 @@
 import 'package:calendar_app/constants/customColor.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class MyPage extends StatelessWidget {
   const MyPage({super.key});
@@ -113,32 +114,39 @@ class MyPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         vertical: 15.0,
                       ),
                       child: MyPageMenu(
-                          url: 'assets/example_profile.jpg',
-                          text: 'Edit profile'),
+                        imageUrl: 'assets/example_profile.jpg',
+                        text: 'Edit profile',
+                        onTap: () => context.go('/myPage/edit'),
+                      ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         vertical: 15.0,
                       ),
                       child: MyPageMenu(
-                          url: 'assets/example_profile.jpg',
-                          text: 'Day-off History'),
+                        imageUrl: 'assets/example_profile.jpg',
+                        text: 'Day-off History',
+                        onTap: () => context.go('/day-off-history'),
+                      ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         vertical: 15.0,
                       ),
                       child: MyPageMenu(
-                          url: 'assets/example_profile.jpg', text: 'Members'),
+                        imageUrl: 'assets/example_profile.jpg',
+                        text: 'Members',
+                        onTap: () => context.go('/members'),
+                      ),
                     ),
                   ],
                 )
@@ -207,12 +215,14 @@ class InfoBox extends StatelessWidget {
 class MyPageMenu extends StatelessWidget {
   const MyPageMenu({
     super.key,
-    required this.url,
+    required this.imageUrl,
     required this.text,
+    required this.onTap,
   });
 
-  final String url;
+  final String imageUrl;
   final String text;
+  final void Function() onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -225,7 +235,7 @@ class MyPageMenu extends StatelessWidget {
             clipBehavior: Clip.hardEdge,
             borderRadius: BorderRadius.circular(4),
             child: Image(
-              image: AssetImage(url),
+              image: AssetImage(imageUrl),
               width: 40,
               height: 40,
               fit: BoxFit.cover,
@@ -238,7 +248,7 @@ class MyPageMenu extends StatelessWidget {
         Expanded(
           flex: 2,
           child: GestureDetector(
-            onTap: () => {},
+            onTap: onTap,
             child: Text(
               text,
               style: const TextStyle(
@@ -252,7 +262,7 @@ class MyPageMenu extends StatelessWidget {
         Flexible(
           flex: 1,
           child: GestureDetector(
-            onTap: () => {},
+            onTap: onTap,
             child: const Icon(
               Icons.keyboard_arrow_right,
               size: 48,
