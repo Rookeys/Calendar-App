@@ -1,4 +1,5 @@
 import 'package:calendar_app/constants/customColor.dart';
+import 'package:calendar_app/screens/myPageEdit/components/form.dart';
 import 'package:flutter/material.dart';
 
 class MyPageEdit extends StatelessWidget {
@@ -48,20 +49,7 @@ class MyPageEdit extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 50),
-                const SizedBox(
-                  width: 300,
-                  child: CustomInput(label: 'E-mail'),
-                ),
-                const SizedBox(
-                  width: 300,
-                  child: CustomSecretInput(
-                    label: 'Password',
-                  ),
-                ),
-                const SizedBox(
-                  width: 300,
-                  child: CustomInput(label: 'Phone'),
-                ),
+                const FormComponent()
               ],
             ),
           ),
@@ -88,8 +76,8 @@ class CustomInput extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 20),
           child: SizedBox(
             width: width,
-            child: const TextField(
-              style: TextStyle(
+            child: TextFormField(
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: CustomColor.darkGray,
@@ -141,7 +129,7 @@ class _CustomSecretInputState extends State<CustomSecretInput> {
           padding: const EdgeInsets.symmetric(vertical: 20),
           child: SizedBox(
             width: widget.width,
-            child: TextField(
+            child: TextFormField(
               obscureText: _secret,
               decoration: InputDecoration(
                 suffixIcon: GestureDetector(
