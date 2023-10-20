@@ -102,31 +102,28 @@ class Members extends StatelessWidget {
     return Scaffold(
       backgroundColor: CustomColor.whiteBlue,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: ListView.separated(
-            separatorBuilder: (context, index) {
-              return const Padding(
-                padding: EdgeInsets.symmetric(vertical: 8),
-              );
-            },
-            // shrinkWrap: true,
-            // primary: false,
-            itemCount: exampleJson.length,
-            itemBuilder: (context, index) {
-              if (exampleJson[index]["status"] == 'Reject') {
-                return InfoBoxWithReason(
-                  date: exampleJson[index]['date'] as String,
-                  status: exampleJson[index]['status'] as String,
-                  reason: exampleJson[index]['reason'],
-                );
-              }
-              return InfoBox(
+        child: ListView.separated(
+          separatorBuilder: (context, index) {
+            return const Padding(
+              padding: EdgeInsets.symmetric(vertical: 8),
+            );
+          },
+          // shrinkWrap: true,
+          // primary: false,
+          itemCount: exampleJson.length,
+          itemBuilder: (context, index) {
+            if (exampleJson[index]["status"] == 'Reject') {
+              return InfoBoxWithReason(
                 date: exampleJson[index]['date'] as String,
                 status: exampleJson[index]['status'] as String,
+                reason: exampleJson[index]['reason'] as String,
               );
-            },
-          ),
+            }
+            return InfoBox(
+              date: exampleJson[index]['date'] as String,
+              status: exampleJson[index]['status'] as String,
+            );
+          },
         ),
       ),
     );
@@ -158,7 +155,6 @@ class InfoBox extends StatelessWidget {
             width: double.infinity,
             height: 70,
             alignment: Alignment.centerLeft,
-            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Text(
               '$date - $status',
               style: const TextStyle(
@@ -178,12 +174,12 @@ class InfoBoxWithReason extends StatefulWidget {
     super.key,
     required this.date,
     required this.status,
-    this.reason,
+    required this.reason,
   });
 
   final String date;
   final String status;
-  final String? reason;
+  final String reason;
 
   @override
   State<InfoBoxWithReason> createState() => _InfoBoxWithReasonState();
@@ -194,35 +190,62 @@ class _InfoBoxWithReasonState extends State<InfoBoxWithReason> {
   Widget build(BuildContext context) {
     return Container(
       width: 360,
+      alignment: Alignment.centerLeft,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         color: CustomColor.darkGray,
       ),
-      child: Column(
-        children: [
-          Container(
-            height: 70,
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  '${widget.date} - ${widget.status}',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: CustomColor.white,
-                  ),
-                ),
-                const Icon(
-                  Icons.keyboard_arrow_down_outlined,
-                  color: CustomColor.white,
-                )
-              ],
+      child: ExpansionTileTheme(
+        data: const ExpansionTileThemeData(
+          tilePadding: EdgeInsets.zero,
+        ),
+        child: ExpansionTile(
+          title: SizedBox(
+            child: Text(
+              '${widget.date} - ${widget.status}',
+              style: const TextStyle(
+                fontSize: 16,
+                color: CustomColor.black,
+              ),
             ),
           ),
-          // Reason Component
-        ],
+          children: [
+            Text(widget.reason),
+          ],
+        ),
       ),
     );
+    // return Container(
+    //   width: 360,
+    // decoration: BoxDecoration(
+    //   borderRadius: BorderRadius.circular(30),
+    //   color: CustomColor.darkGray,
+    //   ),
+    //   child: Column(
+    //     children: [
+    // Container(
+    //   height: 70,
+    //   padding: const EdgeInsets.symmetric(horizontal: 20),
+    //   child: Row(
+    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //     children: [
+    //       Text(
+    //         '${widget.date} - ${widget.status}',
+    //         style: const TextStyle(
+    //           fontSize: 16,
+    //           color: CustomColor.white,
+    //         ),
+    //       ),
+    //       const Icon(
+    //         Icons.keyboard_arrow_down_outlined,
+    //         color: CustomColor.white,
+    //       )
+    //     ],
+    //   ),
+    // ),
+    //       // Reason Component
+    //     ],
+    //   ),
+    // );
   }
 }
