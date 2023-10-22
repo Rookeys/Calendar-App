@@ -156,11 +156,14 @@ class InfoBox extends StatelessWidget {
       ),
       height: 70,
       alignment: Alignment.centerLeft,
-      child: Text(
-        '$date - $status',
-        style: const TextStyle(
-          fontSize: 16,
-          color: CustomColor.black,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Text(
+          '$date - $status',
+          style: const TextStyle(
+            fontSize: 16,
+            color: CustomColor.black,
+          ),
         ),
       ),
     );
@@ -208,7 +211,7 @@ class _InfoBoxWithReasonState extends State<InfoBoxWithReason> {
                 bottomRight:
                     _isExpanded ? Radius.zero : const Radius.circular(30),
               ),
-              color: CustomColor.green,
+              color: CustomColor.white,
             ),
             height: 70,
             child: Container(
@@ -217,24 +220,27 @@ class _InfoBoxWithReasonState extends State<InfoBoxWithReason> {
                 borderRadius: BorderRadius.circular(30),
                 color: CustomColor.darkGray,
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '${widget.date} - ${widget.status}',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: CustomColor.white,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      '${widget.date} - ${widget.status}',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: CustomColor.white,
+                      ),
                     ),
-                  ),
-                  Icon(
-                    // Todo animation
-                    _isExpanded
-                        ? Icons.keyboard_arrow_up_outlined
-                        : Icons.keyboard_arrow_down_outlined,
-                    color: CustomColor.white,
-                  )
-                ],
+                    Icon(
+                      // Todo animation
+                      _isExpanded
+                          ? Icons.keyboard_arrow_up_outlined
+                          : Icons.keyboard_arrow_down_outlined,
+                      color: CustomColor.white,
+                    )
+                  ],
+                ),
               ),
             ),
           ),
@@ -243,14 +249,12 @@ class _InfoBoxWithReasonState extends State<InfoBoxWithReason> {
               width: double.infinity,
               color: CustomColor.white,
               child: Padding(
-                padding: const EdgeInsets.only(top: 50),
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    widget.reason,
-                    style: const TextStyle(
-                      fontSize: 16,
-                    ),
+                padding: const EdgeInsets.all(20.0),
+                child: Text(
+                  widget.reason,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    height: 1.5,
                   ),
                 ),
               ),
@@ -262,37 +266,9 @@ class _InfoBoxWithReasonState extends State<InfoBoxWithReason> {
             crossFadeState: _isExpanded
                 ? CrossFadeState.showFirst
                 : CrossFadeState.showSecond,
+            // sizeCurve: Curves.easeInOut,
             duration: const Duration(milliseconds: 400),
           ),
-          // Transform.translate(
-          //   offset: const Offset(0, -50),
-          //   child: AnimatedCrossFade(
-          //     firstChild: Container(
-          //       width: double.infinity,
-          //       color: CustomColor.white,
-          //       child: Padding(
-          //         padding: const EdgeInsets.only(top: 50),
-          //         child: Padding(
-          //           padding: const EdgeInsets.all(16.0),
-          //           child: Text(
-          //             widget.reason,
-          //             style: const TextStyle(
-          //               fontSize: 16,
-          //             ),
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          //     secondChild: Container(
-          //       width: double.infinity,
-          //       color: CustomColor.white,
-          //     ),
-          //     crossFadeState: _isExpanded
-          //         ? CrossFadeState.showFirst
-          //         : CrossFadeState.showSecond,
-          //     duration: const Duration(milliseconds: 200),
-          //   ),
-          // ),
         ],
       ),
     );
