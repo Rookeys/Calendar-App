@@ -135,7 +135,7 @@ class MyPage extends StatelessWidget {
                       child: MyPageMenu(
                         imageUrl: 'assets/example_profile.jpg',
                         text: 'Day-off History',
-                        onTap: () => context.go('/day-off-history'),
+                        onTap: () => context.go('/dayOffHistory'),
                       ),
                     ),
                     Padding(

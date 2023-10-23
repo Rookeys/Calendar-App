@@ -95,8 +95,8 @@ var exampleJson = [
   },
 ];
 
-class Members extends StatelessWidget {
-  const Members({super.key});
+class DayOffHistory extends StatelessWidget {
+  const DayOffHistory({super.key});
 
   @override
   Widget build(BuildContext context) {

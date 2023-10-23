@@ -1,6 +1,6 @@
 import 'package:calendar_app/calendar.dart';
 import 'package:calendar_app/home.dart';
-import 'package:calendar_app/members.dart';
+import 'package:calendar_app/dayOffHistory.dart';
 import 'package:calendar_app/myPage.dart';
 import 'package:calendar_app/myPageEdit.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +36,7 @@ final GoRouter routes = GoRouter(routes: [
     builder: (context, state) => const MyPageEdit(),
   ),
   GoRoute(
-    path: '/members',
-    builder: (context, state) => const Members(),
+    path: '/dayOffHistory',
+    builder: (context, state) => const DayOffHistory(),
   )
 ]);
