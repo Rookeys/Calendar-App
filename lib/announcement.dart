@@ -13,16 +13,22 @@ class Announcement extends StatefulWidget {
 
 class _AnnouncementState extends State<Announcement>
     with SingleTickerProviderStateMixin {
+  Future<List<AnnouncementItem>> announcements = getAnnouncement();
+
   late final AnimationController _controller = AnimationController(
     duration: const Duration(milliseconds: 1000),
     vsync: this,
   )..forward();
 
+  late final Animation<double> _fadeAnimation = CurvedAnimation(
+    parent: _controller,
+    curve: Curves.easeIn,
+  );
+
   late final Animation<Offset> _animation = CurvedAnimation(
     parent: _controller,
     curve: Curves.elasticOut,
-  ).drive(Tween(begin: const Offset(1, 0), end: Offset.zero));
-
+  ).drive(Tween(begin: const Offset(0.0, 0.4), end: Offset.zero));
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +36,7 @@ class _AnnouncementState extends State<Announcement>
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
         child: FutureBuilder<List<AnnouncementItem>>(
-          future: getAnnouncement(),
+          future: announcements,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
@@ -40,21 +46,27 @@ class _AnnouncementState extends State<Announcement>
               return Center(
                 child: Text('Error: ${snapshot.error}'),
               );
-            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return const Center(
-                child: Text('No announcements found.'),
+            } else if (snapshot.hasData) {
+              final announcements = snapshot.data!;
+              return Expanded(
+                child: ListView.builder(
+                  itemCount: announcements.length,
+                  itemBuilder: (context, index) {
+                    return FadeTransition(
+                      opacity: _fadeAnimation,
+                      child: SlideTransition(
+                        position: _animation,
+                        child: AnnouncementListItem(
+                          announcement: snapshot.data![index],
+                        ),
+                      ),
+                    );
+                  },
+                ),
               );
             } else {
-              return AnimatedList(
-                initialItemCount: snapshot.data!.length,
-                itemBuilder: (context, index, animation) {
-                  return SlideTransition(
-                    position: _animation,
-                    child: AnnouncementListItem(
-                      announcement: snapshot.data![index],
-                    ),
-                  );
-                },
+              return const Center(
+                child: Text('No announcements found.'),
               );
             }
           },
