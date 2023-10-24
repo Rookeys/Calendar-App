@@ -1,9 +1,10 @@
-class AnnouncementItem{
+class AnnouncementItem {
   final String id;
   final String title;
   final DateTime createdDate;
   final String content;
   final String category;
+  final String userName;
 
   AnnouncementItem({
     required this.id,
@@ -11,6 +12,7 @@ class AnnouncementItem{
     required this.createdDate,
     required this.content,
     required this.category,
+    required this.userName,
   });
 
   factory AnnouncementItem.fromJson(Map<String, dynamic> json) {
@@ -20,7 +22,7 @@ class AnnouncementItem{
       createdDate: DateTime.parse(json['created_date']),
       content: json['content'],
       category: json['category'],
+      userName: json['userName'],
     );
   }
 }
-
