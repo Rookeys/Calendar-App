@@ -200,61 +200,94 @@ class _InfoBoxWithReasonState extends State<InfoBoxWithReason> {
       child: Column(
         children: [
           AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            alignment: Alignment.centerLeft,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: const Radius.circular(30),
-                topRight: const Radius.circular(30),
-                bottomLeft:
-                    _isExpanded ? Radius.zero : const Radius.circular(30),
-                bottomRight:
-                    _isExpanded ? Radius.zero : const Radius.circular(30),
-              ),
-              color: CustomColor.white,
+            duration: const Duration(milliseconds: 400),
+            padding: const EdgeInsets.only(
+              left: 1,
+              right: 1,
             ),
-            height: 70,
-            child: Container(
-              height: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: CustomColor.darkGray,
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30),
+                // bottomLeft:
+                //     _isExpanded ? Radius.zero : const Radius.circular(30),
+                // bottomRight:
+                //     _isExpanded ? Radius.zero : const Radius.circular(30),
               ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '${widget.date} - ${widget.status}',
-                      style: const TextStyle(
-                        fontSize: 16,
-                        color: CustomColor.white,
+              color: _isExpanded ? Colors.black : Colors.transparent,
+            ),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              alignment: Alignment.centerLeft,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(30),
+                  topRight: Radius.circular(30),
+                  // bottomLeft:
+                  //     _isExpanded ? Radius.zero : const Radius.circular(30),
+                  // bottomRight:
+                  //     _isExpanded ? Radius.zero : const Radius.circular(30),
+                ),
+                color: _isExpanded ? Colors.white : CustomColor.whiteBlue,
+              ),
+              height: 70,
+              child: Container(
+                height: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  color: CustomColor.darkGray,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '${widget.date} - ${widget.status}',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: CustomColor.white,
+                        ),
                       ),
-                    ),
-                    Icon(
-                      // Todo animation
-                      _isExpanded
-                          ? Icons.keyboard_arrow_up_outlined
-                          : Icons.keyboard_arrow_down_outlined,
-                      color: CustomColor.white,
-                    )
-                  ],
+                      Icon(
+                        // Todo animation
+                        _isExpanded
+                            ? Icons.keyboard_arrow_up_outlined
+                            : Icons.keyboard_arrow_down_outlined,
+                        color: CustomColor.white,
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
           AnimatedCrossFade(
             firstChild: Container(
-              width: double.infinity,
-              color: CustomColor.white,
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Text(
-                  widget.reason,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    height: 1.5,
+              padding: const EdgeInsets.only(left: 1, right: 1, bottom: 1),
+              decoration: const BoxDecoration(
+                  color: CustomColor.black,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(30),
+                    bottomRight: Radius.circular(30),
+                  )),
+              child: Container(
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(30),
+                    bottomRight: Radius.circular(30),
+                  ),
+                  color: CustomColor.white,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Text(
+                    widget.reason,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      height: 1.5,
+                    ),
                   ),
                 ),
               ),
