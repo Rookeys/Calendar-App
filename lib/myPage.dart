@@ -148,6 +148,16 @@ class MyPage extends StatelessWidget {
                         onTap: () => context.go('/members'),
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 15.0,
+                      ),
+                      child: MyPageMenu(
+                        imageUrl: 'assets/example_profile.jpg',
+                        text: 'Members-Admin',
+                        onTap: () => context.go('/members-admin'),
+                      ),
+                    ),
                   ],
                 )
               ],
