@@ -1,6 +1,7 @@
 import 'package:calendar_app/calendar.dart';
 import 'package:calendar_app/home.dart';
 import 'package:calendar_app/dayOffHistory.dart';
+import 'package:calendar_app/members-admin-edit.dart';
 import 'package:calendar_app/members-admin.dart';
 import 'package:calendar_app/members.dart';
 import 'package:calendar_app/myPage.dart';
@@ -51,6 +52,6 @@ final GoRouter routes = GoRouter(routes: [
   ),
   GoRoute(
     path: '/members-admin-edit',
-    builder: (context, state) => const MembersAdmin(),
+    builder: (context, state) => const MembersAdminEdit(),
   )
 ]);

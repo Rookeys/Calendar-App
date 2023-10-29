@@ -2,14 +2,14 @@ import 'package:calendar_app/constants/customColor.dart';
 import 'package:calendar_app/utils/toastMessage.dart';
 import 'package:flutter/material.dart';
 
-class FormComponent extends StatefulWidget {
-  const FormComponent({super.key});
+class MembersEditForm extends StatefulWidget {
+  const MembersEditForm({super.key});
 
   @override
-  State<FormComponent> createState() => _FormComponentState();
+  State<MembersEditForm> createState() => _FormComponentState();
 }
 
-class _FormComponentState extends State<FormComponent> {
+class _FormComponentState extends State<MembersEditForm> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -18,17 +18,7 @@ class _FormComponentState extends State<FormComponent> {
       child: Column(
         children: [
           CustomInput(
-            label: 'E-mail',
-            onSaved: (newValue) => {},
-            validator: (value) {
-              if (value.isEmpty) {
-                return '필수 필드입니다.';
-              }
-              return null;
-            },
-          ),
-          CustomSecretInput(
-            label: 'Password',
+            label: 'Name',
             onSaved: (newValue) => {},
             validator: (value) {
               if (value.isEmpty) {
@@ -38,7 +28,18 @@ class _FormComponentState extends State<FormComponent> {
             },
           ),
           CustomInput(
-            label: 'Phone',
+            label: 'Position',
+            onSaved: (newValue) => {},
+            validator: (value) {
+              if (value.isEmpty) {
+                return '필수 필드입니다.';
+              }
+              return null;
+            },
+          ),
+          // 달력 input 추가
+          CustomInput(
+            label: 'Available DayOff',
             onSaved: (newValue) => {},
             validator: (value) {
               if (value.isEmpty) {
@@ -59,69 +60,6 @@ class _FormComponentState extends State<FormComponent> {
             ),
             child: const Text('Submit'),
           ),
-        ],
-      ),
-    );
-  }
-}
-
-class CustomSecretInput extends StatefulWidget {
-  const CustomSecretInput({
-    super.key,
-    required this.label,
-    required this.onSaved,
-    required this.validator,
-  });
-
-  final String label;
-  final FormFieldSetter onSaved;
-  final FormFieldValidator validator;
-
-  @override
-  State<CustomSecretInput> createState() => _CustomSecretInputState();
-}
-
-class _CustomSecretInputState extends State<CustomSecretInput> {
-  bool _secret = true;
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 300,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            widget.label,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: CustomColor.darkGray,
-            ),
-          ),
-          TextFormField(
-            obscureText: _secret,
-            onSaved: widget.onSaved,
-            validator: widget.validator,
-            // autovalidateMode: AutovalidateMode.always, // 제어컴포넌트
-            decoration: InputDecoration(
-              suffixIcon: GestureDetector(
-                child: _secret
-                    ? const Icon(Icons.visibility_outlined)
-                    : const Icon(Icons.visibility_off_outlined),
-                onTap: () => setState(() {
-                  _secret = !_secret;
-                }),
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 16.0,
-          )
         ],
       ),
     );
