@@ -48,5 +48,9 @@ final GoRouter routes = GoRouter(routes: [
   GoRoute(
     path: '/members-admin',
     builder: (context, state) => const MembersAdmin(),
+  ),
+  GoRoute(
+    path: '/members-admin-edit',
+    builder: (context, state) => const MembersAdmin(),
   )
 ]);

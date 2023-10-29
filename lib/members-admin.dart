@@ -1,6 +1,7 @@
 import 'package:calendar_app/constants/customColor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:go_router/go_router.dart';
 
 const exampleMyInfo = {
   'name': 'KoJaem',
@@ -171,7 +172,7 @@ class InfoBox extends StatelessWidget {
                 topLeft: Radius.circular(30),
                 bottomLeft: Radius.circular(30),
               ),
-              onPressed: (context) => {},
+              onPressed: (context) => {context.go('/members-admin-edit')},
               backgroundColor: CustomColor.green,
               foregroundColor: Colors.white,
               label: 'Edit',
@@ -182,7 +183,57 @@ class InfoBox extends StatelessWidget {
                 topRight: Radius.circular(30),
                 bottomRight: Radius.circular(30),
               ),
-              onPressed: (context) => {},
+              onPressed: (context) => {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    backgroundColor: CustomColor.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    titlePadding: EdgeInsets.zero,
+                    title: Container(
+                      alignment: Alignment.centerLeft,
+                      decoration: const BoxDecoration(
+                        color: CustomColor.skyBlue,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(30),
+                          topRight: Radius.circular(30),
+                        ),
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.all(12),
+                        child: Text(
+                          '멤버 삭제',
+                          style: TextStyle(
+                            color: CustomColor.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    content: Text('$name님을 멤버에서 제거하시겠습니까?'),
+                    actions: [
+                      TextButton(
+                          style: const ButtonStyle(
+                              backgroundColor:
+                                  MaterialStatePropertyAll(CustomColor.skyBlue),
+                              foregroundColor:
+                                  MaterialStatePropertyAll(CustomColor.white)),
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: const Text('예')),
+                      TextButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          style: const ButtonStyle(
+                              backgroundColor:
+                                  MaterialStatePropertyAll(CustomColor.white),
+                              foregroundColor: MaterialStatePropertyAll(
+                                CustomColor.skyBlue,
+                              )),
+                          child: const Text('아니오'))
+                    ],
+                  ),
+                ),
+              },
               backgroundColor: CustomColor.red,
               foregroundColor: Colors.white,
               label: 'Delete',
