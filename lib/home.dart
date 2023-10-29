@@ -45,6 +45,30 @@ class Home extends StatelessWidget {
               ),
               child: const Text('Go to Announcement Page'),
             ),
+            ElevatedButton(
+              onPressed: () {
+                context.go('/notification');
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: CustomColor.skyBlue,
+                foregroundColor: CustomColor.white,
+              ),
+              child: const Text('Go to Notification Page'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                showModalBottomSheet(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return const Text('test');
+                    });
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: CustomColor.skyBlue,
+                foregroundColor: CustomColor.white,
+              ),
+              child: const Text('bottom sheet'),
+            ),
           ],
         ),
       ),
