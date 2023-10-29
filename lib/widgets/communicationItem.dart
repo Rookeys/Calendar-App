@@ -1,31 +1,32 @@
 import 'package:calendar_app/constants/categories.dart';
 import 'package:calendar_app/constants/customColor.dart';
-import 'package:calendar_app/models/announcement.dart';
+import 'package:calendar_app/models/communication.dart';
 import 'package:calendar_app/widgets/readonlyModal.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class AnnouncementListItem extends StatelessWidget {
-  final AnnouncementItem announcement;
+class CommunicationItem extends StatelessWidget {
+  final CommunicationType listitem;
 
-  const AnnouncementListItem({Key? key, required this.announcement})
-      : super(key: key);
+  const CommunicationItem({Key? key, required this.listitem}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return ReadOnlyModal(
-                title: announcement.title,
-                userName: announcement.userName,
-                content: announcement.content,
-                category: announcement.category,
-              );
-            });
-      },
+      onTap: listitem.userName != null && listitem.content != null
+          ? () {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return ReadOnlyModal(
+                      title: listitem.title,
+                      userName: listitem.userName ?? '',
+                      content: listitem.content ?? '',
+                      category: listitem.category,
+                    );
+                  });
+            }
+          : null,
       child: Container(
         margin: const EdgeInsets.only(bottom: 10),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
@@ -49,7 +50,7 @@ class AnnouncementListItem extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
-                  categories[announcement.category] ?? '공지',
+                  categories[listitem.category] ?? '공지',
                   style: const TextStyle(
                     fontSize: 10,
                     fontWeight: FontWeight.bold,
@@ -61,7 +62,7 @@ class AnnouncementListItem extends StatelessWidget {
               const SizedBox(width: 10),
               Expanded(
                 child: Text(
-                  announcement.title,
+                  listitem.title,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                       fontSize: 16,
@@ -78,7 +79,7 @@ class AnnouncementListItem extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  DateFormat('yyyy-MM-dd').format(announcement.createdDate),
+                  DateFormat('yyyy-MM-dd').format(listitem.createdDate),
                   style: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,

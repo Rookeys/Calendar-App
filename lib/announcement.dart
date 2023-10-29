@@ -1,7 +1,7 @@
 import 'package:calendar_app/constants/customColor.dart';
-import 'package:calendar_app/models/announcement.dart';
+import 'package:calendar_app/models/communication.dart';
 import 'package:calendar_app/services/getAnnouncement.dart';
-import 'package:calendar_app/widgets/announcementItem.dart';
+import 'package:calendar_app/widgets/communicationItem.dart';
 import 'package:flutter/material.dart';
 
 class Announcement extends StatefulWidget {
@@ -13,7 +13,7 @@ class Announcement extends StatefulWidget {
 
 class _AnnouncementState extends State<Announcement>
     with SingleTickerProviderStateMixin {
-  Future<List<AnnouncementItem>> announcements = getAnnouncement();
+  Future<List<CommunicationType>> announcements = getAnnouncement();
 
   late final AnimationController _controller = AnimationController(
     duration: const Duration(milliseconds: 1000),
@@ -35,7 +35,7 @@ class _AnnouncementState extends State<Announcement>
       backgroundColor: CustomColor.pastelBlue,
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-        child: FutureBuilder<List<AnnouncementItem>>(
+        child: FutureBuilder<List<CommunicationType>>(
           future: announcements,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -47,17 +47,17 @@ class _AnnouncementState extends State<Announcement>
                 child: Text('Error: ${snapshot.error}'),
               );
             } else if (snapshot.hasData) {
-              final announcements = snapshot.data!;
+              final listitem = snapshot.data!;
               return Expanded(
                 child: ListView.builder(
-                  itemCount: announcements.length,
+                  itemCount: listitem.length,
                   itemBuilder: (context, index) {
                     return FadeTransition(
                       opacity: _fadeAnimation,
                       child: SlideTransition(
                         position: _animation,
-                        child: AnnouncementListItem(
-                          announcement: snapshot.data![index],
+                        child: CommunicationItem(
+                          listitem: snapshot.data![index],
                         ),
                       ),
                     );

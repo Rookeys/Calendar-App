@@ -1,7 +1,7 @@
 import 'package:calendar_app/constants/customColor.dart';
-import 'package:calendar_app/models/listItem.dart';
+import 'package:calendar_app/models/communication.dart';
 import 'package:calendar_app/services/getNotification.dart';
-import 'package:calendar_app/widgets/listItem.dart';
+import 'package:calendar_app/widgets/communicationItem.dart';
 import 'package:flutter/material.dart';
 
 class Notifications extends StatefulWidget {
@@ -13,7 +13,7 @@ class Notifications extends StatefulWidget {
 
 class _NotificationState extends State<Notifications>
     with SingleTickerProviderStateMixin {
-  Future<List<ListItemType>> notifications = getNotification();
+  Future<List<CommunicationType>> notifications = getNotification();
 
   late final AnimationController _controller = AnimationController(
     duration: const Duration(milliseconds: 1000),
@@ -35,7 +35,7 @@ class _NotificationState extends State<Notifications>
       backgroundColor: CustomColor.pastelBlue,
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-        child: FutureBuilder<List<ListItemType>>(
+        child: FutureBuilder<List<CommunicationType>>(
           future: notifications,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -56,7 +56,7 @@ class _NotificationState extends State<Notifications>
                       opacity: _fadeAnimation,
                       child: SlideTransition(
                         position: _animation,
-                        child: ListItem(
+                        child: CommunicationItem(
                           listitem: snapshot.data![index],
                         ),
                       ),
