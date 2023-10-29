@@ -18,8 +18,9 @@ class ReadOnlyModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      child: Column(
+    return AlertDialog(
+      contentPadding: EdgeInsets.zero,
+      content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
@@ -29,7 +30,7 @@ class ReadOnlyModal extends StatelessWidget {
                   topRight: Radius.circular(20),
                 ),
                 color: CustomColor.skyBlue),
-            padding: const EdgeInsets.only(left: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -41,9 +42,9 @@ class ReadOnlyModal extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  icon: const Icon(
+                GestureDetector(
+                  onTap: () => Navigator.pop(context),
+                  child: const Icon(
                     Icons.close,
                     color: Colors.white,
                     size: 18,
