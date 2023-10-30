@@ -1,6 +1,7 @@
 import 'package:calendar_app/common/customInput.dart';
 import 'package:calendar_app/constants/customColor.dart';
 import 'package:calendar_app/utils/toastMessage.dart';
+import 'package:calendar_app/common/datePickerInput.dart';
 import 'package:flutter/material.dart';
 
 class MembersEditForm extends StatefulWidget {
@@ -38,7 +39,10 @@ class _FormComponentState extends State<MembersEditForm> {
               return null;
             },
           ),
-          // 달력 input 추가
+          // const DatePickerInput(),
+          const DatePickerInput(
+            label: 'Joined Date',
+          ),
           CustomInput(
             label: 'Available DayOff',
             onSaved: (newValue) => {},
