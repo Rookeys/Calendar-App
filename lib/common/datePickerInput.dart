@@ -31,52 +31,54 @@ class _MyWidgetState extends State<DatePickerInput> {
               color: CustomColor.darkGray,
             ),
           ),
-          TextFormField(
-            controller: TextEditingController.fromValue(TextEditingValue(
-                text:
-                    "${date.year.toString()}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}")),
-            // onSaved: widget.onSaved,
-            // validator: widget.validator,
-            readOnly: true,
-            decoration: InputDecoration(
-              suffixIcon: GestureDetector(
-                child: const Icon(
-                  Icons.calendar_month_rounded,
-                  color: CustomColor.skyBlue,
-                  size: 28,
+          GestureDetector(
+            child: AbsorbPointer(
+              child: TextFormField(
+                controller: TextEditingController.fromValue(TextEditingValue(
+                    text:
+                        "${date.year.toString()}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}")),
+                // onSaved: widget.onSaved,
+                // validator: widget.validator,
+                readOnly: true,
+                decoration: const InputDecoration(
+                  suffixIcon: Icon(
+                    Icons.calendar_month_rounded,
+                    color: CustomColor.skyBlue,
+                    size: 28,
+                  ),
                 ),
-                onTap: () async {
-                  final selectedDate = await showDatePicker(
-                      context: context,
-                      initialDate: date,
-                      firstDate: DateTime(1900),
-                      lastDate: DateTime.now(),
-                      initialEntryMode: DatePickerEntryMode.calendarOnly,
-                      builder: (context, child) {
-                        return Theme(
-                            data: Theme.of(context).copyWith(
-                              colorScheme: const ColorScheme.light(
-                                primary: CustomColor.skyBlue,
-                                onPrimary: CustomColor.white,
-                                onSurface: CustomColor.black,
-                              ),
-                              textButtonTheme: TextButtonThemeData(
-                                style: TextButton.styleFrom(
-                                  foregroundColor:
-                                      CustomColor.skyBlue, // button text color
-                                ),
-                              ),
-                            ),
-                            child: child!);
-                      });
-                  if (selectedDate != null) {
-                    setState(() {
-                      date = selectedDate;
-                    });
-                  }
-                },
               ),
             ),
+            onTap: () async {
+              final selectedDate = await showDatePicker(
+                  context: context,
+                  initialDate: date,
+                  firstDate: DateTime(1900),
+                  lastDate: DateTime.now(),
+                  initialEntryMode: DatePickerEntryMode.calendarOnly,
+                  builder: (context, child) {
+                    return Theme(
+                        data: Theme.of(context).copyWith(
+                          colorScheme: const ColorScheme.light(
+                            primary: CustomColor.skyBlue,
+                            onPrimary: CustomColor.white,
+                            onSurface: CustomColor.black,
+                          ),
+                          textButtonTheme: TextButtonThemeData(
+                            style: TextButton.styleFrom(
+                              foregroundColor:
+                                  CustomColor.skyBlue, // button text color
+                            ),
+                          ),
+                        ),
+                        child: child!);
+                  });
+              if (selectedDate != null) {
+                setState(() {
+                  date = selectedDate;
+                });
+              }
+            },
           ),
           const SizedBox(
             height: 16.0,
