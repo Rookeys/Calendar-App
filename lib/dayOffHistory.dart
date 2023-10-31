@@ -191,20 +191,28 @@ class _InfoBoxWithReasonState extends State<InfoBoxWithReason> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          _isExpanded = !_isExpanded;
-        });
-      },
-      child: Column(
-        children: [
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 400),
-            padding: const EdgeInsets.only(
-              left: 1,
-              right: 1,
+    return Column(
+      children: [
+        AnimatedContainer(
+          duration: const Duration(milliseconds: 400),
+          padding: const EdgeInsets.only(
+            left: 1,
+            right: 1,
+          ),
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(30),
+              topRight: Radius.circular(30),
+              // bottomLeft:
+              //     _isExpanded ? Radius.zero : const Radius.circular(30),
+              // bottomRight:
+              //     _isExpanded ? Radius.zero : const Radius.circular(30),
             ),
+            color: _isExpanded ? Colors.black : Colors.transparent,
+          ),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            alignment: Alignment.centerLeft,
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(30),
@@ -214,23 +222,15 @@ class _InfoBoxWithReasonState extends State<InfoBoxWithReason> {
                 // bottomRight:
                 //     _isExpanded ? Radius.zero : const Radius.circular(30),
               ),
-              color: _isExpanded ? Colors.black : Colors.transparent,
+              color: _isExpanded ? Colors.white : CustomColor.whiteBlue,
             ),
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              alignment: Alignment.centerLeft,
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                  topRight: Radius.circular(30),
-                  // bottomLeft:
-                  //     _isExpanded ? Radius.zero : const Radius.circular(30),
-                  // bottomRight:
-                  //     _isExpanded ? Radius.zero : const Radius.circular(30),
-                ),
-                color: _isExpanded ? Colors.white : CustomColor.whiteBlue,
-              ),
-              height: 70,
+            height: 70,
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  _isExpanded = !_isExpanded;
+                });
+              },
               child: Container(
                 height: double.infinity,
                 decoration: BoxDecoration(
@@ -262,48 +262,48 @@ class _InfoBoxWithReasonState extends State<InfoBoxWithReason> {
               ),
             ),
           ),
-          AnimatedCrossFade(
-            firstChild: Container(
-              padding: const EdgeInsets.only(left: 1, right: 1, bottom: 1),
+        ),
+        AnimatedCrossFade(
+          firstChild: Container(
+            padding: const EdgeInsets.only(left: 1, right: 1, bottom: 1),
+            decoration: const BoxDecoration(
+                color: CustomColor.black,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30),
+                )),
+            child: Container(
+              width: double.infinity,
               decoration: const BoxDecoration(
-                  color: CustomColor.black,
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(30),
-                    bottomRight: Radius.circular(30),
-                  )),
-              child: Container(
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(30),
-                    bottomRight: Radius.circular(30),
-                  ),
-                  color: CustomColor.white,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Text(
-                    widget.reason,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      height: 1.5,
-                    ),
+                color: CustomColor.white,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Text(
+                  widget.reason,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    height: 1.5,
                   ),
                 ),
               ),
             ),
-            secondChild: Container(
-              width: double.infinity,
-              color: CustomColor.white,
-            ),
-            crossFadeState: _isExpanded
-                ? CrossFadeState.showFirst
-                : CrossFadeState.showSecond,
-            // sizeCurve: Curves.easeInOut,
-            duration: const Duration(milliseconds: 400),
           ),
-        ],
-      ),
+          secondChild: Container(
+            width: double.infinity,
+            color: CustomColor.white,
+          ),
+          crossFadeState: _isExpanded
+              ? CrossFadeState.showFirst
+              : CrossFadeState.showSecond,
+          // sizeCurve: Curves.easeInOut,
+          duration: const Duration(milliseconds: 400),
+        ),
+      ],
     );
   }
 }
