@@ -24,11 +24,7 @@ class Home extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 context.go('/calendar');
-                // context.push('/calendar');
               },
-              //          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-              //       FadeTransition(opacity: animation, child: child),
-              // ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: CustomColor.skyBlue,
                 foregroundColor: CustomColor.white,
@@ -54,20 +50,6 @@ class Home extends StatelessWidget {
                 foregroundColor: CustomColor.white,
               ),
               child: const Text('Go to Notification Page'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                showModalBottomSheet(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return const Text('test');
-                    });
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: CustomColor.skyBlue,
-                foregroundColor: CustomColor.white,
-              ),
-              child: const Text('bottom sheet'),
             ),
           ],
         ),

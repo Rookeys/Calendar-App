@@ -1,6 +1,7 @@
 import 'package:calendar_app/constants/customColor.dart';
 import 'package:calendar_app/models/communication.dart';
 import 'package:calendar_app/services/getAnnouncement.dart';
+import 'package:calendar_app/widgets/announcementBottomSheet.dart';
 import 'package:calendar_app/widgets/communicationItem.dart';
 import 'package:flutter/material.dart';
 
@@ -71,6 +72,18 @@ class _AnnouncementState extends State<Announcement>
             }
           },
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: CustomColor.skyBlue,
+        onPressed: () {
+          showModalBottomSheet(
+              context: context,
+              isScrollControlled: true,
+              builder: (BuildContext context) {
+                return const AnnouncementBottomSheet();
+              });
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
