@@ -7,15 +7,17 @@ class FormTextField extends StatefulWidget {
   final String hintText;
   final bool obscureText;
   final Color themeColor;
+  final Icon? suffixIcon;
 
   // add theme color as parameter optionally
   const FormTextField({
-    super.key,
+    Key? key,
     required this.controller,
     required this.hintText,
     required this.obscureText,
     this.themeColor = CustomColor.white,
-  });
+    this.suffixIcon,
+  }) : super(key: key);
 
   @override
   State<FormTextField> createState() => _FormTextFieldState();
@@ -63,24 +65,31 @@ class _FormTextFieldState extends State<FormTextField> {
                 width: 2,
               ),
             ),
-            suffixIcon: widget.obscureText
+            suffixIcon: widget.suffixIcon != null
                 ? Transform.translate(
                     offset: const Offset(0, 10),
-                    child: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          _obscureText = !_obscureText;
-                        });
-                      },
-                      alignment: AlignmentDirectional.bottomCenter,
-                      icon: Icon(
-                        _obscureText ? Icons.visibility : Icons.visibility_off,
-                        color: widget.themeColor,
-                        size: 24,
-                      ),
-                    ),
+                    child: widget.suffixIcon,
                   )
-                : null,
+                : (widget.obscureText
+                    ? Transform.translate(
+                        offset: const Offset(0, 10),
+                        child: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _obscureText = !_obscureText;
+                            });
+                          },
+                          alignment: AlignmentDirectional.bottomCenter,
+                          icon: Icon(
+                            _obscureText
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            color: widget.themeColor,
+                            size: 24,
+                          ),
+                        ),
+                      )
+                    : null),
           ),
         ));
   }

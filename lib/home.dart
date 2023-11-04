@@ -56,6 +56,16 @@ class Home extends StatelessWidget {
               ),
               child: const Text('Sign Out'),
             ),
+            ElevatedButton(
+              onPressed: () {
+                context.push('/register');
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: CustomColor.skyBlue,
+                foregroundColor: CustomColor.white,
+              ),
+              child: const Text('Register Company'),
+            ),
           ],
         ),
       ),
