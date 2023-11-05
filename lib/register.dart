@@ -24,7 +24,7 @@ class _RegisterState extends State<Register> {
       appBar: AppBar(
         iconTheme: const IconThemeData(color: CustomColor.skyBlue),
         title: const Text(
-          'Stepper Example',
+          'Register',
           style: TextStyle(
             color: CustomColor.skyBlue,
           ),
@@ -64,6 +64,7 @@ class _RegisterState extends State<Register> {
     required String title,
     required Widget content,
     required bool isActive,
+    required bool isEditing,
   }) {
     return Step(
       title: Text(title),
@@ -72,7 +73,11 @@ class _RegisterState extends State<Register> {
         child: content,
       ),
       isActive: isActive,
-      state: isActive ? StepState.complete : StepState.disabled,
+      state: isEditing
+          ? StepState.editing
+          : isActive
+              ? StepState.complete
+              : StepState.disabled,
     );
   }
 
@@ -82,6 +87,7 @@ class _RegisterState extends State<Register> {
         title: 'Step 1',
         content: ChooseCompany(companyNameController: companyNameController),
         isActive: _currentStep >= 0,
+        isEditing: _currentStep == 0,
       ),
       _buildStep(
         title: 'Step 2',
@@ -90,11 +96,13 @@ class _RegisterState extends State<Register> {
           onPositionChanged: changePosition,
         ),
         isActive: _currentStep >= 1,
+        isEditing: _currentStep == 1,
       ),
       _buildStep(
         title: 'Step 3',
         content: Phone(controller: phoneController),
         isActive: _currentStep >= 2,
+        isEditing: _currentStep == 2,
       ),
     ];
   }
