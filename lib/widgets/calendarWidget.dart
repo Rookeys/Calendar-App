@@ -25,7 +25,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
       // margin: const EdgeInsets.all(8.0),
       child: TableCalendar(
         // locale: 'ko_KR',
-        // daysOfWeekHeight: 30,
+        daysOfWeekHeight: 40,
         firstDay: DateTime.utc(2021, 10, 16),
         lastDay: DateTime.utc(2030, 3, 14),
         focusedDay: _focusedDay,
