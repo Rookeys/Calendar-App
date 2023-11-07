@@ -17,6 +17,7 @@ class _RegisterState extends State<Register> {
   late final TextEditingController phoneController;
   String position = '직원';
   int _currentStep = 0;
+  bool isCompanyExist = true;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +50,7 @@ class _RegisterState extends State<Register> {
 
   void changePosition(String newPosition) {
     setState(() {
-      position = newPosition;
+    position = newPosition;
     });
   }
 
@@ -58,6 +59,13 @@ class _RegisterState extends State<Register> {
     super.initState();
     companyNameController = TextEditingController();
     phoneController = TextEditingController();
+  }
+
+  void onChangeCompanyExisted() {
+    setState(() {
+      isCompanyExist = !isCompanyExist;
+      position = '관리자';
+    });
   }
 
   Step _buildStep({
@@ -85,7 +93,11 @@ class _RegisterState extends State<Register> {
     return [
       _buildStep(
         title: 'Step 1',
-        content: ChooseCompany(companyNameController: companyNameController),
+        content: ChooseCompany(
+          companyNameController: companyNameController,
+          isCompanyExist: isCompanyExist,
+          onCompanyNameChanged: onChangeCompanyExisted,
+        ),
         isActive: _currentStep >= 0,
         isEditing: _currentStep == 0,
       ),

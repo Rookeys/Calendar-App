@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 class Position extends StatelessWidget {
   final String position;
   final ValueChanged<String> onPositionChanged;
+  final bool disabled;
   const Position(
-      {super.key, required this.position, required this.onPositionChanged});
+      {super.key, required this.position, required this.onPositionChanged, this.disabled = false});
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +25,14 @@ class Position extends StatelessWidget {
       Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildButton('직원', context),
-          _buildButton('관리자', context),
+          _buildButton('직원', context, disabled),
+          _buildButton('관리자', context, false),
         ],
       )
     ]);
   }
 
-  Widget _buildButton(String title, BuildContext context) {
+  Widget _buildButton(String title, BuildContext context, bool disabled) {
     bool isSelected = position == title;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -44,9 +45,11 @@ class Position extends StatelessWidget {
             side: MaterialStateProperty.all(
                 const BorderSide(color: CustomColor.skyBlue, width: 1)),
           ),
-          onPressed: () {
-            onPositionChanged(title);
-          },
+          onPressed: disabled
+              ? null
+              : () {
+                  onPositionChanged(title);
+                },
           child: Text(
             title,
             style: TextStyle(
