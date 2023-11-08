@@ -32,29 +32,18 @@ class Calendar extends StatelessWidget {
               color: CustomColor.pastelBlue,
               padding: const EdgeInsets.all(12.0),
               width: double.infinity,
-              child: const SingleChildScrollView(
-                child: Column(
-                  children: [
-                    ScheduleBox(
-                      bgColor: CustomColor.lightPurple,
-                    ),
-                    ScheduleBox(
-                      bgColor: CustomColor.lightPurple,
-                    ),
-                    ScheduleBox(
-                      bgColor: CustomColor.lightPurple,
-                    ),
-                    ScheduleBox(
-                      bgColor: CustomColor.lightPurple,
-                    ),
-                    ScheduleBox(
-                      bgColor: CustomColor.lightPurple,
-                    ),
-                    ScheduleBox(
-                      bgColor: CustomColor.lightPurple,
-                    ),
-                  ],
-                ),
+              child: ListView.separated(
+                separatorBuilder: (context, index) {
+                  return const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8),
+                  );
+                },
+                itemCount: 10, // Todo 리스트 받아와서 길이 체크
+                itemBuilder: (context, index) {
+                  return const ScheduleBox(
+                    bgColor: CustomColor.lightPurple,
+                  );
+                },
               ),
             ),
           )
