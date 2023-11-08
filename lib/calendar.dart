@@ -1,6 +1,6 @@
 import 'package:calendar_app/constants/customColor.dart';
 import 'package:calendar_app/widgets/calendarWidget.dart';
-import 'package:calendar_app/widgets/scheduleWidget.dart';
+import 'package:calendar_app/widgets/ScheduleBox.dart';
 import 'package:flutter/material.dart';
 
 class Calendar extends StatelessWidget {
@@ -10,32 +10,55 @@ class Calendar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              // color: CustomColor.skyBlue,
-              // padding: const EdgeInsets.all(8.0),
-              width: double.infinity,
-              color: CustomColor.skyBlue,
-              padding: const EdgeInsets.only(
-                top: 12.0,
-                left: 12.0,
-                right: 12.0,
-                bottom: 30,
-              ),
-              child: const CalendarWidget(),
+      child: Column(
+        children: [
+          Container(
+            // color: CustomColor.skyBlue,
+            // padding: const EdgeInsets.all(8.0),
+            width: double.infinity,
+            color: CustomColor.skyBlue,
+            padding: const EdgeInsets.only(
+              top: 12.0,
+              left: 12.0,
+              right: 12.0,
+              bottom: 30,
             ),
-            Container(
+            child: const CalendarWidget(),
+          ),
+          Expanded(
+            child: Container(
               // color: CustomColor.skyBlue,
               // padding: const EdgeInsets.all(8.0),
               color: CustomColor.pastelBlue,
               padding: const EdgeInsets.all(12.0),
               width: double.infinity,
-              child: const ScheduleWidget(),
-            )
-          ],
-        ),
+              child: const SingleChildScrollView(
+                child: Column(
+                  children: [
+                    ScheduleBox(
+                      bgColor: CustomColor.lightPurple,
+                    ),
+                    ScheduleBox(
+                      bgColor: CustomColor.lightPurple,
+                    ),
+                    ScheduleBox(
+                      bgColor: CustomColor.lightPurple,
+                    ),
+                    ScheduleBox(
+                      bgColor: CustomColor.lightPurple,
+                    ),
+                    ScheduleBox(
+                      bgColor: CustomColor.lightPurple,
+                    ),
+                    ScheduleBox(
+                      bgColor: CustomColor.lightPurple,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          )
+        ],
       ),
     ));
   }
