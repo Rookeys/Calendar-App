@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "4703529935",
+    "project_id": "auth-e85df",
+    "storage_bucket": "auth-e85df.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:4703529935:android:416ae42984fd3e2a1e00ba",
+        "android_client_info": {
+          "package_name": "com.example.calendar_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBM7DqFhTlxGCCViZbN8Nxa89tD0xzt1u0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:4703529935:android:68c29006eb3c7f8e1e00ba",
+        "android_client_info": {
+          "package_name": "com.example.namer_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBM7DqFhTlxGCCViZbN8Nxa89tD0xzt1u0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

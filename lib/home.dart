@@ -25,6 +25,9 @@ class Home extends StatelessWidget {
               onPressed: () {
                 context.go('/calendar');
               },
+              //          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+              //       FadeTransition(opacity: animation, child: child),
+              // ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: CustomColor.skyBlue,
                 foregroundColor: CustomColor.white,
@@ -33,7 +36,7 @@ class Home extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                context.go('/announcement');
+                context.go('/auth');
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: CustomColor.skyBlue,
@@ -45,11 +48,27 @@ class Home extends StatelessWidget {
               onPressed: () {
                 context.go('/notification');
               },
+              child: const Text('Go to Auth Page'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                FirebaseAuth.instance.signOut();
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: CustomColor.skyBlue,
                 foregroundColor: CustomColor.white,
               ),
-              child: const Text('Go to Notification Page'),
+              child: const Text('Sign Out'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                context.push('/register');
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: CustomColor.skyBlue,
+                foregroundColor: CustomColor.white,
+              ),
+              child: const Text('Register Company'),
             ),
           ],
         ),
