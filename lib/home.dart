@@ -26,9 +26,6 @@ class Home extends StatelessWidget {
               onPressed: () {
                 context.go('/calendar');
               },
-              //          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-              //       FadeTransition(opacity: animation, child: child),
-              // ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: CustomColor.skyBlue,
                 foregroundColor: CustomColor.white,
@@ -37,7 +34,7 @@ class Home extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                context.go('/auth');
+                context.go('/announcement');
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: CustomColor.skyBlue,
@@ -49,7 +46,11 @@ class Home extends StatelessWidget {
               onPressed: () {
                 context.go('/notification');
               },
-              child: const Text('Go to Auth Page'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: CustomColor.skyBlue,
+                foregroundColor: CustomColor.white,
+              ),
+              child: const Text('Go to Notification Page'),
             ),
             ElevatedButton(
               onPressed: () {

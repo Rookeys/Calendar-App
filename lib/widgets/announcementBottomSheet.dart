@@ -19,7 +19,7 @@ class _AnnouncementBottomSheetState extends State<AnnouncementBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: MediaQuery.of(context).size.height * 0.8,
+        height: MediaQuery.of(context).size.height * 0.7,
         decoration: BoxDecoration(
           color: CustomColor.white,
           borderRadius: BorderRadius.circular(20),
@@ -27,88 +27,99 @@ class _AnnouncementBottomSheetState extends State<AnnouncementBottomSheet> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 80),
+              const Center(
+                  child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 50),
                 child: Divider(
-                  color: CustomColor.darkGray,
+                  color: CustomColor.black,
+                  height: 20,
                   thickness: 2,
                 ),
+              )),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.03,
               ),
-              DropdownButton(
-                  isExpanded: true,
-                  hint: const Text('Category'),
-                  items: categories.map((String value) {
-                    return DropdownMenuItem(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                  onChanged: (String? value) {
-                    if (value is String) {
-                      setState(() {
-                        category = value;
-                      });
-                    }
-                  },
-                  value: category),
-              const SizedBox(height: 10),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    "Title",
-                    style: TextStyle(
-                      fontSize: 24,
-                      color: CustomColor.darkGray,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              BottomSheetTextField(
-                titleController: _titleController,
-              ),
-              const SizedBox(height: 10),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    "Summary",
-                    style: TextStyle(
-                      fontSize: 24,
-                      color: CustomColor.darkGray,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              BottomSheetTextField(
-                titleController: _summaryController,
-                isMultiLine: true,
-              ),
-              const SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: CustomColor.skyBlue,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                  DropdownButton(
+                      isExpanded: true,
+                      hint: const Text('Category'),
+                      items: categories.map((String value) {
+                        return DropdownMenuItem(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      onChanged: (String? value) {
+                        if (value is String) {
+                          setState(() {
+                            category = value;
+                          });
+                        }
+                      },
+                      value: category),
+                  const SizedBox(height: 10),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Title",
+                        style: TextStyle(
+                          fontSize: 24,
+                          color: CustomColor.darkGray,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Text(
-                        'Submit',
-                        style: TextStyle(color: CustomColor.white),
-                      )),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  BottomSheetTextField(
+                    titleController: _titleController,
+                  ),
+                  const SizedBox(height: 10),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Summary",
+                        style: TextStyle(
+                          fontSize: 24,
+                          color: CustomColor.darkGray,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  BottomSheetTextField(
+                    titleController: _summaryController,
+                    isMultiLine: true,
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: CustomColor.skyBlue,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text(
+                            'Submit',
+                            style: TextStyle(color: CustomColor.white),
+                          )),
+                    ],
+                  )
                 ],
-              )
+              ),
             ],
           ),
         ));
