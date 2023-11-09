@@ -12,31 +12,33 @@ class DayOffRequest extends StatefulWidget {
 }
 
 class _DayOffRequestState extends State<DayOffRequest> {
+  late Future<List<DayOffRequestType>> futureDayOffRequests;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: CustomColor.whiteBlue,
-      body: SingleChildScrollView(
-        child: FutureBuilder<List<DayOffRequestType>>(
-            future: getDayOffRequest(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasData &&
-                  snapshot.connectionState == ConnectionState.done) {
-                final Map<String, dynamic> dateAndTime = formatDateAndTime(
-                    snapshot.data![0].startDateTime,
-                    snapshot.data![0].endDateTime);
+      body: FutureBuilder<List<DayOffRequestType>>(
+          future: futureDayOffRequests,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasData &&
+                snapshot.connectionState == ConnectionState.done) {
+              final Map<String, dynamic> dateAndTime = formatDateAndTime(
+                  snapshot.data![0].startDateTime,
+                  snapshot.data![0].endDateTime);
 
-                final String startDate = dateAndTime['startDate'];
-                final String endDate = dateAndTime['endDate'];
-                final int startHour = dateAndTime['startHour'];
-                final int startMinute = dateAndTime['startMinute'];
-                final int endHour = dateAndTime['endHour'];
-                final int endMinute = dateAndTime['endMinute'];
-                final int diffHours = dateAndTime['diffHours'];
+              final String startDate = dateAndTime['startDate'];
+              final String endDate = dateAndTime['endDate'];
+              final int startHour = dateAndTime['startHour'];
+              final int startMinute = dateAndTime['startMinute'];
+              final int endHour = dateAndTime['endHour'];
+              final int endMinute = dateAndTime['endMinute'];
+              final int diffHours = dateAndTime['diffHours'];
 
-                return Padding(
+              return SingleChildScrollView(
+                child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: [
@@ -88,12 +90,12 @@ class _DayOffRequestState extends State<DayOffRequest> {
                           }),
                     ],
                   ),
-                );
-              } else {
-                return const Text('No data');
-              }
-            }),
-      ),
+                ),
+              );
+            } else {
+              return const Text('No data');
+            }
+          }),
     );
   }
 
@@ -122,7 +124,7 @@ class _DayOffRequestState extends State<DayOffRequest> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    futureDayOffRequests = getDayOffRequest();
   }
 }
