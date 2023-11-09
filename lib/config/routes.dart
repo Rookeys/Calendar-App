@@ -1,4 +1,5 @@
 import 'package:calendar_app/calendar.dart';
+import 'package:calendar_app/dayOffRequest.dart';
 import 'package:calendar_app/home.dart';
 import 'package:calendar_app/dayOffHistory.dart';
 import 'package:calendar_app/members-admin-edit.dart';
@@ -53,5 +54,9 @@ final GoRouter routes = GoRouter(routes: [
   GoRoute(
     path: '/members-admin-edit',
     builder: (context, state) => const MembersAdminEdit(),
+  ),
+  GoRoute(
+    path: '/dayoff-request',
+    builder: (context, state) => const DayOffRequest(),
   )
 ]);

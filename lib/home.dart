@@ -19,19 +19,29 @@ class Home extends StatelessWidget {
         ),
       ),
       body: SafeArea(
-        child: ElevatedButton(
-          onPressed: () {
-            context.go('/myPage');
-            // context.push('/calendar');
-          },
-          //          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-          //       FadeTransition(opacity: animation, child: child),
-          // ),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: CustomColor.skyBlue,
-            foregroundColor: CustomColor.white,
-          ),
-          child: const Text('Go to My Page'),
+        child: Column(
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                context.go('/myPage');
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: CustomColor.skyBlue,
+                foregroundColor: CustomColor.white,
+              ),
+              child: const Text('Go to My Page'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                context.go('/dayoff-request');
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: CustomColor.skyBlue,
+                foregroundColor: CustomColor.white,
+              ),
+              child: const Text('Go to Day Off Request'),
+            ),
+          ],
         ),
       ),
     );
