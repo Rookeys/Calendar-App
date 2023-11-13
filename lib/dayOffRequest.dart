@@ -1,6 +1,8 @@
 import 'package:calendar_app/constants/customColor.dart';
 import 'package:calendar_app/models/DayOffRequestType.dart';
 import 'package:calendar_app/services/getDayOffRequest.dart';
+import 'package:calendar_app/widgets/myPageAdminDayoff/DayOffCard.dart';
+import 'package:calendar_app/widgets/myPageAdminDayoff/DayOffMdoal.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -18,84 +20,21 @@ class _DayOffRequestState extends State<DayOffRequest> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: CustomColor.whiteBlue,
-      body: FutureBuilder<List<DayOffRequestType>>(
-          future: futureDayOffRequests,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasData &&
-                snapshot.connectionState == ConnectionState.done) {
-              final Map<String, dynamic> dateAndTime = formatDateAndTime(
-                  snapshot.data![0].startDateTime,
-                  snapshot.data![0].endDateTime);
-
-              final String startDate = dateAndTime['startDate'];
-              final String endDate = dateAndTime['endDate'];
-              final int startHour = dateAndTime['startHour'];
-              final int startMinute = dateAndTime['startMinute'];
-              final int endHour = dateAndTime['endHour'];
-              final int endMinute = dateAndTime['endMinute'];
-              final int diffHours = dateAndTime['diffHours'];
-
-              return SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      ListView.separated(
-                          shrinkWrap: true,
-                          itemCount: snapshot.data!.length,
-                          separatorBuilder: (BuildContext context, int index) {
-                            return const SizedBox(height: 10);
-                          },
-                          itemBuilder: (context, index) {
-                            return Card(
-                                color: CustomColor.white,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    children: [
-                                      SizedBox(
-                                        width: 90,
-                                        height: 90,
-                                        child: ClipOval(
-                                          child: Image.network(
-                                              snapshot.data![index].profile),
-                                        ),
-                                      ),
-                                      const SizedBox(width: 20),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            snapshot.data![index].name,
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 16),
-                                          ),
-                                          const SizedBox(height: 20),
-                                          Text(snapshot.data![index]
-                                                      .endDateTime !=
-                                                  null
-                                              ? '$startDate ~ $endDate'
-                                              : startDate),
-                                          Text(
-                                              '$startHour:$startMinute ~ $endHour:$endMinute ($diffHours h)')
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                ));
-                          }),
-                    ],
-                  ),
-                ),
-              );
-            } else {
-              return const Text('No data');
-            }
-          }),
+      body: Stack(children: [
+        FutureBuilder<List<DayOffRequestType>>(
+            future: futureDayOffRequests,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return const Text('An error occurred');
+              } else if (snapshot.hasData) {
+                return _buildListView(snapshot.data!);
+              } else {
+                return const Text('No data');
+              }
+            }),
+      ]),
     );
   }
 
@@ -119,6 +58,7 @@ class _DayOffRequestState extends State<DayOffRequest> {
       'endHour': endHour,
       'endMinute': endMinute,
       'diffHours': diffHours,
+      'endDateTime': endDateTime
     };
   }
 
@@ -126,5 +66,45 @@ class _DayOffRequestState extends State<DayOffRequest> {
   void initState() {
     super.initState();
     futureDayOffRequests = getDayOffRequest();
+  }
+
+  Widget _buildListView(List<DayOffRequestType> data) {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            ListView.separated(
+                shrinkWrap: true,
+                itemCount: data.length,
+                separatorBuilder: (BuildContext context, int index) =>
+                    const SizedBox(height: 10),
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return DayOffModal(
+                              name: data[index].name,
+                              dateAndTime: formatDateAndTime(
+                                  data[index].startDateTime,
+                                  data[index].endDateTime),
+                              description: data[index].description,
+                            );
+                          });
+                    },
+                    child: DayOffCard(
+                        profile: data[index].profile,
+                        name: data[index].name,
+                        dateAndTime: formatDateAndTime(
+                            data[index].startDateTime,
+                            data[index].endDateTime)),
+                  );
+                }),
+          ],
+        ),
+      ),
+    );
   }
 }
