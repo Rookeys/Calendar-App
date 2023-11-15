@@ -1,4 +1,5 @@
 import 'package:calendar_app/constants/customColor.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -19,19 +20,67 @@ class Home extends StatelessWidget {
         ),
       ),
       body: SafeArea(
-        child: ElevatedButton(
-          onPressed: () {
-            context.go('/myPage');
-            // context.push('/calendar');
-          },
-          //          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-          //       FadeTransition(opacity: animation, child: child),
-          // ),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: CustomColor.skyBlue,
-            foregroundColor: CustomColor.white,
-          ),
-          child: const Text('Go to My Page'),
+        child: Column(
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                context.go('/calendar');
+                // context.push('/calendar');
+              },
+              //          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+              //       FadeTransition(opacity: animation, child: child),
+              // ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: CustomColor.skyBlue,
+                foregroundColor: CustomColor.white,
+              ),
+              child: const Text('Go to Calendar Page'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                context.go('/auth');
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: CustomColor.skyBlue,
+                foregroundColor: CustomColor.white,
+              ),
+              child: const Text('Go to Auth Page'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                FirebaseAuth.instance.signOut();
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: CustomColor.skyBlue,
+                foregroundColor: CustomColor.white,
+              ),
+              child: const Text('Sign Out'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                context.push('/register');
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: CustomColor.skyBlue,
+                foregroundColor: CustomColor.white,
+              ),
+              child: const Text('Register Company'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                context.go('/myPage');
+                // context.push('/calendar');
+              },
+              //          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+              //       FadeTransition(opacity: animation, child: child),
+              // ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: CustomColor.skyBlue,
+                foregroundColor: CustomColor.white,
+              ),
+              child: const Text('Go to My Page'),
+            ),
+          ],
         ),
       ),
     );
