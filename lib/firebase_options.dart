@@ -54,11 +54,11 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBM7DqFhTlxGCCViZbN8Nxa89tD0xzt1u0',
-    appId: '1:4703529935:android:416ae42984fd3e2a1e00ba',
+    apiKey: 'AIzaSyBHu_z81oQQe93qcrcX-3i--zQBznoLf94',
+    appId: '1:329671345929:android:48927eae96849426ef75d8',
     messagingSenderId: '4703529935',
-    projectId: 'auth-e85df',
-    storageBucket: 'auth-e85df.appspot.com',
+    projectId: 'calendar-app-a7283',
+    storageBucket: 'calendar-app-a7283.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
