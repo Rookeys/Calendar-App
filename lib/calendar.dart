@@ -1,6 +1,6 @@
 import 'package:calendar_app/constants/customColor.dart';
-import 'package:calendar_app/widgets/calendarWidget.dart';
 import 'package:calendar_app/widgets/ScheduleBox.dart';
+import 'package:calendar_app/widgets/calendar_widget.dart';
 import 'package:flutter/material.dart';
 
 class Calendar extends StatelessWidget {
