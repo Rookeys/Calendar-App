@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>4703529935-113k2mqogq75rnn5dgkd9mqrfs60j0l5.apps.googleusercontent.com</string>
+	<string>329671345929-1ae0schrmei1odt07p4292grvv2gmsh1.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.4703529935-113k2mqogq75rnn5dgkd9mqrfs60j0l5</string>
+	<string>com.googleusercontent.apps.329671345929-1ae0schrmei1odt07p4292grvv2gmsh1</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAkbC3UBUkTIQ52clwj9hiFTTT9mimv8vQ</string>
+	<string>AIzaSyDlhT-0yXMGEXKJfULJl3U3Iu6u7paE0BE</string>
 	<key>GCM_SENDER_ID</key>
-	<string>4703529935</string>
+	<string>329671345929</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.calendarApp</string>
+	<string>com.calendar-app.rookeys</string>
 	<key>PROJECT_ID</key>
-	<string>auth-e85df</string>
+	<string>calendar-app-a7283</string>
 	<key>STORAGE_BUCKET</key>
-	<string>auth-e85df.appspot.com</string>
+	<string>calendar-app-a7283.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:4703529935:ios:8874f37ec7dcf3971e00ba</string>
+	<string>1:329671345929:ios:cf03d183658f8db2ef75d8</string>
 </dict>
 </plist>
