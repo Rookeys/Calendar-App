@@ -25,11 +25,7 @@ class Home extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 context.go('/calendar');
-                // context.push('/calendar');
               },
-              //          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-              //       FadeTransition(opacity: animation, child: child),
-              // ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: CustomColor.skyBlue,
                 foregroundColor: CustomColor.white,
@@ -65,6 +61,16 @@ class Home extends StatelessWidget {
                 foregroundColor: CustomColor.white,
               ),
               child: const Text('Register Company'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                context.push('/biometric');
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: CustomColor.skyBlue,
+                foregroundColor: CustomColor.white,
+              ),
+              child: const Text('Biometric'),
             ),
           ],
         ),

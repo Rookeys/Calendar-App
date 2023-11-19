@@ -1,4 +1,5 @@
 import 'package:calendar_app/auth.dart';
+import 'package:calendar_app/authentication.dart';
 import 'package:calendar_app/calendar.dart';
 import 'package:calendar_app/home.dart';
 import 'package:calendar_app/register.dart';
@@ -32,6 +33,15 @@ final GoRouter routes = GoRouter(
       pageBuilder: (context, state) => CustomTransitionPage<void>(
         key: state.pageKey,
         child: const Register(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+            FadeTransition(opacity: animation, child: child),
+      ),
+    ),
+    GoRoute(
+      path: '/biometric',
+      pageBuilder: (context, state) => CustomTransitionPage<void>(
+        key: state.pageKey,
+        child: const AuthenticationPage(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) =>
             FadeTransition(opacity: animation, child: child),
       ),
