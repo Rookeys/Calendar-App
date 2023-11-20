@@ -1,3 +1,4 @@
+import 'package:calendar_app/utils/googleAccessToken.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -48,12 +49,11 @@ class AuthService {
 
       final GoogleSignInAuthentication gAuth = await gUser.authentication;
 
-      print(gAuth.accessToken);
-
       final credential = GoogleAuthProvider.credential(
         accessToken: gAuth.accessToken,
         idToken: gAuth.idToken,
       );
+      await saveAccessToken(gAuth.accessToken!);
 
       return await FirebaseAuth.instance.signInWithCredential(credential);
     } on FirebaseAuthException catch (e) {

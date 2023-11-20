@@ -1,4 +1,5 @@
 import 'package:calendar_app/constants/customColor.dart';
+import 'package:calendar_app/utils/googleAccessToken.dart';
 import 'package:calendar_app/widgets/ScheduleBox.dart';
 import 'package:calendar_app/widgets/calendar_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,7 +14,6 @@ class Calendar extends StatelessWidget {
   Widget build(BuildContext context) {
     final FirebaseAuth auth = FirebaseAuth.instance;
     User? user = auth.currentUser;
-
     return Scaffold(
         body: SafeArea(
       child: Column(
@@ -72,21 +72,19 @@ class Calendar extends StatelessWidget {
 Future<String?> getFirebaseToken(User? user) async {
   if (user != null) {
     try {
-      // 아래 토큰은 firebase 토큰이고, google API 를 사용하기 위해서는 google Token 을 가져와야함.
-      String? token = await user.getIdToken(true);
+      final accessToken = await getAccessToken();
       String apiUrl =
           'https://www.googleapis.com/calendar/v3/calendars/primary/events';
-      Map<String, String> headers = {'Authorization': 'Bearer $token'};
-      // print('apiUrl: ${Uri.parse(apiUrl)}');
-      // print('headers: $headers');
+      Map<String, String> headers = {'Authorization': 'Bearer $accessToken'};
+
       var response = await http.get(
         Uri.parse(apiUrl),
         headers: headers,
       );
       log(response.body);
-
-      return token;
-    } catch (error) {}
+    } catch (error) {
+      print('error $error');
+    }
   }
   return null;
 }
