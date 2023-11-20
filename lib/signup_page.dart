@@ -139,47 +139,45 @@ class _Signup_PageState extends State<Signup_Page> {
   }
 
   void signUserInWithGoogle() async {
-    // showDialog(
-    //     context: context,
-    //     builder: (context) => const Center(
-    //           child: CircularProgressIndicator(
-    //             color: CustomColor.white,
-    //           ),
-    //         ));
+    showDialog(
+        context: context,
+        builder: (context) => const Center(
+              child: CircularProgressIndicator(
+                color: CustomColor.white,
+              ),
+            ));
     try {
       await AuthService().signInWithGoogle(context);
-      // Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
-      // Navigator.pop(context);
       showCustomMessage(e.message!, bgColor: CustomColor.red, delay: 3);
     } catch (e) {
-      // Navigator.pop(context);
       showCustomMessage(e.toString(), bgColor: CustomColor.red, delay: 3);
+    } finally {
+      Navigator.pop(context);
     }
   }
 
   void signUserUp() async {
-    // showDialog(
-    //     context: context,
-    //     builder: (context) => const Center(
-    //           child: CircularProgressIndicator(
-    //             color: CustomColor.white,
-    //           ),
-    //         ));
+    showDialog(
+        context: context,
+        builder: (context) => const Center(
+              child: CircularProgressIndicator(
+                color: CustomColor.white,
+              ),
+            ));
     try {
       if (passwordController.text != confirmPasswordController.text) {
-        // Navigator.pop(context);
+        Navigator.pop(context);
         throw Exception('Password and Confirm Password are not the same');
       }
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
-      // Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
-      // Navigator.pop(context);
       showCustomMessage(e.message!, bgColor: CustomColor.red, delay: 3);
     } catch (e) {
-      // Navigator.pop(context);
       showCustomMessage(e.toString(), bgColor: CustomColor.red, delay: 3);
+    } finally {
+      Navigator.pop(context);
     }
   }
 }

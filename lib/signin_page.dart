@@ -264,47 +264,45 @@ class _SignIn_PageState extends State<SignIn_Page> {
     );
   }
 
-
   // sign in function
   void signUserIn() async {
-    // showDialog(
-    //     context: context,
-    //     builder: (context) => const Center(
-    //           child: CircularProgressIndicator(
-    //             color: CustomColor.white,
-    //           ),
-    //         ));
+    showDialog(
+        context: context,
+        builder: (context) => const Center(
+              child: CircularProgressIndicator(
+                color: CustomColor.white,
+              ),
+            ));
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
-      // Navigator.pop(context);
     } on FirebaseAuthException {
-      // Navigator.pop(context);
       showCustomMessage('Please check your email and password',
           bgColor: CustomColor.red, delay: 3);
     } catch (e) {
       showCustomMessage('please check your email and password',
           bgColor: CustomColor.red, delay: 3);
+    } finally {
+      Navigator.pop(context);
     }
   }
 
   void signUserInWithGoogle() async {
-    // showDialog(
-    //     context: context,
-    //     builder: (context) => const Center(
-    //           child: CircularProgressIndicator(
-    //             color: CustomColor.white,
-    //           ),
-    //         ));
+    showDialog(
+        context: context,
+        builder: (context) => const Center(
+              child: CircularProgressIndicator(
+                color: CustomColor.white,
+              ),
+            ));
     try {
       await AuthService().signInWithGoogle(context);
-      // Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
-      // Navigator.pop(context);
       showCustomMessage(e.message!, bgColor: CustomColor.red, delay: 3);
     } catch (e) {
-      print(e);
       showCustomMessage(e.toString(), bgColor: CustomColor.red, delay: 3);
+    } finally {
+      Navigator.pop(context);
     }
   }
 }
