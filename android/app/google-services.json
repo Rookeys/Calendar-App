@@ -7,18 +7,18 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:329671345929:android:48927eae96849426ef75d8",
+        "mobilesdk_app_id": "1:329671345929:android:b24481f868053910ef75d8",
         "android_client_info": {
-          "package_name": "com.example.calendar_app"
+          "package_name": "com.rookey.calendar_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "329671345929-ij5q7ouu863c0fe7fc6a30aihr5klsr0.apps.googleusercontent.com",
+          "client_id": "329671345929-m0dqrjlobdesuqcrjabc6eifdvuu03et.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.calendar_app",
-            "certificate_hash": "aac41394ac7bf4a8a059f445c6fc53718ecfd28e"
+            "package_name": "com.rookey.calendar_app",
+            "certificate_hash": "1e74a336fb301a656716788c0476cc951e85c314"
           }
         },
         {
