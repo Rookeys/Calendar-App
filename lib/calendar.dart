@@ -12,22 +12,10 @@ class Calendar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    User? user = auth.currentUser;
     return Scaffold(
         body: SafeArea(
       child: Column(
         children: [
-          Container(
-            width: 20,
-            height: 20,
-            color: CustomColor.red,
-            child: GestureDetector(
-              onTap: () async {
-                await getFirebaseToken(user);
-              },
-            ),
-          ),
           Container(
             // color: CustomColor.skyBlue,
             // padding: const EdgeInsets.all(8.0),
