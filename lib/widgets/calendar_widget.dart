@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:calendar_app/constants/customColor.dart';
 import 'package:calendar_app/utils/googleAccessToken.dart';
@@ -16,7 +17,7 @@ class DummyEvent {
 }
 
 // Todo DummyEvent 타입 지정 및 실제데이터 가져와야함
-Map<DateTime, List<DummyEvent>> events = {
+Map<DateTime, List<DummyEvent>> dummyEvents = {
   DateTime.utc(2023, 11, 20): [
     DummyEvent('title'),
     DummyEvent('title2'),
@@ -25,10 +26,10 @@ Map<DateTime, List<DummyEvent>> events = {
 };
 
 // Todo 이벤트 목록 할당해야함
-List<Event> _getEventsForDay(DateTime day) {
-  // return events[day] ?? [];
+List<DummyEvent> _getDummyEventsForDay(DateTime day) {
+  // return dummyEvents[day] ?? [];
   // return null;
-  return [];
+  return dummyEvents[day] ?? [];
 }
 
 class CalendarWidget extends StatefulWidget {
@@ -42,6 +43,78 @@ class _CalendarWidgetState extends State<CalendarWidget> {
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
+  dynamic test;
+
+  @override
+  void initState() {
+    super.initState();
+    getGoogleCalendarMonthEvents(_focusedDay);
+  }
+
+  List<dynamic> _getEventsForDay(DateTime day) {
+    // return dummyEvents[day] ?? [];
+    // return null;
+    if (test != null) {
+      print(test[day]);
+      return test[day] ?? [];
+    }
+    return [];
+  }
+
+  dynamic getGoogleCalendarMonthEvents(DateTime focusedDay) async {
+    DateTime start = DateTime(focusedDay.year, focusedDay.month, 1);
+    DateTime end = DateTime(focusedDay.year, focusedDay.month + 1, 1);
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    User? user = auth.currentUser;
+    if (user != null) {
+      try {
+        final accessToken = await getAccessToken();
+        String apiUrl =
+            'https://www.googleapis.com/calendar/v3/calendars/primary/events?timeMin=${start.toUtc().toIso8601String()}&timeMax=${end.toUtc().toIso8601String()}';
+        Map<String, String> headers = {'Authorization': 'Bearer $accessToken'};
+        var response = await http.get(
+          Uri.parse(apiUrl),
+          headers: headers,
+        );
+        final res = jsonDecode(response.body);
+
+        final Map<DateTime, dynamic> events = {};
+
+        if (res.containsKey('items')) {
+          if (res['items'] is List) {
+            List<dynamic> items = res['items'];
+            for (var item in items) {
+              final String eventStartKey =
+                  item['start']['date'] ?? item['start']['dateTime'];
+              DateTime parsedDateTime = DateTime.parse(eventStartKey);
+              DateTime dateTimeWithYearMonthDay = DateTime.utc(
+                      parsedDateTime.year,
+                      parsedDateTime.month,
+                      parsedDateTime.day)
+                  .toUtc();
+              // print(dateTimeWithYearMonthDay);
+              if (!events.containsKey(dateTimeWithYearMonthDay)) {
+                events[dateTimeWithYearMonthDay] = [item];
+              } else {
+                // 같은 키 값이 있다면 해당 배열에 데이터 추가
+                events[dateTimeWithYearMonthDay]!.add(item);
+              }
+            }
+          }
+        }
+        log(events.toString());
+        setState(() {
+          test = events;
+        });
+        return events;
+
+        // print(eventList[0].id);
+      } catch (error) {
+        print('error $error');
+      }
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,38 +203,50 @@ class _CalendarWidgetState extends State<CalendarWidget> {
   }
 }
 
-Future<List<Event>?> getGoogleCalendarMonthEvents(DateTime focusedDay) async {
-  DateTime start = DateTime(focusedDay.year, focusedDay.month, 1);
-  DateTime end = DateTime(focusedDay.year, focusedDay.month + 1, 1);
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  User? user = auth.currentUser;
-  if (user != null) {
-    try {
-      final accessToken = await getAccessToken();
-      String apiUrl =
-          'https://www.googleapis.com/calendar/v3/calendars/primary/events?timeMin=${start.toUtc().toIso8601String()}&timeMax=${end.toUtc().toIso8601String()}';
-      Map<String, String> headers = {'Authorization': 'Bearer $accessToken'};
-      var response = await http.get(
-        Uri.parse(apiUrl),
-        headers: headers,
-      );
-      final res = jsonDecode(response.body);
+// Future<Map<DateTime, List<Event>>?> getGoogleCalendarMonthEvents(
+//     DateTime focusedDay) async {
+//   DateTime start = DateTime(focusedDay.year, focusedDay.month, 1);
+//   DateTime end = DateTime(focusedDay.year, focusedDay.month + 1, 1);
+//   final FirebaseAuth auth = FirebaseAuth.instance;
+//   User? user = auth.currentUser;
+//   if (user != null) {
+//     try {
+//       final accessToken = await getAccessToken();
+//       String apiUrl =
+//           'https://www.googleapis.com/calendar/v3/calendars/primary/events?timeMin=${start.toUtc().toIso8601String()}&timeMax=${end.toUtc().toIso8601String()}';
+//       Map<String, String> headers = {'Authorization': 'Bearer $accessToken'};
+//       var response = await http.get(
+//         Uri.parse(apiUrl),
+//         headers: headers,
+//       );
+//       final res = jsonDecode(response.body);
 
-      if (res.containsKey('items')) {
-        if (res['items'] is List) {
-          List<dynamic> items = res['items'];
-          for (var e in items) {
-            final String eventStartKey =
-                e['start']['date'] ?? e['start']['dateTime'];
-            print(eventStartKey);
-          }
-        }
-      }
+//       final Map<DateTime, List<dynamic>> events = {};
 
-      // print(eventList[0].id);
-    } catch (error) {
-      print('error $error');
-    }
-  }
-  return null;
-}
+//       if (res.containsKey('items')) {
+//         if (res['items'] is List) {
+//           List<dynamic> items = res['items'];
+//           for (var item in items) {
+//             final String eventStartKey =
+//                 item['start']['date'] ?? item['start']['dateTime'];
+//             DateTime parsedDateTime = DateTime.parse(eventStartKey);
+//             DateTime dateTimeWithYearMonthDay = DateTime(
+//                 parsedDateTime.year, parsedDateTime.month, parsedDateTime.day);
+//             if (!events.containsKey(dateTimeWithYearMonthDay)) {
+//               events[dateTimeWithYearMonthDay] = [item];
+//             } else {
+//               // 같은 키 값이 있다면 해당 배열에 데이터 추가
+//               events[dateTimeWithYearMonthDay]!.add(item);
+//             }
+//           }
+//         }
+//       }
+//       return events as Map<DateTime, List<Event>>;
+
+//       // print(eventList[0].id);
+//     } catch (error) {
+//       print('error $error');
+//     }
+//   }
+//   return null;
+// }
