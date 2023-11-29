@@ -1,31 +1,34 @@
-import 'dart:developer';
+import 'dart:convert';
 
 import 'package:calendar_app/constants/customColor.dart';
 import 'package:calendar_app/utils/googleAccessToken.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:googleapis/calendar/v3.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class Event {
+class DummyEvent {
   String title;
 
-  Event(this.title);
+  DummyEvent(this.title);
 }
 
-// Todo Event 타입 지정 및 실제데이터 가져와야함
-Map<DateTime, List<Event>> events = {
+// Todo DummyEvent 타입 지정 및 실제데이터 가져와야함
+Map<DateTime, List<DummyEvent>> events = {
   DateTime.utc(2023, 11, 20): [
-    Event('title'),
-    Event('title2'),
+    DummyEvent('title'),
+    DummyEvent('title2'),
   ],
-  DateTime.utc(2023, 11, 23): [Event('title3')],
+  DateTime.utc(2023, 11, 23): [DummyEvent('title3')],
 };
 
 // Todo 이벤트 목록 할당해야함
 List<Event> _getEventsForDay(DateTime day) {
-  return events[day] ?? [];
+  // return events[day] ?? [];
+  // return null;
+  return [];
 }
 
 class CalendarWidget extends StatefulWidget {
@@ -127,8 +130,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
   }
 }
 
-Future<String?> getGoogleCalendarMonthEvents(DateTime focusedDay) async {
-  print('focusedDay $focusedDay');
+Future<List<Event>?> getGoogleCalendarMonthEvents(DateTime focusedDay) async {
   DateTime start = DateTime(focusedDay.year, focusedDay.month, 1);
   DateTime end = DateTime(focusedDay.year, focusedDay.month + 1, 1);
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -143,7 +145,20 @@ Future<String?> getGoogleCalendarMonthEvents(DateTime focusedDay) async {
         Uri.parse(apiUrl),
         headers: headers,
       );
-      log(response.body);
+      final res = jsonDecode(response.body);
+
+      if (res.containsKey('items')) {
+        if (res['items'] is List) {
+          List<dynamic> items = res['items'];
+          for (var e in items) {
+            final String eventStartKey =
+                e['start']['date'] ?? e['start']['dateTime'];
+            print(eventStartKey);
+          }
+        }
+      }
+
+      // print(eventList[0].id);
     } catch (error) {
       print('error $error');
     }
