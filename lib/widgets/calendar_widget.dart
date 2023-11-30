@@ -1,11 +1,10 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:calendar_app/constants/customColor.dart';
 import 'package:calendar_app/utils/googleAccessToken.dart';
+import 'package:calendar_app/widgets/ScheduleBox.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:googleapis/calendar/v3.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -43,20 +42,22 @@ class _CalendarWidgetState extends State<CalendarWidget> {
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
-  dynamic test;
+  dynamic monthEvents;
+  late final ValueNotifier<List<dynamic>> _selectedEvents;
 
   @override
   void initState() {
     super.initState();
     getGoogleCalendarMonthEvents(_focusedDay);
+    _selectedDay = _focusedDay;
+    _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
   }
 
   List<dynamic> _getEventsForDay(DateTime day) {
     // return dummyEvents[day] ?? [];
     // return null;
-    if (test != null) {
-      print(test[day]);
-      return test[day] ?? [];
+    if (monthEvents != null) {
+      return monthEvents[day] ?? [];
     }
     return [];
   }
@@ -66,6 +67,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
     DateTime end = DateTime(focusedDay.year, focusedDay.month + 1, 1);
     final FirebaseAuth auth = FirebaseAuth.instance;
     User? user = auth.currentUser;
+    print('이거 실행');
     if (user != null) {
       try {
         final accessToken = await getAccessToken();
@@ -102,9 +104,8 @@ class _CalendarWidgetState extends State<CalendarWidget> {
             }
           }
         }
-        log(events.toString());
         setState(() {
-          test = events;
+          monthEvents = events;
         });
         return events;
 
@@ -121,6 +122,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
     return Column(
       children: [
         Container(
+          margin: const EdgeInsets.all(20.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20.0),
             color: CustomColor.pastelBlue,
@@ -183,6 +185,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                   _selectedDay = selectedDay;
                   _focusedDay = focusedDay;
                 });
+                _selectedEvents.value = _getEventsForDay(selectedDay);
               }
             },
             onFormatChanged: (format) {
@@ -198,55 +201,32 @@ class _CalendarWidgetState extends State<CalendarWidget> {
             },
           ),
         ),
+        Expanded(
+          child: Container(
+            color: CustomColor.pastelBlue,
+            padding: const EdgeInsets.all(12.0),
+            child: ValueListenableBuilder<List<dynamic>>(
+              valueListenable: _selectedEvents,
+              builder: (context, value, _) {
+                return ListView.separated(
+                  separatorBuilder: (context, index) {
+                    return const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 8),
+                    );
+                  },
+                  itemCount: value.length,
+                  itemBuilder: (context, index) {
+                    return ScheduleBox(
+                      bgColor: CustomColor.lightPurple, // Todo 커스텀
+                      event: value[index],
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        )
       ],
     );
   }
 }
-
-// Future<Map<DateTime, List<Event>>?> getGoogleCalendarMonthEvents(
-//     DateTime focusedDay) async {
-//   DateTime start = DateTime(focusedDay.year, focusedDay.month, 1);
-//   DateTime end = DateTime(focusedDay.year, focusedDay.month + 1, 1);
-//   final FirebaseAuth auth = FirebaseAuth.instance;
-//   User? user = auth.currentUser;
-//   if (user != null) {
-//     try {
-//       final accessToken = await getAccessToken();
-//       String apiUrl =
-//           'https://www.googleapis.com/calendar/v3/calendars/primary/events?timeMin=${start.toUtc().toIso8601String()}&timeMax=${end.toUtc().toIso8601String()}';
-//       Map<String, String> headers = {'Authorization': 'Bearer $accessToken'};
-//       var response = await http.get(
-//         Uri.parse(apiUrl),
-//         headers: headers,
-//       );
-//       final res = jsonDecode(response.body);
-
-//       final Map<DateTime, List<dynamic>> events = {};
-
-//       if (res.containsKey('items')) {
-//         if (res['items'] is List) {
-//           List<dynamic> items = res['items'];
-//           for (var item in items) {
-//             final String eventStartKey =
-//                 item['start']['date'] ?? item['start']['dateTime'];
-//             DateTime parsedDateTime = DateTime.parse(eventStartKey);
-//             DateTime dateTimeWithYearMonthDay = DateTime(
-//                 parsedDateTime.year, parsedDateTime.month, parsedDateTime.day);
-//             if (!events.containsKey(dateTimeWithYearMonthDay)) {
-//               events[dateTimeWithYearMonthDay] = [item];
-//             } else {
-//               // 같은 키 값이 있다면 해당 배열에 데이터 추가
-//               events[dateTimeWithYearMonthDay]!.add(item);
-//             }
-//           }
-//         }
-//       }
-//       return events as Map<DateTime, List<Event>>;
-
-//       // print(eventList[0].id);
-//     } catch (error) {
-//       print('error $error');
-//     }
-//   }
-//   return null;
-// }

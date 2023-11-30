@@ -1,10 +1,11 @@
 import 'package:calendar_app/constants/customColor.dart';
 import 'package:flutter/material.dart';
+import 'package:googleapis/calendar/v3.dart';
 
 class ScheduleBox extends StatelessWidget {
-  const ScheduleBox({super.key, required this.bgColor});
-
+  const ScheduleBox({super.key, required this.bgColor, required this.event});
   final Color bgColor;
+  final dynamic event;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,37 +22,34 @@ class ScheduleBox extends StatelessWidget {
           )
         ],
       ),
+      margin: const EdgeInsets.symmetric(
+        horizontal: 8.0,
+        vertical: 4.0,
+      ),
       padding: const EdgeInsets.symmetric(
         horizontal: 30,
       ),
-      child: const Column(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
-            children: [
-              Text(
-                'Sprint meeting',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: CustomColor.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text('14:00 ~ 15:30',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: CustomColor.white,
-                    fontWeight: FontWeight.bold,
-                  )),
-            ],
-          ),
           Text(
-            '3 Days remaining',
-            style: TextStyle(
-              fontSize: 14,
+            event['summary'],
+            style: const TextStyle(
+              fontSize: 16,
               color: CustomColor.white,
+              fontWeight: FontWeight.bold,
             ),
           ),
+          Text(
+              event['start']['date'] != null
+                  ? '하루종일'
+                  : "${event['start']['dateTime'].hours.toString().padLeft(2, '0')} ~ ${event['end']['dateTime']}",
+              style: const TextStyle(
+                fontSize: 16,
+                color: CustomColor.white,
+                fontWeight: FontWeight.bold,
+              )),
         ],
       ),
     );
