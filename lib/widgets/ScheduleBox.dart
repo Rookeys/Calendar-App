@@ -58,7 +58,6 @@ class ScheduleBox extends StatelessWidget {
 }
 
 String FormattedDateTime(DateTime dateTime) {
-  print(dateTime);
   final hour = dateTime.hour;
   final minute = dateTime.minute;
   String formattedDateTime =
