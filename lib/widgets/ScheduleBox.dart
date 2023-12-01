@@ -42,16 +42,27 @@ class ScheduleBox extends StatelessWidget {
             ),
           ),
           Text(
-              event['start']['date'] != null
-                  ? '하루종일'
-                  : "${event['start']['dateTime'].hours.toString().padLeft(2, '0')} ~ ${event['end']['dateTime']}",
-              style: const TextStyle(
-                fontSize: 16,
-                color: CustomColor.white,
-                fontWeight: FontWeight.bold,
-              )),
+            event['start']['date'] != null
+                ? '하루종일'
+                : '${FormattedDateTime(DateTime.parse(event['start']['dateTime']).toLocal())} ~ ${FormattedDateTime(DateTime.parse(event['end']['dateTime']).toLocal())}',
+            style: const TextStyle(
+              fontSize: 16,
+              color: CustomColor.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
+}
+
+String FormattedDateTime(DateTime dateTime) {
+  print(dateTime);
+  final hour = dateTime.hour;
+  final minute = dateTime.minute;
+  String formattedDateTime =
+      "${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}";
+
+  return formattedDateTime;
 }

@@ -67,7 +67,6 @@ class _CalendarWidgetState extends State<CalendarWidget> {
     DateTime end = DateTime(focusedDay.year, focusedDay.month + 1, 1);
     final FirebaseAuth auth = FirebaseAuth.instance;
     User? user = auth.currentUser;
-    print('이거 실행');
     if (user != null) {
       try {
         final accessToken = await getAccessToken();
