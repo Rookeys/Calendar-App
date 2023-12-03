@@ -13,6 +13,9 @@ class MyPageEditForm extends StatefulWidget {
 
 class _FormComponentState extends State<MyPageEditForm> {
   final _formKey = GlobalKey<FormState>();
+  String email = '';
+  String password = '';
+  String phone = '';
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -21,7 +24,7 @@ class _FormComponentState extends State<MyPageEditForm> {
         children: [
           CustomInput(
             label: 'E-mail',
-            onSaved: (newValue) => {},
+            onSaved: (value) => {email = value},
             validator: (value) {
               if (value.isEmpty) {
                 return '필수 필드입니다.';
@@ -31,7 +34,7 @@ class _FormComponentState extends State<MyPageEditForm> {
           ),
           CustomSecretInput(
             label: 'Password',
-            onSaved: (newValue) => {},
+            onSaved: (value) => {password = value},
             validator: (value) {
               if (value.isEmpty) {
                 return '필수 필드입니다.';
@@ -41,7 +44,7 @@ class _FormComponentState extends State<MyPageEditForm> {
           ),
           CustomInput(
             label: 'Phone',
-            onSaved: (newValue) => {},
+            onSaved: (value) => {phone = value},
             validator: (value) {
               if (value.isEmpty) {
                 return '필수 필드입니다.';
@@ -52,7 +55,11 @@ class _FormComponentState extends State<MyPageEditForm> {
           ElevatedButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {
+                // _formKey.currentState!.save();
                 showSuccessMessage('validation 통과');
+                print('before $email $password $phone');
+                _formKey.currentState!.save();
+                print('after $email $password $phone');
               }
             },
             style: ElevatedButton.styleFrom(
