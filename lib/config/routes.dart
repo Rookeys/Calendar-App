@@ -95,14 +95,16 @@ final GoRouter routes = GoRouter(
         child: const Register(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) =>
             FadeTransition(opacity: animation, child: child),
-     ),
-     GoRoute(
-      path: '/notification',
-      pageBuilder: (context, state) => CustomTransitionPage<void>(
-        key: state.pageKey,
-        child: const Notifications(),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-            FadeTransition(opacity: animation, child: child),
-     )
+      ),
+    ),
+    GoRoute(
+        path: '/notification',
+        pageBuilder: (context, state) => CustomTransitionPage<void>(
+              key: state.pageKey,
+              child: const Notifications(),
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) =>
+                      FadeTransition(opacity: animation, child: child),
+            ))
   ],
 );
