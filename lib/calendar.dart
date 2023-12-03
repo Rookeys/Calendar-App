@@ -1,11 +1,10 @@
+import 'dart:developer';
 import 'package:calendar_app/constants/customColor.dart';
 import 'package:calendar_app/utils/googleAccessToken.dart';
-import 'package:calendar_app/widgets/ScheduleBox.dart';
 import 'package:calendar_app/widgets/calendar_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'dart:developer';
 
 class Calendar extends StatelessWidget {
   const Calendar({super.key});

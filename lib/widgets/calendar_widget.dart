@@ -9,28 +9,6 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class DummyEvent {
-  String title;
-
-  DummyEvent(this.title);
-}
-
-// Todo DummyEvent 타입 지정 및 실제데이터 가져와야함
-Map<DateTime, List<DummyEvent>> dummyEvents = {
-  DateTime.utc(2023, 11, 20): [
-    DummyEvent('title'),
-    DummyEvent('title2'),
-  ],
-  DateTime.utc(2023, 11, 23): [DummyEvent('title3')],
-};
-
-// Todo 이벤트 목록 할당해야함
-List<DummyEvent> _getDummyEventsForDay(DateTime day) {
-  // return dummyEvents[day] ?? [];
-  // return null;
-  return dummyEvents[day] ?? [];
-}
-
 class CalendarWidget extends StatefulWidget {
   const CalendarWidget({super.key});
 
@@ -54,8 +32,6 @@ class _CalendarWidgetState extends State<CalendarWidget> {
   }
 
   List<dynamic> _getEventsForDay(DateTime day) {
-    // return dummyEvents[day] ?? [];
-    // return null;
     if (monthEvents != null) {
       return monthEvents[day] ?? [];
     }
@@ -224,7 +200,44 @@ class _CalendarWidgetState extends State<CalendarWidget> {
               },
             ),
           ),
-        )
+        ),
+        ElevatedButton(
+          onPressed: () {
+            showModalBottomSheet(
+              context: context,
+              isScrollControlled: true,
+              builder: (BuildContext context) {
+                return Container(
+                  width: double.infinity,
+                  height: MediaQuery.of(context).size.height * 0.9,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(24)),
+                    color: CustomColor.white,
+                  ),
+                  child: Column(
+                    children: [
+                      Divider(
+                        color: CustomColor.darkGray,
+                        height: 20,
+                        indent: MediaQuery.of(context).size.width * 0.45,
+                        endIndent: MediaQuery.of(context).size.width * 0.45,
+                        thickness: 4,
+                      ),
+                      const Text('test'),
+                    ],
+                  ),
+                );
+              },
+            );
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: CustomColor.white,
+            foregroundColor: CustomColor.black,
+          ),
+          child: const Text('Test Button'),
+        ),
+        // showModalBottomSheet
+        // DraggableScrollableSheet
       ],
     );
   }
