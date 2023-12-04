@@ -7,11 +7,15 @@ class CustomInput extends StatelessWidget {
     required this.label,
     required this.onSaved,
     required this.validator,
+    this.inputContainerDecoration,
+    this.inputDecoration,
   });
 
   final String label;
   final FormFieldSetter onSaved;
   final FormFieldValidator validator;
+  final BoxDecoration? inputContainerDecoration;
+  final InputDecoration? inputDecoration;
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +32,15 @@ class CustomInput extends StatelessWidget {
               color: CustomColor.darkGray,
             ),
           ),
-          TextFormField(
-            onSaved: onSaved,
-            validator: validator,
-            // autovalidateMode: AutovalidateMode.always, // 제어컴포넌트
+          Container(
+            decoration: inputContainerDecoration,
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+            child: TextFormField(
+              onSaved: onSaved,
+              decoration: inputDecoration,
+              validator: validator,
+              // autovalidateMode: AutovalidateMode.always, // 제어컴포넌트
+            ),
           ),
           const SizedBox(
             height: 16.0,

@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:calendar_app/common/customInput.dart';
+import 'package:calendar_app/common/datePickerInput.dart';
 import 'package:calendar_app/constants/customColor.dart';
 import 'package:calendar_app/utils/googleAccessToken.dart';
 import 'package:calendar_app/widgets/ScheduleBox.dart';
@@ -22,6 +24,8 @@ class _CalendarWidgetState extends State<CalendarWidget> {
   DateTime? _selectedDay;
   dynamic monthEvents;
   late final ValueNotifier<List<dynamic>> _selectedEvents;
+  String title = '';
+  String summary = '';
 
   @override
   void initState() {
@@ -223,7 +227,45 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                         endIndent: MediaQuery.of(context).size.width * 0.45,
                         thickness: 4,
                       ),
-                      const Text('test'),
+                      // Todo DatePickerInput 날짜 보여주는 조건 수정해야함.
+                      // 입사일 = 현재날짜까지 / 휴가신청 = 현재날짜 이후부터
+                      const DatePickerInput(
+                        label: '',
+                      ),
+                      CustomInput(
+                        label: 'Title',
+                        inputContainerDecoration: BoxDecoration(
+                          color: CustomColor.brightGray,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        inputDecoration: const InputDecoration(
+                          border: InputBorder.none,
+                        ),
+                        onSaved: (value) => {title = value},
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return '필수 필드입니다.';
+                          }
+                          return null;
+                        },
+                      ),
+                      CustomInput(
+                        label: 'Summary',
+                        inputContainerDecoration: BoxDecoration(
+                          color: CustomColor.brightGray,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        inputDecoration: const InputDecoration(
+                          border: InputBorder.none,
+                        ),
+                        onSaved: (value) => {summary = value},
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return '필수 필드입니다.';
+                          }
+                          return null;
+                        },
+                      ),
                     ],
                   ),
                 );
