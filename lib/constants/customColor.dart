@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class CustomColor {
   static const Color skyBlue = Color(0xFF28C2F2);
   static const Color pastelBlue = Color(0xFF99DBF5);
+  static const Color whiteBlue = Color(0xFFecf9fd);
   static const Color lightPurple = Color(0xFFBBCEFF);
   static const Color lightYellow = Color(0xFFFFEEBB);
   static const Color orange = Color(0xFFF0A422);

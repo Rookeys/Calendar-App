@@ -80,6 +80,20 @@ class Home extends StatelessWidget {
               ),
               child: const Text('Register Company'),
             ),
+            ElevatedButton(
+              onPressed: () {
+                context.go('/myPage');
+                // context.push('/calendar');
+              },
+              //          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+              //       FadeTransition(opacity: animation, child: child),
+              // ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: CustomColor.skyBlue,
+                foregroundColor: CustomColor.white,
+              ),
+              child: const Text('Go to My Page'),
+            ),
           ],
         ),
       ),
