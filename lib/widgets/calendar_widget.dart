@@ -227,10 +227,9 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                         endIndent: MediaQuery.of(context).size.width * 0.45,
                         thickness: 4,
                       ),
-                      // Todo DatePickerInput 날짜 보여주는 조건 수정해야함.
-                      // 입사일 = 현재날짜까지 / 휴가신청 = 현재날짜 이후부터
                       const DatePickerInput(
                         label: '',
+                        isFutureCalendar: true,
                       ),
                       CustomInput(
                         label: 'Title',
