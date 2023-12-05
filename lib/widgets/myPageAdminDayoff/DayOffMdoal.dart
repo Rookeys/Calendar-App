@@ -163,9 +163,11 @@ class _DayOffModalState extends State<DayOffModal> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    setState(() {
-                      isRejected = !isRejected;
-                    });
+                    isRejected
+                        ? Navigator.of(context).pop()
+                        : setState(() {
+                            isRejected = !isRejected;
+                          });
                   },
                   style: ButtonStyle(backgroundColor:
                       MaterialStateProperty.resolveWith<Color>(
@@ -185,10 +187,11 @@ class _DayOffModalState extends State<DayOffModal> {
                     onPressed: () {
                       isRejected
                           // ! should be submit here and pop
-                          ? Navigator.of(context).pop()
-                          : setState(() {
-                              isRejected = !isRejected;
-                            });
+                          ? {print('reject Logic'), Navigator.of(context).pop()}
+                          : {
+                              print('approve Logic'),
+                              Navigator.of(context).pop()
+                            };
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.resolveWith<Color>(
