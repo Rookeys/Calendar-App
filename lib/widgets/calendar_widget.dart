@@ -127,6 +127,9 @@ class _CalendarWidgetState extends State<CalendarWidget> {
             // 'timeZone': 'Asia/Seoul'
             'date': '2023-12-20',
           },
+          'reminders': {
+            'useDefault': false, // 이거 안하면 default 로 알람설정됨
+          }
         };
 
         var response = await http.post(Uri.parse(apiUrl),
