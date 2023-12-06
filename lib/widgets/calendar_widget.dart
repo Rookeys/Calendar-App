@@ -4,6 +4,7 @@ import 'package:calendar_app/common/customInput.dart';
 import 'package:calendar_app/common/datePickerInput.dart';
 import 'package:calendar_app/constants/customColor.dart';
 import 'package:calendar_app/utils/googleAccessToken.dart';
+import 'package:calendar_app/utils/toastMessage.dart';
 import 'package:calendar_app/widgets/ScheduleBox.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -24,8 +25,10 @@ class _CalendarWidgetState extends State<CalendarWidget> {
   DateTime? _selectedDay;
   dynamic monthEvents;
   late final ValueNotifier<List<dynamic>> _selectedEvents;
+  final _formKey = GlobalKey<FormState>();
   String title = '';
   String summary = '';
+  String date = '';
 
   @override
   void initState() {
@@ -87,6 +90,52 @@ class _CalendarWidgetState extends State<CalendarWidget> {
           monthEvents = events;
         });
         return events;
+
+        // print(eventList[0].id);
+      } catch (error) {
+        print('error $error');
+      }
+    }
+    return null;
+  }
+
+  dynamic postGoogleCalendarEvent() async {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    User? user = auth.currentUser;
+
+    // String start =
+    //     DateTime(DateTime.now().year, DateTime.now().month, 15).toString();
+    // String end =
+    //     DateTime(DateTime.now().year, DateTime.now().month, 15).toString();
+
+    if (user != null) {
+      try {
+        final accessToken = await getAccessToken();
+        String apiUrl =
+            'https://www.googleapis.com/calendar/v3/calendars/primary/events';
+        Map<String, String> headers = {'Authorization': 'Bearer $accessToken'};
+        final test = {
+          'summary': 'Flutter 로 POST 한거',
+          'description': '@설명설명설명@',
+          'start': {
+            // 'dateTime': '2023-12-20T09:00:00',
+            // 'timeZone': 'Asia/Seoul',
+            'date': '2023-12-20',
+          },
+          'end': {
+            // 'dateTime': '2023-12-20T10:00:00',
+            // 'timeZone': 'Asia/Seoul'
+            'date': '2023-12-20',
+          },
+        };
+
+        var response = await http.post(Uri.parse(apiUrl),
+            headers: headers, body: jsonEncode(test));
+        final res = jsonDecode(response.body);
+
+        print(response);
+        print(response.body);
+        return res.body;
 
         // print(eventList[0].id);
       } catch (error) {
@@ -211,61 +260,82 @@ class _CalendarWidgetState extends State<CalendarWidget> {
               context: context,
               isScrollControlled: true,
               builder: (BuildContext context) {
-                return Container(
-                  width: double.infinity,
-                  height: MediaQuery.of(context).size.height * 0.9,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(24)),
-                    color: CustomColor.white,
-                  ),
-                  child: Column(
-                    children: [
-                      Divider(
-                        color: CustomColor.darkGray,
-                        height: 20,
-                        indent: MediaQuery.of(context).size.width * 0.45,
-                        endIndent: MediaQuery.of(context).size.width * 0.45,
-                        thickness: 4,
-                      ),
-                      const DatePickerInput(
-                        label: '',
-                        isFutureCalendar: true,
-                      ),
-                      CustomInput(
-                        label: 'Title',
-                        inputContainerDecoration: BoxDecoration(
-                          color: CustomColor.brightGray,
-                          borderRadius: BorderRadius.circular(8),
+                return Form(
+                  key: _formKey,
+                  child: Container(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height * 0.9,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(24)),
+                      color: CustomColor.white,
+                    ),
+                    child: Column(
+                      children: [
+                        Divider(
+                          color: CustomColor.darkGray,
+                          height: 20,
+                          indent: MediaQuery.of(context).size.width * 0.45,
+                          endIndent: MediaQuery.of(context).size.width * 0.45,
+                          thickness: 4,
                         ),
-                        inputDecoration: const InputDecoration(
-                          border: InputBorder.none,
+                        DatePickerInput(
+                          label: '',
+                          isFutureCalendar: true,
+                          onSaved: (value) => {date = value},
                         ),
-                        onSaved: (value) => {title = value},
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return '필수 필드입니다.';
-                          }
-                          return null;
-                        },
-                      ),
-                      CustomInput(
-                        label: 'Summary',
-                        inputContainerDecoration: BoxDecoration(
-                          color: CustomColor.brightGray,
-                          borderRadius: BorderRadius.circular(8),
+                        CustomInput(
+                          label: 'Title',
+                          inputContainerDecoration: BoxDecoration(
+                            color: CustomColor.brightGray,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          inputDecoration: const InputDecoration(
+                            border: InputBorder.none,
+                          ),
+                          onSaved: (value) => {title = value},
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return '필수 필드입니다.';
+                            }
+                            return null;
+                          },
                         ),
-                        inputDecoration: const InputDecoration(
-                          border: InputBorder.none,
+                        CustomInput(
+                          label: 'Summary',
+                          inputContainerDecoration: BoxDecoration(
+                            color: CustomColor.brightGray,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          inputDecoration: const InputDecoration(
+                            border: InputBorder.none,
+                          ),
+                          onSaved: (value) => {summary = value},
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return '필수 필드입니다.';
+                            }
+                            return null;
+                          },
                         ),
-                        onSaved: (value) => {summary = value},
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return '필수 필드입니다.';
-                          }
-                          return null;
-                        },
-                      ),
-                    ],
+                        ElevatedButton(
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              // _formKey.currentState!.save();
+                              showSuccessMessage('validation 통과');
+                              print('before $title $summary $date');
+                              _formKey.currentState!.save();
+                              print('after $title $summary $date');
+                              postGoogleCalendarEvent();
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: CustomColor.skyBlue,
+                            foregroundColor: CustomColor.white,
+                          ),
+                          child: const Text('Submit'),
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },
