@@ -2,6 +2,7 @@ import 'package:calendar_app/announcement.dart';
 import 'package:calendar_app/auth.dart';
 import 'package:calendar_app/calendar.dart';
 import 'package:calendar_app/dayOffHistory.dart';
+import 'package:calendar_app/dayOffRequest.dart';
 import 'package:calendar_app/home.dart';
 import 'package:calendar_app/members-admin-edit.dart';
 import 'package:calendar_app/members-admin.dart';
@@ -84,13 +85,26 @@ final GoRouter routes = GoRouter(
       builder: (context, state) => const MembersAdminEdit(),
     ),
     GoRoute(
-      path: '/notification',
+      path: '/dayoff-request',
+      builder: (context, state) => const DayOffRequest(),
+    ),
+    GoRoute(
+      path: '/register',
       pageBuilder: (context, state) => CustomTransitionPage<void>(
         key: state.pageKey,
-        child: const Notifications(),
+        child: const Register(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) =>
             FadeTransition(opacity: animation, child: child),
       ),
     ),
+    GoRoute(
+        path: '/notification',
+        pageBuilder: (context, state) => CustomTransitionPage<void>(
+              key: state.pageKey,
+              child: const Notifications(),
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) =>
+                      FadeTransition(opacity: animation, child: child),
+            ))
   ],
 );
