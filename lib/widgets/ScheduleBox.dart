@@ -1,6 +1,5 @@
 import 'package:calendar_app/constants/customColor.dart';
 import 'package:flutter/material.dart';
-import 'package:googleapis/calendar/v3.dart';
 
 class ScheduleBox extends StatelessWidget {
   const ScheduleBox({super.key, required this.bgColor, required this.event});

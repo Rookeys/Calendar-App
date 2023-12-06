@@ -6,10 +6,12 @@ class DatePickerInput extends StatefulWidget {
     super.key,
     required this.label,
     this.isFutureCalendar = false,
+    required this.onSaved,
   });
 
   final String label;
   final bool isFutureCalendar;
+  final FormFieldSetter onSaved;
 
   @override
   State<DatePickerInput> createState() => _MyWidgetState();
@@ -39,6 +41,7 @@ class _MyWidgetState extends State<DatePickerInput> {
                 controller: TextEditingController.fromValue(TextEditingValue(
                     text:
                         "${date.year.toString()}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}")),
+                onSaved: widget.onSaved,
                 // onSaved: widget.onSaved,
                 // validator: widget.validator,
                 readOnly: true,
