@@ -25,11 +25,7 @@ class Home extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 context.go('/calendar');
-                // context.push('/calendar');
               },
-              //          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-              //       FadeTransition(opacity: animation, child: child),
-              // ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: CustomColor.skyBlue,
                 foregroundColor: CustomColor.white,
@@ -38,13 +34,23 @@ class Home extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                context.go('/auth');
+                context.go('/announcement');
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: CustomColor.skyBlue,
                 foregroundColor: CustomColor.white,
               ),
-              child: const Text('Go to Auth Page'),
+              child: const Text('Go to Announcement Page'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                context.go('/notification');
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: CustomColor.skyBlue,
+                foregroundColor: CustomColor.white,
+              ),
+              child: const Text('Go to Notification Page'),
             ),
             ElevatedButton(
               onPressed: () {
@@ -65,6 +71,27 @@ class Home extends StatelessWidget {
                 foregroundColor: CustomColor.white,
               ),
               child: const Text('Register Company'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                context.go('/myPage');
+                // context.push('/calendar');
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: CustomColor.skyBlue,
+                foregroundColor: CustomColor.white,
+              ),
+              child: const Text('Go to My Page'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                context.go('/dayoff-request');
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: CustomColor.skyBlue,
+                foregroundColor: CustomColor.white,
+              ),
+              child: const Text('Go to Day Off Request'),
             ),
           ],
         ),
