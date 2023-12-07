@@ -14,11 +14,27 @@
       },
       "oauth_client": [
         {
+          "client_id": "329671345929-5vciuiol5buvfo4bhe9ti64tph43biir.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rookey.calendar_app",
+            "certificate_hash": "512df7a89e8f895600a0a358458f84eb739571b0"
+          }
+        },
+        {
           "client_id": "329671345929-m0dqrjlobdesuqcrjabc6eifdvuu03et.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.rookey.calendar_app",
             "certificate_hash": "1e74a336fb301a656716788c0476cc951e85c314"
+          }
+        },
+        {
+          "client_id": "329671345929-misir1vfbpl4j2t8u7ups4to3ptpl990.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rookey.calendar_app",
+            "certificate_hash": "83aea62dd4f0afdd6e0c6d4c99d174f82da06c8c"
           }
         },
         {
