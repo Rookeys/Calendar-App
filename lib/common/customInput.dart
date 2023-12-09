@@ -6,14 +6,14 @@ class CustomInput extends StatelessWidget {
     super.key,
     required this.label,
     required this.onSaved,
-    required this.validator,
+    this.validator,
     this.inputContainerDecoration,
     this.inputDecoration,
   });
 
   final String label;
   final FormFieldSetter onSaved;
-  final FormFieldValidator validator;
+  final FormFieldValidator? validator;
   final BoxDecoration? inputContainerDecoration;
   final InputDecoration? inputDecoration;
 

@@ -26,9 +26,10 @@ class _CalendarWidgetState extends State<CalendarWidget> {
   dynamic monthEvents;
   late final ValueNotifier<List<dynamic>> _selectedEvents;
   final _formKey = GlobalKey<FormState>();
-  String title = '';
   String summary = '';
-  String date = '';
+  String description = '';
+  String startDate = '';
+  // String endDate = '';
 
   @override
   void initState() {
@@ -99,7 +100,8 @@ class _CalendarWidgetState extends State<CalendarWidget> {
     return null;
   }
 
-  dynamic postGoogleCalendarEvent() async {
+  dynamic postGoogleCalendarEvent(
+      String title, String description, String date) async {
     final FirebaseAuth auth = FirebaseAuth.instance;
     User? user = auth.currentUser;
 
@@ -115,21 +117,22 @@ class _CalendarWidgetState extends State<CalendarWidget> {
             'https://www.googleapis.com/calendar/v3/calendars/primary/events';
         Map<String, String> headers = {'Authorization': 'Bearer $accessToken'};
         final test = {
-          'summary': 'Flutter 로 POST 한거',
-          'description': '@설명설명설명@',
+          'summary': title,
+          'description': description,
           'start': {
             // 'dateTime': '2023-12-20T09:00:00',
-            // 'timeZone': 'Asia/Seoul',
-            'date': '2023-12-20',
+            'timeZone': 'Asia/Seoul',
+            'date': date,
           },
           'end': {
             // 'dateTime': '2023-12-20T10:00:00',
-            // 'timeZone': 'Asia/Seoul'
-            'date': '2023-12-20',
+            'timeZone': 'Asia/Seoul',
+            'date': date,
           },
           'reminders': {
             'useDefault': false, // 이거 안하면 default 로 알람설정됨
-          }
+          },
+          "transparency": 'transparent'
         };
 
         var response = await http.post(Uri.parse(apiUrl),
@@ -284,25 +287,13 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                         DatePickerInput(
                           label: '',
                           isFutureCalendar: true,
-                          onSaved: (value) => {date = value},
+                          onSaved: (value) => {startDate = value},
                         ),
-                        CustomInput(
-                          label: 'Title',
-                          inputContainerDecoration: BoxDecoration(
-                            color: CustomColor.brightGray,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          inputDecoration: const InputDecoration(
-                            border: InputBorder.none,
-                          ),
-                          onSaved: (value) => {title = value},
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return '필수 필드입니다.';
-                            }
-                            return null;
-                          },
-                        ),
+                        // DatePickerInput(
+                        //   label: '',
+                        //   isFutureCalendar: true,
+                        //   onSaved: (value) => {endDate = value},
+                        // ),
                         CustomInput(
                           label: 'Summary',
                           inputContainerDecoration: BoxDecoration(
@@ -320,15 +311,33 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                             return null;
                           },
                         ),
+                        CustomInput(
+                          label: 'Description',
+                          inputContainerDecoration: BoxDecoration(
+                            color: CustomColor.brightGray,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          inputDecoration: const InputDecoration(
+                            border: InputBorder.none,
+                          ),
+                          onSaved: (value) => {description = value},
+                          // validator: (value) {
+                          //   if (value.isEmpty) {
+                          //     return '필수 필드입니다.';
+                          //   }
+                          //   return null;
+                          // },
+                        ),
                         ElevatedButton(
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
                               // _formKey.currentState!.save();
                               showSuccessMessage('validation 통과');
-                              print('before $title $summary $date');
+                              // print('before $title $summary $date');
                               _formKey.currentState!.save();
-                              print('after $title $summary $date');
-                              postGoogleCalendarEvent();
+                              // print('after $title $summary $date');
+                              postGoogleCalendarEvent(
+                                  summary, description, startDate);
                             }
                           },
                           style: ElevatedButton.styleFrom(
