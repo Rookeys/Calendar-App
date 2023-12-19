@@ -1,3 +1,4 @@
+import 'package:calendar_app/common/customInput.dart';
 import 'package:calendar_app/components/autocomplete_textfield.dart';
 import 'package:calendar_app/constants/customColor.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,23 @@ class ChooseCompany extends StatelessWidget {
   }
 
   Widget _buildCompanyExist(bool isCompanyExist) {
+    InputDecoration customInputDecoration = const InputDecoration(
+      border: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: CustomColor.skyBlue,
+        ),
+      ),
+      enabledBorder: UnderlineInputBorder(
+        borderSide: BorderSide(
+          color: CustomColor.skyBlue,
+        ),
+      ),
+      focusedBorder: UnderlineInputBorder(
+        borderSide: BorderSide(
+          color: CustomColor.skyBlue,
+        ),
+      ),
+    );
     return Column(
       children: [
         Text(
@@ -45,9 +63,24 @@ class ChooseCompany extends StatelessWidget {
             color: CustomColor.skyBlue,
           ),
         ),
-        AutoCompleteTextField(
-          textEditingController: companyNameController,
-        ),
+        isCompanyExist
+            ? AutoCompleteTextField(
+                textEditingController: companyNameController,
+                style: const TextStyle(
+                  color: CustomColor.skyBlue,
+                ),
+                cursorColor: CustomColor.skyBlue,
+                decoration: customInputDecoration)
+            : CustomInput(
+                // controller: companyNameController,
+                style: const TextStyle(
+                  color: CustomColor.skyBlue,
+                ),
+                cursorColor: CustomColor.skyBlue,
+                inputDecoration: customInputDecoration,
+                validator: (value) => value!.isEmpty ? "회사 이름을 입력해주세요." : null,
+                onSaved: (newValue) => companyNameController.text = newValue!,
+              ),
         const SizedBox(
           height: 40,
         ),
