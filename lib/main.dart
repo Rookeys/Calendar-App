@@ -9,7 +9,7 @@ void main() async {
   // await initializeDateFormatting();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    name: "rookeys-calendar",
+    // name: "rookeys-calendar",
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const MyApp());

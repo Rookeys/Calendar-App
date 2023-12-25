@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -25,7 +28,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,39 +49,22 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyA8XUEnYo-BdPHiW3K0IBTjUnXzyrWrITw',
-    appId: '1:4703529935:web:738e6ac4694e09f31e00ba',
-    messagingSenderId: '4703529935',
-    projectId: 'auth-e85df',
-    authDomain: 'auth-e85df.firebaseapp.com',
-    storageBucket: 'auth-e85df.appspot.com',
-    measurementId: 'G-PZMCV788KR',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBM7DqFhTlxGCCViZbN8Nxa89tD0xzt1u0',
-    appId: '1:4703529935:android:416ae42984fd3e2a1e00ba',
-    messagingSenderId: '4703529935',
-    projectId: 'auth-e85df',
-    storageBucket: 'auth-e85df.appspot.com',
+    apiKey: 'AIzaSyBHu_z81oQQe93qcrcX-3i--zQBznoLf94',
+    appId: '1:329671345929:android:f77bc06ca3792685ef75d8',
+    messagingSenderId: '329671345929',
+    projectId: 'calendar-app-a7283',
+    storageBucket: 'calendar-app-a7283.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAkbC3UBUkTIQ52clwj9hiFTTT9mimv8vQ',
-    appId: '1:4703529935:ios:8874f37ec7dcf3971e00ba',
-    messagingSenderId: '4703529935',
-    projectId: 'auth-e85df',
-    storageBucket: 'auth-e85df.appspot.com',
-    iosBundleId: 'com.example.calendarApp',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAkbC3UBUkTIQ52clwj9hiFTTT9mimv8vQ',
-    appId: '1:4703529935:ios:41473fd1f61e7f211e00ba',
-    messagingSenderId: '4703529935',
-    projectId: 'auth-e85df',
-    storageBucket: 'auth-e85df.appspot.com',
-    iosBundleId: 'com.example.calendarApp.RunnerTests',
+    apiKey: 'AIzaSyDlhT-0yXMGEXKJfULJl3U3Iu6u7paE0BE',
+    appId: '1:329671345929:ios:41874caa5b58208bef75d8',
+    messagingSenderId: '329671345929',
+    projectId: 'calendar-app-a7283',
+    storageBucket: 'calendar-app-a7283.appspot.com',
+    androidClientId: '329671345929-5vciuiol5buvfo4bhe9ti64tph43biir.apps.googleusercontent.com',
+    iosClientId: '329671345929-ms66cldgh0ih7p83fkg0cqgseldauei6.apps.googleusercontent.com',
+    iosBundleId: 'com.rookeys.calendar',
   );
 }

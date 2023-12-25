@@ -14,6 +14,7 @@ class AuthContainer extends StatefulWidget {
 }
 
 class _AuthContainerState extends State<AuthContainer> {
+  final AuthService _authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -60,38 +61,28 @@ class _AuthContainerState extends State<AuthContainer> {
     );
   }
 
-  void displayErrorMessage(String message, String s) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text('Error Message'),
-            content: Text(message),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text('Close'),
-              ),
-            ],
-          );
-        });
-  }
-
   void signUserInWithGoogle() async {
+    var dialogContext;
     showDialog(
-        context: context,
-        builder: (context) => const Center(
-              child: CircularProgressIndicator(
-                color: CustomColor.white,
-              ),
-            ));
+      context: context,
+      builder: (context) {
+        dialogContext = context;
+        return const Center(
+          child: CircularProgressIndicator(
+            color: CustomColor.white,
+          ),
+        );
+      },
+    );
+
     try {
-      await AuthService().signInWithGoogle(context);
-      Navigator.pop(context);
+      await _authService.signInWithGoogle(context);
+      Navigator.pop(dialogContext);
     } on FirebaseAuthException catch (e) {
-      Navigator.pop(context);
+      Navigator.pop(dialogContext);
       showCustomMessage(e.message!, bgColor: CustomColor.red, delay: 3);
     } catch (e) {
+      Navigator.pop(dialogContext);
       showCustomMessage(e.toString(), bgColor: CustomColor.red, delay: 3);
     }
   }
