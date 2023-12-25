@@ -1,4 +1,5 @@
 import 'package:calendar_app/constants/customColor.dart';
+import 'package:calendar_app/utils/toastMessage.dart';
 import 'package:calendar_app/widgets/register/company.dart';
 import 'package:calendar_app/widgets/register/phone.dart';
 import 'package:calendar_app/widgets/register/position.dart';
@@ -15,6 +16,9 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   late final TextEditingController companyNameController;
   late final TextEditingController phoneController;
+  final _formKey1 = GlobalKey<FormState>();
+  final _formKey2 = GlobalKey<FormState>();
+  final _formKey3 = GlobalKey<FormState>();
   String position = '직원';
   int _currentStep = 0;
   bool isCompanyExist = true;
@@ -50,7 +54,7 @@ class _RegisterState extends State<Register> {
 
   void changePosition(String newPosition) {
     setState(() {
-    position = newPosition;
+      position = newPosition;
     });
   }
 
@@ -93,26 +97,33 @@ class _RegisterState extends State<Register> {
     return [
       _buildStep(
         title: 'Step 1',
-        content: ChooseCompany(
-          companyNameController: companyNameController,
-          isCompanyExist: isCompanyExist,
-          onCompanyNameChanged: onChangeCompanyExisted,
+        content: Form(
+          key: _formKey1,
+          child: ChooseCompany(
+            companyNameController: companyNameController,
+            isCompanyExist: isCompanyExist,
+            onCompanyNameChanged: onChangeCompanyExisted,
+          ),
         ),
         isActive: _currentStep >= 0,
         isEditing: _currentStep == 0,
       ),
       _buildStep(
         title: 'Step 2',
-        content: Position(
-          position: position,
-          onPositionChanged: changePosition,
+        content: Form(
+          key: _formKey2,
+          child: Position(
+            position: position,
+            onPositionChanged: changePosition,
+          ),
         ),
         isActive: _currentStep >= 1,
         isEditing: _currentStep == 1,
       ),
       _buildStep(
         title: 'Step 3',
-        content: Phone(controller: phoneController),
+        content:
+            Form(key: _formKey3, child: Phone(controller: phoneController)),
         isActive: _currentStep >= 2,
         isEditing: _currentStep == 2,
       ),
@@ -137,15 +148,28 @@ class _RegisterState extends State<Register> {
               : Container(),
           _currentStep != 2
               ? ElevatedButton(
-                  onPressed: _.onStepContinue,
+                  onPressed: () {
+                    if (_currentStep == 0 &&
+                        _formKey1.currentState!.validate()) {
+                      _formKey1.currentState!.save();
+                      _.onStepContinue();
+                    } else if (_currentStep == 1 &&
+                        _formKey2.currentState!.validate()) {
+                      _formKey2.currentState!.save();
+                      _.onStepContinue();
+                    }
+                  },
                   child: const Text('NEXT'),
                 )
               : ElevatedButton(
                   onPressed: () {
-                    print(companyNameController.text);
-                    print(phoneController.text);
-                    print(position);
-                    context.replace('/');
+                    if (_formKey3.currentState!.validate()) {
+                      _formKey3.currentState!.save();
+                      print('회사명: ${companyNameController.text}');
+                      print('직책: $position');
+                      print('전화번호: ${phoneController.text}');
+                      context.replace('/');
+                    }
                   },
                   child: const Text('FINISH'),
                 ),
@@ -162,6 +186,10 @@ class _RegisterState extends State<Register> {
   }
 
   void _onStepContinue() {
+    // if (companyNameController.text.isEmpty) {
+    //   showErrorMessage('회사명을 입력해주세요.');
+    //   return;
+    // }
     if (_currentStep >= 2) return;
     setState(() {
       _currentStep += 1;

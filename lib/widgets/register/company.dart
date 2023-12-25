@@ -1,5 +1,8 @@
-import 'package:calendar_app/components/autocomplete_textfield.dart';
+import 'package:calendar_app/common/customInput.dart';
+import 'package:calendar_app/components/searchableDropdown.dart';
+import 'package:calendar_app/constants/customBorderStyle.dart';
 import 'package:calendar_app/constants/customColor.dart';
+import 'package:calendar_app/services/getRandomNames.dart';
 import 'package:flutter/material.dart';
 
 class ChooseCompany extends StatelessWidget {
@@ -45,9 +48,26 @@ class ChooseCompany extends StatelessWidget {
             color: CustomColor.skyBlue,
           ),
         ),
-        AutoCompleteTextField(
-          textEditingController: companyNameController,
-        ),
+        isCompanyExist
+            ? SearchableDropdown(
+                asyncItems: getRandomNames,
+                themeColor: CustomColor.skyBlue,
+                decoration: customInputBorderDecoration(CustomColor.skyBlue),
+                validator: (value) =>
+                    (value ?? '')!.isEmpty ? "회사를 선택해주세요." : null,
+                onSaved: (newValue) => companyNameController.text = newValue!,
+              )
+            : CustomInput(
+                // controller: companyNameController,
+                style: const TextStyle(
+                  color: CustomColor.skyBlue,
+                ),
+                cursorColor: CustomColor.skyBlue,
+                inputDecoration:
+                    customInputBorderDecoration(CustomColor.skyBlue),
+                validator: (value) => value!.isEmpty ? "회사 이름을 입력해주세요." : null,
+                onSaved: (newValue) => companyNameController.text = newValue!,
+              ),
         const SizedBox(
           height: 40,
         ),
