@@ -55,7 +55,7 @@ class Home extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () async {
-                FirebaseAuth.instance.signOut();
+                await FirebaseAuth.instance.signOut();
                 String? accessToken = await getAccessToken();
                 if (accessToken != null) {
                   await deleteAccessToken();

@@ -1,45 +1,159 @@
 {
   "project_info": {
-    "project_number": "4703529935",
-    "project_id": "auth-e85df",
-    "storage_bucket": "auth-e85df.appspot.com"
+    "project_number": "329671345929",
+    "project_id": "calendar-app-a7283",
+    "storage_bucket": "calendar-app-a7283.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:4703529935:android:416ae42984fd3e2a1e00ba",
+        "mobilesdk_app_id": "1:329671345929:android:f77bc06ca3792685ef75d8",
         "android_client_info": {
-          "package_name": "com.example.calendar_app"
+          "package_name": "com.calendar_app.rookeys"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "329671345929-atuipf50gb27rjkt7p4rsgrn2h10gapm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.calendar_app.rookeys",
+            "certificate_hash": "e5528c66d503b9cd1f756d69e196ff1e9a6c3a1b"
+          }
+        },
+        {
+          "client_id": "329671345929-c8r3qg8asi83kcrtb16h09dbchr3iejk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.calendar_app.rookeys",
+            "certificate_hash": "83aea62dd4f0afdd6e0c6d4c99d174f82da06c8c"
+          }
+        },
+        {
+          "client_id": "329671345929-fc4j6pcidsnd05cohj8vkkodha11d233.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.calendar_app.rookeys",
+            "certificate_hash": "1e74a336fb301a656716788c0476cc951e85c314"
+          }
+        },
+        {
+          "client_id": "329671345929-hasnkog606c718c0nj472566gds3hbiu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.calendar_app.rookeys",
+            "certificate_hash": "b065b47f14766df025b252486661a2a8fbd969b0"
+          }
+        },
+        {
+          "client_id": "329671345929-ife5v734raijnafe742qqkvnqaf1rhmm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.calendar_app.rookeys",
+            "certificate_hash": "512df7a89e8f895600a0a358458f84eb739571b0"
+          }
+        },
+        {
+          "client_id": "329671345929-hv9lfab0dk06f0subl34hipf7rj3n3t8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyBM7DqFhTlxGCCViZbN8Nxa89tD0xzt1u0"
+          "current_key": "AIzaSyBHu_z81oQQe93qcrcX-3i--zQBznoLf94"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "329671345929-hv9lfab0dk06f0subl34hipf7rj3n3t8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "329671345929-1ae0schrmei1odt07p4292grvv2gmsh1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.calendar-app.rookeys"
+              }
+            }
+          ]
         }
       }
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:4703529935:android:68c29006eb3c7f8e1e00ba",
+        "mobilesdk_app_id": "1:329671345929:android:b24481f868053910ef75d8",
         "android_client_info": {
-          "package_name": "com.example.namer_app"
+          "package_name": "com.rookey.calendar_app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "329671345929-5vciuiol5buvfo4bhe9ti64tph43biir.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rookey.calendar_app",
+            "certificate_hash": "512df7a89e8f895600a0a358458f84eb739571b0"
+          }
+        },
+        {
+          "client_id": "329671345929-bdt2irooco8413t3snakrs2h2hav6alo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rookey.calendar_app",
+            "certificate_hash": "e5528c66d503b9cd1f756d69e196ff1e9a6c3a1b"
+          }
+        },
+        {
+          "client_id": "329671345929-ekpn39bipl5c3v6l0d5og6uo5lv4q3jg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rookey.calendar_app",
+            "certificate_hash": "b065b47f14766df025b252486661a2a8fbd969b0"
+          }
+        },
+        {
+          "client_id": "329671345929-m0dqrjlobdesuqcrjabc6eifdvuu03et.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rookey.calendar_app",
+            "certificate_hash": "1e74a336fb301a656716788c0476cc951e85c314"
+          }
+        },
+        {
+          "client_id": "329671345929-misir1vfbpl4j2t8u7ups4to3ptpl990.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rookey.calendar_app",
+            "certificate_hash": "83aea62dd4f0afdd6e0c6d4c99d174f82da06c8c"
+          }
+        },
+        {
+          "client_id": "329671345929-hv9lfab0dk06f0subl34hipf7rj3n3t8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyBM7DqFhTlxGCCViZbN8Nxa89tD0xzt1u0"
+          "current_key": "AIzaSyBHu_z81oQQe93qcrcX-3i--zQBznoLf94"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "329671345929-hv9lfab0dk06f0subl34hipf7rj3n3t8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "329671345929-1ae0schrmei1odt07p4292grvv2gmsh1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.calendar-app.rookeys"
+              }
+            }
+          ]
         }
       }
     }
