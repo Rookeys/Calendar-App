@@ -39,14 +39,6 @@ class AuthService {
         );
       }
 
-      // final allowedDomains = ['icloudhospital.com'];
-      // final emailDomain = gUser.email.split('@').last;
-      // if (!allowedDomains.contains(emailDomain)) {
-      //   throw FirebaseAuthException(
-      //     code: 'invalid-email-domain',
-      //   );
-      // }
-
       final GoogleSignInAuthentication gAuth = await gUser.authentication;
 
       final credential = GoogleAuthProvider.credential(
