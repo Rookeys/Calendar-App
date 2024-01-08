@@ -40,8 +40,9 @@ class _FormComponentState extends State<MembersEditForm> {
             },
           ),
           // const DatePickerInput(),
-          const DatePickerInput(
+          DatePickerInput(
             label: 'Joined Date',
+            onSaved: (value) {},
           ),
           CustomInput(
             label: 'Available DayOff',

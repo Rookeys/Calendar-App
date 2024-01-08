@@ -5,9 +5,13 @@ class DatePickerInput extends StatefulWidget {
   const DatePickerInput({
     super.key,
     required this.label,
+    this.isFutureCalendar = false,
+    required this.onSaved,
   });
 
   final String label;
+  final bool isFutureCalendar;
+  final FormFieldSetter onSaved;
 
   @override
   State<DatePickerInput> createState() => _MyWidgetState();
@@ -37,6 +41,7 @@ class _MyWidgetState extends State<DatePickerInput> {
                 controller: TextEditingController.fromValue(TextEditingValue(
                     text:
                         "${date.year.toString()}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}")),
+                onSaved: widget.onSaved,
                 // onSaved: widget.onSaved,
                 // validator: widget.validator,
                 readOnly: true,
@@ -53,8 +58,11 @@ class _MyWidgetState extends State<DatePickerInput> {
               final selectedDate = await showDatePicker(
                   context: context,
                   initialDate: date,
-                  firstDate: DateTime(1900),
-                  lastDate: DateTime.now(),
+                  firstDate:
+                      widget.isFutureCalendar ? DateTime.now() : DateTime(1900),
+                  lastDate: widget.isFutureCalendar
+                      ? DateTime.now().add(const Duration(days: 1 * 365))
+                      : DateTime.now(),
                   initialEntryMode: DatePickerEntryMode.calendarOnly,
                   builder: (context, child) {
                     return Theme(

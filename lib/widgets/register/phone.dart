@@ -8,19 +8,31 @@ class Phone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-      IntlPhoneField(
-        controller: controller,
-        decoration: const InputDecoration(
-          labelText: 'Phone Number',
-          border: OutlineInputBorder(
-            borderSide: BorderSide(),
-          ),
-        ),
-        initialCountryCode: 'IN',
-        // onChanged: (phone) {
-        //   print(phone.completeNumber);
-        // },
-      )
+      FormField<String>(
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter a phone number';
+          }
+          return null;
+        },
+        initialValue: controller.text,
+        onSaved: (newValue) => controller.text = newValue!,
+        builder: (FormFieldState<String> state) {
+          return IntlPhoneField(
+            decoration: InputDecoration(
+              labelText: 'Phone Number',
+              border: OutlineInputBorder(
+                borderSide: BorderSide(),
+              ),
+              errorText: state.errorText,
+            ),
+            initialCountryCode: 'KR',
+            onChanged: (phone) {
+              state.didChange(phone.completeNumber);
+            },
+          );
+        },
+      ),
     ]);
   }
 }

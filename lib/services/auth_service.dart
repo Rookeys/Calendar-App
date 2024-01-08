@@ -1,6 +1,8 @@
+import 'package:calendar_app/utils/googleAccessToken.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:googleapis/calendar/v3.dart';
 
 FirebaseAuthException handleAuthException(FirebaseAuthException e) {
   if (e.code == 'user-cancelled') {
@@ -25,7 +27,10 @@ FirebaseAuthException handleAuthException(FirebaseAuthException e) {
 class AuthService {
   Future<UserCredential> signInWithGoogle(BuildContext context) async {
     try {
-      final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
+      final GoogleSignInAccount? gUser = await GoogleSignIn(scopes: [
+        'email',
+        CalendarApi.calendarScope,
+      ]).signIn();
 
       if (gUser == null) {
         throw FirebaseAuthException(
@@ -40,6 +45,7 @@ class AuthService {
         accessToken: gAuth.accessToken,
         idToken: gAuth.idToken,
       );
+      await saveAccessToken(gAuth.accessToken!);
 
       return await FirebaseAuth.instance.signInWithCredential(credential);
     } on FirebaseAuthException catch (e) {

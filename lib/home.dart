@@ -1,4 +1,5 @@
 import 'package:calendar_app/constants/customColor.dart';
+import 'package:calendar_app/utils/googleAccessToken.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -53,8 +54,15 @@ class Home extends StatelessWidget {
               child: const Text('Go to Notification Page'),
             ),
             ElevatedButton(
-              onPressed: () {
-                FirebaseAuth.instance.signOut();
+              onPressed: () async {
+                await FirebaseAuth.instance.signOut();
+                String? accessToken = await getAccessToken();
+                if (accessToken != null) {
+                  await deleteAccessToken();
+                  print('deleted google access token');
+                } else {
+                  print('No access google access token found.');
+                }
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: CustomColor.skyBlue,

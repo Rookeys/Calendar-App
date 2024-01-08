@@ -4,14 +4,26 @@ import 'package:flutter/material.dart';
 class CustomInput extends StatelessWidget {
   const CustomInput({
     super.key,
-    required this.label,
-    required this.onSaved,
-    required this.validator,
+    this.label,
+    this.onSaved,
+    this.controller,
+    this.labelStyle,
+    this.validator,
+    this.style,
+    this.cursorColor,
+    this.inputContainerDecoration,
+    this.inputDecoration,
   });
 
-  final String label;
-  final FormFieldSetter onSaved;
-  final FormFieldValidator validator;
+  final String? label;
+  final FormFieldSetter? onSaved;
+  final FormFieldValidator? validator;
+  final TextStyle? labelStyle;
+  final TextStyle? style;
+  final Color? cursorColor;
+  final BoxDecoration? inputContainerDecoration;
+  final InputDecoration? inputDecoration;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -21,17 +33,24 @@ class CustomInput extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            label,
+            label ?? '',
             style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
               color: CustomColor.darkGray,
-            ),
+            ).merge(labelStyle),
           ),
-          TextFormField(
-            onSaved: onSaved,
-            validator: validator,
-            // autovalidateMode: AutovalidateMode.always, // 제어컴포넌트
+          Container(
+            decoration: inputContainerDecoration,
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+            child: TextFormField(
+              controller: controller,
+              style: style,
+              cursorColor: cursorColor,
+              onSaved: onSaved,
+              decoration: inputDecoration,
+              validator: validator,
+            ),
           ),
           const SizedBox(
             height: 16.0,
