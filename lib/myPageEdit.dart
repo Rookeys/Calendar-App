@@ -1,4 +1,5 @@
 import 'package:calendar_app/constants/customColor.dart';
+import 'package:calendar_app/ImagePickerExample.dart';
 import 'package:calendar_app/widgets/myPageEdit/myPageEditForm.dart';
 import 'package:flutter/material.dart';
 
@@ -49,7 +50,8 @@ class MyPageEdit extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 50),
-                const MyPageEditForm()
+                const MyPageEditForm(),
+                const ImagePickerExample(),
               ],
             ),
           ),
