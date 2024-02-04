@@ -1,5 +1,4 @@
 import 'package:calendar_app/config/routes.dart';
-import 'package:calendar_app/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -12,13 +11,14 @@ void main() async {
   );
   runApp(const SplashScreenApp());
 }
+
 class SplashScreenApp extends StatelessWidget {
   const SplashScreenApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: SplashScreen(),
+      home: MyApp(),
     );
   }
 }
