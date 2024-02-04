@@ -48,21 +48,19 @@ class _NotificationState extends State<Notifications>
               );
             } else if (snapshot.hasData) {
               final notificationData = snapshot.data!;
-              return Expanded(
-                child: ListView.builder(
-                  itemCount: notificationData.length,
-                  itemBuilder: (context, index) {
-                    return FadeTransition(
-                      opacity: _fadeAnimation,
-                      child: SlideTransition(
-                        position: _animation,
-                        child: CommunicationItem(
-                          listitem: snapshot.data![index],
-                        ),
+              return ListView.builder(
+                itemCount: notificationData.length,
+                itemBuilder: (context, index) {
+                  return FadeTransition(
+                    opacity: _fadeAnimation,
+                    child: SlideTransition(
+                      position: _animation,
+                      child: CommunicationItem(
+                        listitem: snapshot.data![index],
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  );
+                },
               );
             } else {
               return const Center(

@@ -49,21 +49,19 @@ class _AnnouncementState extends State<Announcement>
               );
             } else if (snapshot.hasData) {
               final listitem = snapshot.data!;
-              return Expanded(
-                child: ListView.builder(
-                  itemCount: listitem.length,
-                  itemBuilder: (context, index) {
-                    return FadeTransition(
-                      opacity: _fadeAnimation,
-                      child: SlideTransition(
-                        position: _animation,
-                        child: CommunicationItem(
-                          listitem: snapshot.data![index],
-                        ),
+              return ListView.builder(
+                itemCount: listitem.length,
+                itemBuilder: (context, index) {
+                  return FadeTransition(
+                    opacity: _fadeAnimation,
+                    child: SlideTransition(
+                      position: _animation,
+                      child: CommunicationItem(
+                        listitem: snapshot.data![index],
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  );
+                },
               );
             } else {
               return const Center(
