@@ -7,10 +7,10 @@ class MyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: CustomColor.whiteBlue,
-      body: SafeArea(
-        child: SingleChildScrollView(
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: CustomColor.whiteBlue,
+        body: SingleChildScrollView(
           child: Container(
             child: Column(
               children: [
@@ -51,8 +51,8 @@ class MyPage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(100),
                               child: const Image(
                                 image: AssetImage('assets/example_profile.jpg'),
-                                width: 130,
-                                height: 130,
+                                width: 100,
+                                height: 100,
                                 fit: BoxFit.cover,
                               ),
                             ),
