@@ -14,21 +14,30 @@ class Notifications extends StatefulWidget {
 class _NotificationState extends State<Notifications>
     with SingleTickerProviderStateMixin {
   Future<List<CommunicationType>> notifications = getNotification();
+  late AnimationController _controller;
+  late Animation<double> _fadeAnimation;
+  late Animation<Offset> _animation;
 
-  late final AnimationController _controller = AnimationController(
-    duration: const Duration(milliseconds: 1000),
-    vsync: this,
-  )..forward();
+  @override
+  void initState() {
+    super.initState();
 
-  late final Animation<double> _fadeAnimation = CurvedAnimation(
-    parent: _controller,
-    curve: Curves.easeIn,
-  );
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 1000),
+      vsync: this,
+    )..forward();
 
-  late final Animation<Offset> _animation = CurvedAnimation(
-    parent: _controller,
-    curve: Curves.elasticOut,
-  ).drive(Tween(begin: const Offset(0.0, 0.4), end: Offset.zero));
+    _fadeAnimation = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeIn,
+    );
+
+    _animation = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.elasticOut,
+    ).drive(Tween(begin: const Offset(0.0, 0.4), end: Offset.zero));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,7 +84,7 @@ class _NotificationState extends State<Notifications>
 
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
+    _controller.dispose();
   }
 }
