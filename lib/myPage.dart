@@ -1,4 +1,6 @@
 import 'package:calendar_app/constants/customColor.dart';
+import 'package:calendar_app/utils/googleAccessToken.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -59,11 +61,11 @@ class MyPage extends StatelessWidget {
                           const SizedBox(
                             width: 20,
                           ),
-                          const Column(
+                          Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              const Text(
                                 "Name: KoJaem",
                                 style: TextStyle(
                                   fontSize: 16,
@@ -71,20 +73,38 @@ class MyPage extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Text(
+                              const Text(
                                 'Position: Front-End',
                                 style: TextStyle(
                                     fontSize: 16,
                                     color: CustomColor.white,
                                     fontWeight: FontWeight.bold),
                               ),
-                              Text(
+                              const Text(
                                 'Joined Team : 2023-03-13',
                                 style: TextStyle(
                                   fontSize: 16,
                                   color: CustomColor.white,
                                   fontWeight: FontWeight.bold,
                                 ),
+                              ),
+                              ElevatedButton(
+                                onPressed: () async {
+                                  await FirebaseAuth.instance.signOut();
+                                  String? accessToken = await getAccessToken();
+                                  if (accessToken != null) {
+                                    await deleteAccessToken();
+                                    print('deleted google access token');
+                                  } else {
+                                    print(
+                                        'No access google access token found.');
+                                  }
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: CustomColor.brightGray,
+                                  foregroundColor: CustomColor.black,
+                                ),
+                                child: const Text('Sign Out'),
                               ),
                             ],
                           )
