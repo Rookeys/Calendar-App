@@ -14,7 +14,7 @@ class NavigaterBar extends StatelessWidget {
       elevation: 0,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(16),
-        child: Container(
+        child: SizedBox(
           height: 60,
           child: Row(
             children: [
