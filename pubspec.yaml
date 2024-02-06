@@ -41,13 +41,14 @@ dependencies:
   flutter_slidable: ^3.0.0
   intl: ^0.18.1
   firebase_core: ^2.17.0
-  firebase_auth: ^4.10.1
+  firebase_auth: ^4.17.3
   google_sign_in: ^6.1.5
   intl_phone_field: ^3.2.0
   http: ^1.1.0
   googleapis: ^11.4.0
   flutter_secure_storage: ^9.0.0
   dropdown_search: ^5.0.6
+  flutter_native_splash: ^2.3.10
 
 dev_dependencies:
   flutter_test:
@@ -103,3 +104,14 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+
+flutter_native_splash: 
+  color: "#ffffff"
+  image: "assets/images/RookeysLogo.png"
+  web: false
+  android: true
+  android_12: 
+    image: "assets/images/RookeysLogo.png"
+  ios: true
+

@@ -101,6 +101,11 @@ class DayOffHistory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        foregroundColor: CustomColor.black,
+        backgroundColor: CustomColor.whiteBlue,
+        toolbarHeight: 40,
+      ),
       backgroundColor: CustomColor.whiteBlue,
       body: SafeArea(
         child: Center(
