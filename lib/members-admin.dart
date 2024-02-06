@@ -69,6 +69,11 @@ class MembersAdmin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        foregroundColor: CustomColor.black,
+        backgroundColor: CustomColor.whiteBlue,
+        toolbarHeight: 40,
+      ),
       backgroundColor: CustomColor.whiteBlue,
       body: SafeArea(
         child: Padding(
@@ -172,7 +177,7 @@ class InfoBox extends StatelessWidget {
                 topLeft: Radius.circular(30),
                 bottomLeft: Radius.circular(30),
               ),
-              onPressed: (context) => {context.go('/members-admin-edit')},
+              onPressed: (context) => {context.push('/members-admin-edit')},
               backgroundColor: CustomColor.green,
               foregroundColor: Colors.white,
               label: 'Edit',

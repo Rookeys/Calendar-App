@@ -39,49 +39,51 @@ class _AnnouncementState extends State<Announcement>
     ).drive(Tween(begin: const Offset(0.0, 0.4), end: Offset.zero));
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: CustomColor.pastelBlue,
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-        child: FutureBuilder<List<CommunicationType>>(
-          future: announcements,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (snapshot.hasError) {
-              return Center(
-                child: Text('Error: ${snapshot.error}'),
-              );
-            } else if (snapshot.hasData) {
-              final listitem = snapshot.data!;
-              return ListView.builder(
-                itemCount: listitem.length,
-                itemBuilder: (context, index) {
-                  return FadeTransition(
-                    opacity: _fadeAnimation,
-                    child: SlideTransition(
-                      position: _animation,
-                      child: CommunicationItem(
-                        listitem: snapshot.data![index],
+      body: SafeArea(
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+          child: FutureBuilder<List<CommunicationType>>(
+            future: announcements,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: Text('Error: ${snapshot.error}'),
+                );
+              } else if (snapshot.hasData) {
+                final listitem = snapshot.data!;
+                return ListView.builder(
+                  itemCount: listitem.length,
+                  itemBuilder: (context, index) {
+                    return FadeTransition(
+                      opacity: _fadeAnimation,
+                      child: SlideTransition(
+                        position: _animation,
+                        child: CommunicationItem(
+                          listitem: snapshot.data![index],
+                        ),
                       ),
-                    ),
-                  );
-                },
-              );
-            } else {
-              return const Center(
-                child: Text('No announcements found.'),
-              );
-            }
-          },
+                    );
+                  },
+                );
+              } else {
+                return const Center(
+                  child: Text('No announcements found.'),
+                );
+              }
+            },
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: 'announcementFloatingActionButton',
         backgroundColor: CustomColor.skyBlue,
         onPressed: () {
           showModalBottomSheet(

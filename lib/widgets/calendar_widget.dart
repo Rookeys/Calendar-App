@@ -260,7 +260,9 @@ class _CalendarWidgetState extends State<CalendarWidget> {
             ),
           ),
         ),
-        ElevatedButton(
+        FloatingActionButton(
+          heroTag: 'calendarFloatingActionButton',
+          backgroundColor: CustomColor.skyBlue,
           onPressed: () {
             showModalBottomSheet(
               context: context,
@@ -270,7 +272,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                   key: _formKey,
                   child: Container(
                     width: double.infinity,
-                    height: MediaQuery.of(context).size.height * 0.9,
+                    height: MediaQuery.of(context).size.height * 0.6,
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(24)),
                       color: CustomColor.white,
@@ -353,12 +355,107 @@ class _CalendarWidgetState extends State<CalendarWidget> {
               },
             );
           },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: CustomColor.white,
-            foregroundColor: CustomColor.black,
-          ),
-          child: const Text('Test Button'),
-        ),
+        )
+        // ElevatedButton(
+        //   onPressed: () {
+        //     showModalBottomSheet(
+        //       context: context,
+        //       isScrollControlled: true,
+        //       builder: (BuildContext context) {
+        //         return Form(
+        //           key: _formKey,
+        //           child: Container(
+        //             width: double.infinity,
+        //             height: MediaQuery.of(context).size.height * 0.9,
+        //             decoration: const BoxDecoration(
+        //               borderRadius: BorderRadius.all(Radius.circular(24)),
+        //               color: CustomColor.white,
+        //             ),
+        //             child: Column(
+        //               children: [
+        //                 Divider(
+        //                   color: CustomColor.darkGray,
+        //                   height: 20,
+        //                   indent: MediaQuery.of(context).size.width * 0.45,
+        //                   endIndent: MediaQuery.of(context).size.width * 0.45,
+        //                   thickness: 4,
+        //                 ),
+        //                 DatePickerInput(
+        //                   label: '',
+        //                   isFutureCalendar: true,
+        //                   onSaved: (value) => {startDate = value},
+        //                 ),
+        //                 // DatePickerInput(
+        //                 //   label: '',
+        //                 //   isFutureCalendar: true,
+        //                 //   onSaved: (value) => {endDate = value},
+        //                 // ),
+        //                 CustomInput(
+        //                   label: 'Summary',
+        //                   inputContainerDecoration: BoxDecoration(
+        //                     color: CustomColor.brightGray,
+        //                     borderRadius: BorderRadius.circular(8),
+        //                   ),
+        //                   inputDecoration: const InputDecoration(
+        //                     border: InputBorder.none,
+        //                   ),
+        //                   onSaved: (value) => {summary = value},
+        //                   validator: (value) {
+        //                     if (value.isEmpty) {
+        //                       return '필수 필드입니다.';
+        //                     }
+        //                     return null;
+        //                   },
+        //                 ),
+        //                 CustomInput(
+        //                   label: 'Description',
+        //                   inputContainerDecoration: BoxDecoration(
+        //                     color: CustomColor.brightGray,
+        //                     borderRadius: BorderRadius.circular(8),
+        //                   ),
+        //                   inputDecoration: const InputDecoration(
+        //                     border: InputBorder.none,
+        //                   ),
+        //                   onSaved: (value) => {description = value},
+        //                   // validator: (value) {
+        //                   //   if (value.isEmpty) {
+        //                   //     return '필수 필드입니다.';
+        //                   //   }
+        //                   //   return null;
+        //                   // },
+        //                 ),
+        //                 ElevatedButton(
+        //                   onPressed: () {
+        //                     if (_formKey.currentState!.validate()) {
+        //                       // _formKey.currentState!.save();
+        //                       showSuccessMessage('validation 통과');
+        //                       // print('before $title $summary $date');
+        //                       _formKey.currentState!.save();
+        //                       // print('after $title $summary $date');
+        //                       postGoogleCalendarEvent(
+        //                           summary, description, startDate);
+        //                     }
+        //                   },
+        //                   style: ElevatedButton.styleFrom(
+        //                     backgroundColor: CustomColor.skyBlue,
+        //                     foregroundColor: CustomColor.white,
+        //                   ),
+        //                   child: const Text('Submit'),
+        //                 ),
+        //               ],
+        //             ),
+        //           ),
+        //         );
+        //       },
+        //     );
+        //   },
+        //   style: ElevatedButton.styleFrom(
+        //     backgroundColor: CustomColor.white,
+        //     foregroundColor: CustomColor.black,
+        //   ),
+        //   child: const Text('Test Button'),
+        // ),
+
         // showModalBottomSheet
         // DraggableScrollableSheet
       ],

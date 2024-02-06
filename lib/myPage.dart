@@ -7,161 +7,160 @@ class MyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: CustomColor.whiteBlue,
-        body: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.only(
-                    bottom: 40,
+    return Scaffold(
+      backgroundColor: CustomColor.skyBlue,
+      body: SafeArea(
+        child: Container(
+          color: CustomColor.whiteBlue,
+          child: Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.only(
+                  bottom: 40,
+                ),
+                decoration: const BoxDecoration(
+                  color: CustomColor.white,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(48),
+                    bottomRight: Radius.circular(48),
                   ),
-                  decoration: const BoxDecoration(
-                    color: CustomColor.white,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(48),
-                      bottomRight: Radius.circular(48),
-                    ),
-                  ),
-                  child: Column(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: CustomColor.skyBlue,
-                          borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(48),
-                            bottomRight: Radius.circular(48),
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              blurRadius: 4, // 그림자가 얼마나 드리울지 정함
-                              offset: const Offset(0, 4), // 그림자의 위치
-                              color: CustomColor.darkGray.withOpacity(0.5),
-                            )
-                          ],
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: CustomColor.skyBlue,
+                        borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(48),
+                          bottomRight: Radius.circular(48),
                         ),
-                        padding: const EdgeInsets.all(10),
-                        height: 200,
-                        child: Row(
-                          children: [
-                            ClipRRect(
-                              clipBehavior: Clip.hardEdge,
-                              borderRadius: BorderRadius.circular(100),
-                              child: const Image(
-                                image: AssetImage('assets/example_profile.jpg'),
-                                width: 100,
-                                height: 100,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            const Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Name: KoJaem",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: CustomColor.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  'Position: Front-End',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: CustomColor.white,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  'Joined Team : 2023-03-13',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: CustomColor.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 4, // 그림자가 얼마나 드리울지 정함
+                            offset: const Offset(0, 4), // 그림자의 위치
+                            color: CustomColor.darkGray.withOpacity(0.5),
+                          )
+                        ],
                       ),
-                      const Column(
+                      padding: const EdgeInsets.all(10),
+                      height: 200,
+                      child: Row(
                         children: [
-                          SizedBox(
-                            height: 30,
+                          ClipRRect(
+                            clipBehavior: Clip.hardEdge,
+                            borderRadius: BorderRadius.circular(100),
+                            child: const Image(
+                              image: AssetImage('assets/example_profile.jpg'),
+                              width: 100,
+                              height: 100,
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                          Row(
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          const Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              InfoBox(
-                                title: 'Spent DayOff',
-                                value: '1',
+                              Text(
+                                "Name: KoJaem",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: CustomColor.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                              InfoBox(
-                                title: 'Available DayOff',
-                                value: '2',
+                              Text(
+                                'Position: Front-End',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: CustomColor.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                'Joined Team : 2023-03-13',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: CustomColor.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ],
                           )
                         ],
                       ),
-                    ],
-                  ),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 15.0,
-                      ),
-                      child: MyPageMenu(
-                        imageUrl: 'assets/example_profile.jpg',
-                        text: 'Edit profile',
-                        onTap: () => context.go('/myPage/edit'),
-                      ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 15.0,
-                      ),
-                      child: MyPageMenu(
-                        imageUrl: 'assets/example_profile.jpg',
-                        text: 'Day-off History',
-                        onTap: () => context.go('/dayOffHistory'),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 15.0,
-                      ),
-                      child: MyPageMenu(
-                        imageUrl: 'assets/example_profile.jpg',
-                        text: 'Members',
-                        onTap: () => context.go('/members'),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 15.0,
-                      ),
-                      child: MyPageMenu(
-                        imageUrl: 'assets/example_profile.jpg',
-                        text: 'Members-Admin',
-                        onTap: () => context.go('/members-admin'),
-                      ),
+                    const Column(
+                      children: [
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            InfoBox(
+                              title: 'Spent DayOff',
+                              value: '1',
+                            ),
+                            InfoBox(
+                              title: 'Available DayOff',
+                              value: '2',
+                            ),
+                          ],
+                        )
+                      ],
                     ),
                   ],
-                )
-              ],
-            ),
+                ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 15.0,
+                    ),
+                    child: MyPageMenu(
+                      imageUrl: 'assets/example_profile.jpg',
+                      text: 'Edit profile',
+                      onTap: () => context.push('/myPage/edit'),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 15.0,
+                    ),
+                    child: MyPageMenu(
+                      imageUrl: 'assets/example_profile.jpg',
+                      text: 'Day-off History',
+                      onTap: () => context.push('/dayOffHistory'),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 15.0,
+                    ),
+                    child: MyPageMenu(
+                      imageUrl: 'assets/example_profile.jpg',
+                      text: 'Members',
+                      onTap: () => context.push('/members'),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 15.0,
+                    ),
+                    child: MyPageMenu(
+                      imageUrl: 'assets/example_profile.jpg',
+                      text: 'Members-Admin',
+                      onTap: () => context.push('/members-admin'),
+                    ),
+                  ),
+                ],
+              )
+            ],
           ),
         ),
       ),
