@@ -49,6 +49,7 @@ dependencies:
   flutter_secure_storage: ^9.0.0
   dropdown_search: ^5.0.6
   flutter_native_splash: ^2.3.10
+  image_picker: ^1.0.7
 
 dev_dependencies:
   flutter_test:
