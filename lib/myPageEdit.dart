@@ -23,6 +23,11 @@ class _MyPageEditState extends State<MyPageEdit> {
   Widget build(BuildContext context) {
     print('file $file');
     return Scaffold(
+      appBar: AppBar(
+        foregroundColor: CustomColor.black,
+        backgroundColor: CustomColor.whiteBlue,
+        toolbarHeight: 40,
+      ),
       backgroundColor: CustomColor.whiteBlue,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -30,7 +35,7 @@ class _MyPageEditState extends State<MyPageEdit> {
             child: Column(
               children: [
                 const SizedBox(
-                  height: 130,
+                  height: 20,
                 ),
                 GestureDetector(
                   onTap: () => _pickImage(setState, file),
