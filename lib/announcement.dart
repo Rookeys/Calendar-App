@@ -15,42 +15,51 @@ class Announcement extends StatefulWidget {
 class _AnnouncementState extends State<Announcement>
     with SingleTickerProviderStateMixin {
   Future<List<CommunicationType>> announcements = getAnnouncement();
+  late AnimationController _controller;
+  late Animation<double> _fadeAnimation;
+  late Animation<Offset> _animation;
 
-  late final AnimationController _controller = AnimationController(
-    duration: const Duration(milliseconds: 1000),
-    vsync: this,
-  )..forward();
+  @override
+  void initState() {
+    super.initState();
 
-  late final Animation<double> _fadeAnimation = CurvedAnimation(
-    parent: _controller,
-    curve: Curves.easeIn,
-  );
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 1000),
+      vsync: this,
+    )..forward();
 
-  late final Animation<Offset> _animation = CurvedAnimation(
-    parent: _controller,
-    curve: Curves.elasticOut,
-  ).drive(Tween(begin: const Offset(0.0, 0.4), end: Offset.zero));
+    _fadeAnimation = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeIn,
+    );
+
+    _animation = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.elasticOut,
+    ).drive(Tween(begin: const Offset(0.0, 0.4), end: Offset.zero));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: CustomColor.pastelBlue,
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-        child: FutureBuilder<List<CommunicationType>>(
-          future: announcements,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (snapshot.hasError) {
-              return Center(
-                child: Text('Error: ${snapshot.error}'),
-              );
-            } else if (snapshot.hasData) {
-              final listitem = snapshot.data!;
-              return Expanded(
-                child: ListView.builder(
+      body: SafeArea(
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+          child: FutureBuilder<List<CommunicationType>>(
+            future: announcements,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: Text('Error: ${snapshot.error}'),
+                );
+              } else if (snapshot.hasData) {
+                final listitem = snapshot.data!;
+                return ListView.builder(
                   itemCount: listitem.length,
                   itemBuilder: (context, index) {
                     return FadeTransition(
@@ -63,17 +72,18 @@ class _AnnouncementState extends State<Announcement>
                       ),
                     );
                   },
-                ),
-              );
-            } else {
-              return const Center(
-                child: Text('No announcements found.'),
-              );
-            }
-          },
+                );
+              } else {
+                return const Center(
+                  child: Text('No announcements found.'),
+                );
+              }
+            },
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: 'announcementFloatingActionButton',
         backgroundColor: CustomColor.skyBlue,
         onPressed: () {
           showModalBottomSheet(
@@ -90,7 +100,7 @@ class _AnnouncementState extends State<Announcement>
 
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
+    _controller.dispose();
   }
 }

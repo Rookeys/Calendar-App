@@ -11,14 +11,16 @@ class Calendar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SafeArea(
-      child: Container(
-        width: double.infinity,
-        color: CustomColor.skyBlue,
-        child: const CalendarWidget(),
+    return const Scaffold(
+      backgroundColor: CustomColor.skyBlue,
+      body: SafeArea(
+        child: SizedBox(
+          width: double.infinity,
+          // color: CustomColor.skyBlue,
+          child: CalendarWidget(),
+        ),
       ),
-    ));
+    );
   }
 }
 
