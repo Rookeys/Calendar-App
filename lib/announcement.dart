@@ -1,43 +1,12 @@
 import 'package:calendar_app/constants/customColor.dart';
-import 'package:calendar_app/models/communication.dart';
-import 'package:calendar_app/services/getAnnouncement.dart';
+import 'package:calendar_app/models/Announcement.dart';
 import 'package:calendar_app/widgets/announcementBottomSheet.dart';
-import 'package:calendar_app/widgets/communicationItem.dart';
+import 'package:calendar_app/widgets/readonlyModal.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-class Announcement extends StatefulWidget {
+class Announcement extends StatelessWidget {
   const Announcement({Key? key}) : super(key: key);
-
-  @override
-  State<Announcement> createState() => _AnnouncementState();
-}
-
-class _AnnouncementState extends State<Announcement>
-    with SingleTickerProviderStateMixin {
-  Future<List<CommunicationType>> announcements = getAnnouncement();
-  late AnimationController _controller;
-  late Animation<double> _fadeAnimation;
-  late Animation<Offset> _animation;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _controller = AnimationController(
-      duration: const Duration(milliseconds: 1000),
-      vsync: this,
-    )..forward();
-
-    _fadeAnimation = CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeIn,
-    );
-
-    _animation = CurvedAnimation(
-      parent: _controller,
-      curve: Curves.elasticOut,
-    ).drive(Tween(begin: const Offset(0.0, 0.4), end: Offset.zero));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +15,8 @@ class _AnnouncementState extends State<Announcement>
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-          child: FutureBuilder<List<CommunicationType>>(
-            future: announcements,
+          child: FutureBuilder<List<AnnouncementType>>(
+            future: getAnnouncement(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
@@ -62,15 +31,7 @@ class _AnnouncementState extends State<Announcement>
                 return ListView.builder(
                   itemCount: listitem.length,
                   itemBuilder: (context, index) {
-                    return FadeTransition(
-                      opacity: _fadeAnimation,
-                      child: SlideTransition(
-                        position: _animation,
-                        child: CommunicationItem(
-                          listitem: snapshot.data![index],
-                        ),
-                      ),
-                    );
+                    return AnnouncementItem(context, snapshot.data![index]);
                   },
                 );
               } else {
@@ -98,9 +59,107 @@ class _AnnouncementState extends State<Announcement>
     );
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
+  Widget AnnouncementItem(BuildContext context, AnnouncementType listitem) {
+    void onPress() {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return ReadOnlyModal(
+              title: listitem.title,
+              userName: listitem.userName ?? '',
+              content: listitem.content ?? '',
+              category: listitem.category,
+            );
+          });
+    }
+
+    return GestureDetector(
+      onTap: onPress,
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+        decoration: BoxDecoration(
+          color: CustomColor.white,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            color: CustomColor.skyBlue,
+            width: 2,
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(children: [
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 2),
+                decoration: BoxDecoration(
+                  border: Border.all(color: CustomColor.skyBlue, width: 1),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Text(
+                  listitem.category,
+                  style: const TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold,
+                    color: CustomColor.skyBlue,
+                    decoration: TextDecoration.none,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  listitem.title,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: CustomColor.black,
+                      decoration: TextDecoration.none,
+                      overflow: TextOverflow.ellipsis),
+                  softWrap: false,
+                  maxLines: 1,
+                ),
+              )
+            ]),
+            const SizedBox(height: 5),
+            Row(
+              children: [
+                Text(
+                  DateFormat('yyyy-MM-dd').format(listitem.createdDate),
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: CustomColor.darkGray,
+                    decoration: TextDecoration.none,
+                  ),
+                )
+              ],
+            )
+          ],
+        ),
+      ),
+    );
   }
+}
+
+Future<List<AnnouncementType>> getAnnouncement() async {
+  List<AnnouncementType> mockData = [];
+
+  for (int i = 1; i <= 5; i++) {
+    AnnouncementType communication = AnnouncementType(
+      id: 'id$i',
+      title: 'Title $i',
+      createdDate: DateTime.now(),
+      content: 'Content $i',
+      category: 'Category $i',
+      userName: 'User $i',
+    );
+    mockData.add(communication);
+  }
+
+  await Future.delayed(const Duration(seconds: 1));
+
+  return mockData;
 }
