@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:calendar_app/common/customInput.dart';
 import 'package:calendar_app/common/customSecretInput.dart';
 import 'package:calendar_app/constants/customColor.dart';
@@ -43,8 +44,8 @@ class _FormComponentState extends State<MyPageEditForm> {
                   clipBehavior: Clip.hardEdge,
                   borderRadius: BorderRadius.circular(100),
                   child: _imageFile != null
-                      ? const Image(
-                          image: AssetImage('assets/example_profile.jpg'),
+                      ? Image.file(
+                          File(_imageFile!.path),
                           width: 180,
                           height: 180,
                           fit: BoxFit.cover,
@@ -56,23 +57,23 @@ class _FormComponentState extends State<MyPageEditForm> {
                           fit: BoxFit.cover,
                         ),
                 ),
-                Positioned(
-                  top: 0,
-                  right: 10,
-                  child: GestureDetector(
-                    onTap: () => print("사진 가져오기 or 카메라"),
-                    child: ClipRRect(
-                      clipBehavior: Clip.hardEdge,
-                      borderRadius: BorderRadius.circular(100),
-                      child: const Image(
-                        image: AssetImage('assets/example_profile.jpg'),
-                        width: 40,
-                        height: 40,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
+                // Positioned(
+                //   top: 0,
+                //   right: 10,
+                //   child: GestureDetector(
+                //     onTap: () => print("사진 가져오기 or 카메라"),
+                //     child: ClipRRect(
+                //       clipBehavior: Clip.hardEdge,
+                //       borderRadius: BorderRadius.circular(100),
+                //       child: const Image(
+                //         image: AssetImage('assets/example_profile.jpg'),
+                //         width: 40,
+                //         height: 40,
+                //         fit: BoxFit.cover,
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),
