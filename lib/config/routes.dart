@@ -11,7 +11,6 @@ import 'package:calendar_app/myPage.dart';
 import 'package:calendar_app/myPageEdit.dart';
 import 'package:calendar_app/notification.dart';
 import 'package:calendar_app/register.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -20,11 +19,7 @@ final GoRouter routes = GoRouter(
     GoRoute(
       path: '/',
       builder: (context, state) {
-        if (FirebaseAuth.instance.currentUser != null) {
-          return const Home();
-        } else {
-          return const AuthPage();
-        }
+        return const Home();
       },
     ),
     GoRoute(
