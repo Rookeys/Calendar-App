@@ -153,312 +153,214 @@ class _CalendarWidgetState extends State<CalendarWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          margin: const EdgeInsets.all(20.0),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20.0),
-            color: CustomColor.pastelBlue,
-          ),
-          // margin: const EdgeInsets.all(8.0),
-          child: TableCalendar(
-            // locale: 'ko_KR',
-            daysOfWeekHeight: 40,
-            firstDay: DateTime.utc(2021, 10, 16),
-            lastDay: DateTime.utc(2030, 3, 14),
-            focusedDay: _focusedDay,
-            headerStyle: HeaderStyle(
-              titleCentered: true,
-              titleTextFormatter: (date, locale) =>
-                  DateFormat.yMMMd(locale).format(date),
-              formatButtonVisible: false,
-              titleTextStyle: const TextStyle(
-                fontSize: 20.0,
-                color: CustomColor.black,
-              ),
-              headerPadding: const EdgeInsets.symmetric(vertical: 4.0),
-              leftChevronIcon: const Icon(
-                Icons.keyboard_arrow_left,
-                size: 40.0,
-                color: CustomColor.black,
-              ),
-              rightChevronIcon: const Icon(
-                Icons.keyboard_arrow_right,
-                size: 40.0,
-                color: CustomColor.black,
-              ),
-              decoration: const BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: CustomColor.black,
+    return Scaffold(
+      backgroundColor: CustomColor.skyBlue,
+      floatingActionButton: FloatingActionButton(
+        heroTag: 'calendarFloatingActionButton',
+        backgroundColor: CustomColor.skyBlue,
+        child: const Icon(Icons.add),
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            builder: (BuildContext context) {
+              return Form(
+                key: _formKey,
+                child: Container(
+                  width: double.infinity,
+                  height: MediaQuery.of(context).size.height * 0.6,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(24)),
+                    color: CustomColor.white,
+                  ),
+                  child: Column(
+                    children: [
+                      Divider(
+                        color: CustomColor.darkGray,
+                        height: 20,
+                        indent: MediaQuery.of(context).size.width * 0.45,
+                        endIndent: MediaQuery.of(context).size.width * 0.45,
+                        thickness: 4,
+                      ),
+                      DatePickerInput(
+                        label: '',
+                        isFutureCalendar: true,
+                        onSaved: (value) => {startDate = value},
+                      ),
+                      // DatePickerInput(
+                      //   label: '',
+                      //   isFutureCalendar: true,
+                      //   onSaved: (value) => {endDate = value},
+                      // ),
+                      CustomInput(
+                        label: 'Summary',
+                        inputContainerDecoration: BoxDecoration(
+                          color: CustomColor.brightGray,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        inputDecoration: const InputDecoration(
+                          border: InputBorder.none,
+                        ),
+                        onSaved: (value) => {summary = value},
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return '필수 필드입니다.';
+                          }
+                          return null;
+                        },
+                      ),
+                      CustomInput(
+                        label: 'Description',
+                        inputContainerDecoration: BoxDecoration(
+                          color: CustomColor.brightGray,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        inputDecoration: const InputDecoration(
+                          border: InputBorder.none,
+                        ),
+                        onSaved: (value) => {description = value},
+                        // validator: (value) {
+                        //   if (value.isEmpty) {
+                        //     return '필수 필드입니다.';
+                        //   }
+                        //   return null;
+                        // },
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            // _formKey.currentState!.save();
+                            showSuccessMessage('validation 통과');
+                            // print('before $title $summary $date');
+                            _formKey.currentState!.save();
+                            // print('after $title $summary $date');
+                            postGoogleCalendarEvent(
+                                summary, description, startDate);
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: CustomColor.skyBlue,
+                          foregroundColor: CustomColor.white,
+                        ),
+                        child: const Text('Submit'),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+        },
+      ),
+      body: Column(
+        children: [
+          Container(
+            margin: const EdgeInsets.all(20.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20.0),
+              color: CustomColor.pastelBlue,
+            ),
+            // margin: const EdgeInsets.all(8.0),
+            child: TableCalendar(
+              // locale: 'ko_KR',
+              daysOfWeekHeight: 40,
+              firstDay: DateTime.utc(2021, 10, 16),
+              lastDay: DateTime.utc(2030, 3, 14),
+              focusedDay: _focusedDay,
+              headerStyle: HeaderStyle(
+                titleCentered: true,
+                titleTextFormatter: (date, locale) =>
+                    DateFormat.yMMMd(locale).format(date),
+                formatButtonVisible: false,
+                titleTextStyle: const TextStyle(
+                  fontSize: 20.0,
+                  color: CustomColor.black,
+                ),
+                headerPadding: const EdgeInsets.symmetric(vertical: 4.0),
+                leftChevronIcon: const Icon(
+                  Icons.keyboard_arrow_left,
+                  size: 40.0,
+                  color: CustomColor.black,
+                ),
+                rightChevronIcon: const Icon(
+                  Icons.keyboard_arrow_right,
+                  size: 40.0,
+                  color: CustomColor.black,
+                ),
+                decoration: const BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: CustomColor.black,
+                    ),
                   ),
                 ),
               ),
-            ),
-            eventLoader: _getEventsForDay,
-            // daysOfWeekStyle: const DaysOfWeekStyle(),
-            calendarStyle: const CalendarStyle(
-              outsideDaysVisible: false,
-              isTodayHighlighted: true,
-              todayTextStyle: TextStyle(
-                color: CustomColor.white,
-                fontSize: 16.0,
+              eventLoader: _getEventsForDay,
+              // daysOfWeekStyle: const DaysOfWeekStyle(),
+              calendarStyle: const CalendarStyle(
+                outsideDaysVisible: false,
+                isTodayHighlighted: true,
+                todayTextStyle: TextStyle(
+                  color: CustomColor.white,
+                  fontSize: 16.0,
+                ),
+                todayDecoration: BoxDecoration(
+                  color: CustomColor.skyBlue,
+                  shape: BoxShape.circle,
+                ),
               ),
-              todayDecoration: BoxDecoration(
-                color: CustomColor.skyBlue,
-                shape: BoxShape.circle,
-              ),
-            ),
-            selectedDayPredicate: (day) {
-              return isSameDay(_selectedDay, day);
-            },
-            onDaySelected: (selectedDay, focusedDay) {
-              if (!isSameDay(_selectedDay, selectedDay)) {
-                setState(() {
-                  _selectedDay = selectedDay;
-                  _focusedDay = focusedDay;
-                });
-                _selectedEvents.value = _getEventsForDay(selectedDay);
-              }
-            },
-            onFormatChanged: (format) {
-              if (_calendarFormat != format) {
-                setState(() {
-                  _calendarFormat = format;
-                });
-              }
-            },
-            onPageChanged: (focusedDay) {
-              _focusedDay = focusedDay;
-              getGoogleCalendarMonthEvents(_focusedDay);
-            },
-          ),
-        ),
-        Expanded(
-          child: Container(
-            color: CustomColor.pastelBlue,
-            padding: const EdgeInsets.all(12.0),
-            child: ValueListenableBuilder<List<dynamic>>(
-              valueListenable: _selectedEvents,
-              builder: (context, value, _) {
-                return ListView.separated(
-                  separatorBuilder: (context, index) {
-                    return const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 8),
-                    );
-                  },
-                  itemCount: value.length,
-                  itemBuilder: (context, index) {
-                    return ScheduleBox(
-                      bgColor: CustomColor.lightPurple, // Todo 커스텀
-                      event: value[index],
-                    );
-                  },
-                );
+              selectedDayPredicate: (day) {
+                return isSameDay(_selectedDay, day);
+              },
+              onDaySelected: (selectedDay, focusedDay) {
+                if (!isSameDay(_selectedDay, selectedDay)) {
+                  setState(() {
+                    _selectedDay = selectedDay;
+                    _focusedDay = focusedDay;
+                  });
+                  _selectedEvents.value = _getEventsForDay(selectedDay);
+                }
+              },
+              onFormatChanged: (format) {
+                if (_calendarFormat != format) {
+                  setState(() {
+                    _calendarFormat = format;
+                  });
+                }
+              },
+              onPageChanged: (focusedDay) {
+                _focusedDay = focusedDay;
+                getGoogleCalendarMonthEvents(_focusedDay);
               },
             ),
           ),
-        ),
-        FloatingActionButton(
-          heroTag: 'calendarFloatingActionButton',
-          backgroundColor: CustomColor.skyBlue,
-          onPressed: () {
-            showModalBottomSheet(
-              context: context,
-              isScrollControlled: true,
-              builder: (BuildContext context) {
-                return Form(
-                  key: _formKey,
-                  child: Container(
-                    width: double.infinity,
-                    height: MediaQuery.of(context).size.height * 0.6,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(24)),
-                      color: CustomColor.white,
-                    ),
-                    child: Column(
-                      children: [
-                        Divider(
-                          color: CustomColor.darkGray,
-                          height: 20,
-                          indent: MediaQuery.of(context).size.width * 0.45,
-                          endIndent: MediaQuery.of(context).size.width * 0.45,
-                          thickness: 4,
-                        ),
-                        DatePickerInput(
-                          label: '',
-                          isFutureCalendar: true,
-                          onSaved: (value) => {startDate = value},
-                        ),
-                        // DatePickerInput(
-                        //   label: '',
-                        //   isFutureCalendar: true,
-                        //   onSaved: (value) => {endDate = value},
-                        // ),
-                        CustomInput(
-                          label: 'Summary',
-                          inputContainerDecoration: BoxDecoration(
-                            color: CustomColor.brightGray,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          inputDecoration: const InputDecoration(
-                            border: InputBorder.none,
-                          ),
-                          onSaved: (value) => {summary = value},
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return '필수 필드입니다.';
-                            }
-                            return null;
-                          },
-                        ),
-                        CustomInput(
-                          label: 'Description',
-                          inputContainerDecoration: BoxDecoration(
-                            color: CustomColor.brightGray,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          inputDecoration: const InputDecoration(
-                            border: InputBorder.none,
-                          ),
-                          onSaved: (value) => {description = value},
-                          // validator: (value) {
-                          //   if (value.isEmpty) {
-                          //     return '필수 필드입니다.';
-                          //   }
-                          //   return null;
-                          // },
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              // _formKey.currentState!.save();
-                              showSuccessMessage('validation 통과');
-                              // print('before $title $summary $date');
-                              _formKey.currentState!.save();
-                              // print('after $title $summary $date');
-                              postGoogleCalendarEvent(
-                                  summary, description, startDate);
-                            }
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: CustomColor.skyBlue,
-                            foregroundColor: CustomColor.white,
-                          ),
-                          child: const Text('Submit'),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            );
-          },
-        )
-        // ElevatedButton(
-        //   onPressed: () {
-        //     showModalBottomSheet(
-        //       context: context,
-        //       isScrollControlled: true,
-        //       builder: (BuildContext context) {
-        //         return Form(
-        //           key: _formKey,
-        //           child: Container(
-        //             width: double.infinity,
-        //             height: MediaQuery.of(context).size.height * 0.9,
-        //             decoration: const BoxDecoration(
-        //               borderRadius: BorderRadius.all(Radius.circular(24)),
-        //               color: CustomColor.white,
-        //             ),
-        //             child: Column(
-        //               children: [
-        //                 Divider(
-        //                   color: CustomColor.darkGray,
-        //                   height: 20,
-        //                   indent: MediaQuery.of(context).size.width * 0.45,
-        //                   endIndent: MediaQuery.of(context).size.width * 0.45,
-        //                   thickness: 4,
-        //                 ),
-        //                 DatePickerInput(
-        //                   label: '',
-        //                   isFutureCalendar: true,
-        //                   onSaved: (value) => {startDate = value},
-        //                 ),
-        //                 // DatePickerInput(
-        //                 //   label: '',
-        //                 //   isFutureCalendar: true,
-        //                 //   onSaved: (value) => {endDate = value},
-        //                 // ),
-        //                 CustomInput(
-        //                   label: 'Summary',
-        //                   inputContainerDecoration: BoxDecoration(
-        //                     color: CustomColor.brightGray,
-        //                     borderRadius: BorderRadius.circular(8),
-        //                   ),
-        //                   inputDecoration: const InputDecoration(
-        //                     border: InputBorder.none,
-        //                   ),
-        //                   onSaved: (value) => {summary = value},
-        //                   validator: (value) {
-        //                     if (value.isEmpty) {
-        //                       return '필수 필드입니다.';
-        //                     }
-        //                     return null;
-        //                   },
-        //                 ),
-        //                 CustomInput(
-        //                   label: 'Description',
-        //                   inputContainerDecoration: BoxDecoration(
-        //                     color: CustomColor.brightGray,
-        //                     borderRadius: BorderRadius.circular(8),
-        //                   ),
-        //                   inputDecoration: const InputDecoration(
-        //                     border: InputBorder.none,
-        //                   ),
-        //                   onSaved: (value) => {description = value},
-        //                   // validator: (value) {
-        //                   //   if (value.isEmpty) {
-        //                   //     return '필수 필드입니다.';
-        //                   //   }
-        //                   //   return null;
-        //                   // },
-        //                 ),
-        //                 ElevatedButton(
-        //                   onPressed: () {
-        //                     if (_formKey.currentState!.validate()) {
-        //                       // _formKey.currentState!.save();
-        //                       showSuccessMessage('validation 통과');
-        //                       // print('before $title $summary $date');
-        //                       _formKey.currentState!.save();
-        //                       // print('after $title $summary $date');
-        //                       postGoogleCalendarEvent(
-        //                           summary, description, startDate);
-        //                     }
-        //                   },
-        //                   style: ElevatedButton.styleFrom(
-        //                     backgroundColor: CustomColor.skyBlue,
-        //                     foregroundColor: CustomColor.white,
-        //                   ),
-        //                   child: const Text('Submit'),
-        //                 ),
-        //               ],
-        //             ),
-        //           ),
-        //         );
-        //       },
-        //     );
-        //   },
-        //   style: ElevatedButton.styleFrom(
-        //     backgroundColor: CustomColor.white,
-        //     foregroundColor: CustomColor.black,
-        //   ),
-        //   child: const Text('Test Button'),
-        // ),
-
-        // showModalBottomSheet
-        // DraggableScrollableSheet
-      ],
+          Expanded(
+            child: Container(
+              color: CustomColor.pastelBlue,
+              padding: const EdgeInsets.all(12.0),
+              child: ValueListenableBuilder<List<dynamic>>(
+                valueListenable: _selectedEvents,
+                builder: (context, value, _) {
+                  return ListView.separated(
+                    separatorBuilder: (context, index) {
+                      return const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 8),
+                      );
+                    },
+                    itemCount: value.length,
+                    itemBuilder: (context, index) {
+                      return ScheduleBox(
+                        bgColor: CustomColor.lightPurple, // Todo 커스텀
+                        event: value[index],
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
