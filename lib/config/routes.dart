@@ -3,7 +3,6 @@ import 'package:calendar_app/auth.dart';
 import 'package:calendar_app/calendar.dart';
 import 'package:calendar_app/dayOffHistory.dart';
 import 'package:calendar_app/dayOffRequest.dart';
-import 'package:calendar_app/home.dart';
 import 'package:calendar_app/members-admin-edit.dart';
 import 'package:calendar_app/members-admin.dart';
 import 'package:calendar_app/members.dart';
@@ -19,7 +18,7 @@ final GoRouter routes = GoRouter(
     GoRoute(
       path: '/',
       builder: (context, state) {
-        return const Home();
+        return const AuthPage();
       },
     ),
     GoRoute(
