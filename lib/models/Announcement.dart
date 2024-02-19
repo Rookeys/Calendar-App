@@ -1,4 +1,4 @@
-class CommunicationType {
+class AnnouncementType {
   final String id;
   final String title;
   final DateTime createdDate;
@@ -6,7 +6,7 @@ class CommunicationType {
   final String category;
   final String? userName;
 
-  CommunicationType({
+  AnnouncementType({
     required this.id,
     required this.title,
     required this.createdDate,
@@ -15,8 +15,8 @@ class CommunicationType {
     this.userName,
   });
 
-  factory CommunicationType.fromJson(Map<String, dynamic> json) {
-    return CommunicationType(
+  factory AnnouncementType.fromJson(Map<String, dynamic> json) {
+    return AnnouncementType(
       id: json['id'],
       title: json['title'],
       createdDate: DateTime.parse(json['created_date']),
@@ -26,3 +26,4 @@ class CommunicationType {
     );
   }
 }
+

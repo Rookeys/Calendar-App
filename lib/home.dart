@@ -1,9 +1,11 @@
 import 'package:calendar_app/announcement.dart';
+import 'package:calendar_app/auth.dart';
 import 'package:calendar_app/calendar.dart';
 import 'package:calendar_app/models/nav_model.dart';
 import 'package:calendar_app/myPage.dart';
 import 'package:calendar_app/notification.dart';
 import 'package:calendar_app/widgets/layout/footer/view.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
